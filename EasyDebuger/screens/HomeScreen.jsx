@@ -27,6 +27,7 @@ const HomeScreen = () => {
           />
         )}
       />
+      
     </Container>
   );
 };
