@@ -1,0 +1,31 @@
+[
+    {
+      "id": 1,
+      "title": "Module not found: Can't resolve in React",
+      "message": "Module not found: Can't resolve './ComponentName'",
+      "causes": [
+        "Incorrect file path.",
+        "Component name does not match case-sensitive file name.",
+        "Missing import statement."
+      ],
+      "solutions": [
+        "Check the file path and ensure correct casing.",
+        "Make sure the file extension is included.",
+        "Restart the development server."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "React Hook useState is not defined",
+      "message": "React Hook 'useState' cannot be found.",
+      "causes": [
+        "React is not imported properly.",
+        "The 'useState' function is not imported from React."
+      ],
+      "solutions": [
+        "Import React and useState at the top of the file: `import React, { useState } from 'react';`",
+        "Ensure React is installed correctly using `npx expo install react`."
+      ]
+    }
+  ]
+  

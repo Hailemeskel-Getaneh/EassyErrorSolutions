@@ -1,0 +1,18 @@
+[
+    {
+      "id": 1,
+      "title": "SyntaxError: Unexpected token in JSON",
+      "message": "SyntaxError: Unexpected token in JSON at position 0",
+      "causes": [
+        "JSON is incorrectly formatted.",
+        "Extra or missing commas in the JSON file.",
+        "Parsing an empty response."
+      ],
+      "solutions": [
+        "Check the JSON format using a validator.",
+        "Ensure there are no trailing commas in objects or arrays.",
+        "Make sure the API response is not empty before parsing."
+      ]
+    }
+  ]
+  
