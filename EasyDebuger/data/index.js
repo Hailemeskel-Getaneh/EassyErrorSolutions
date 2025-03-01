@@ -7,9 +7,9 @@ import reactErrors from "./react.json";
 const errorData = {
   javascript: javascriptErrors,
   react: reactErrors,
-//   nodejs: nodejsErrors,
-//   mongodb: mongodbErrors,
-//   python: pythonErrors,
+  // nodejs: nodejsErrors,
+  // mongodb: mongodbErrors,
+  // python: pythonErrors,
 };
 
 export default errorData;

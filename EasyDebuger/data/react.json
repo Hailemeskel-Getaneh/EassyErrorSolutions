@@ -1,31 +1,1217 @@
 [
+  {
+    "id": 1,
+    "title": "Module not found: Can't resolve in React",
+    "message": "Module not found: Can't resolve './ComponentName'",
+    "causes": [
+      "Incorrect file path.",
+      "Component name does not match case-sensitive file name.",
+      "Missing import statement."
+    ],
+    "solutions": [
+      "Check the file path and ensure correct casing.",
+      "Make sure the file extension is included.",
+      "Restart the development server."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "React Hook useState is not defined",
+    "message": "React Hook 'useState' cannot be found.",
+    "causes": [
+      "React is not imported properly.",
+      "The 'useState' function is not imported from React."
+    ],
+    "solutions": [
+      "Import React and useState at the top of the file: `import React, { useState } from 'react';`",
+      "Ensure React is installed correctly using `npx expo install react`."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Invalid hook call error",
+    "message": "Hooks can only be called inside the body of a function component.",
+    "causes": [
+      "Calling a hook outside a functional component.",
+      "Calling a hook conditionally or in a loop."
+    ],
+    "solutions": [
+      "Ensure hooks are called at the top level of a functional component.",
+      "Avoid calling hooks conditionally or in loops."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Maximum update depth exceeded",
+    "message": "Too many re-renders in a React component.",
+    "causes": [
+      "State updates inside a `useEffect` without proper dependencies.",
+      "Infinite loop caused by state updates."
+    ],
+    "solutions": [
+      "Add proper dependencies to `useEffect`.",
+      "Avoid updating state directly in the render method."
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Props are not being passed correctly",
+    "message": "Props are undefined or not accessible in the child component.",
+    "causes": [
+      "Incorrect prop name or spelling.",
+      "Props are not passed from the parent component."
+    ],
+    "solutions": [
+      "Check the prop name and spelling in both parent and child components.",
+      "Ensure props are passed correctly from the parent component."
+    ]
+  },
+  {
+    "id": 6,
+    "title": "React Router not rendering components",
+    "message": "Routes are not rendering the correct components.",
+    "causes": [
+      "Incorrect route path or component name.",
+      "Routes are not wrapped in a `BrowserRouter` or `Router` component."
+    ],
+    "solutions": [
+      "Check the route path and component name.",
+      "Wrap the routes in a `BrowserRouter` or `Router` component."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Cannot read property 'map' of undefined",
+    "message": "Trying to map over an undefined or null array.",
+    "causes": [
+      "Data is not fetched or initialized before rendering.",
+      "Array is not properly passed as a prop."
+    ],
+    "solutions": [
+      "Ensure data is fetched and initialized before rendering.",
+      "Use optional chaining: `data?.map()`."
+    ]
+  },
+  {
+    "id": 8,
+    "title": "React component not updating on state change",
+    "message": "State changes are not reflected in the UI.",
+    "causes": [
+      "State is mutated directly instead of using `setState`.",
+      "Component is not re-rendering due to shallow comparison."
+    ],
+    "solutions": [
+      "Use `setState` or `useState` to update state.",
+      "Ensure state updates trigger a re-render."
+    ]
+  },
+  {
+    "id": 9,
+    "title": "React context not working",
+    "message": "Context values are not accessible in child components.",
+    "causes": [
+      "Context provider is not wrapping the component tree.",
+      "Context value is not passed correctly."
+    ],
+    "solutions": [
+      "Wrap the component tree with the context provider.",
+      "Ensure the context value is passed correctly."
+    ]
+  },
+  {
+    "id": 10,
+    "title": "React component not unmounting",
+    "message": "Component lifecycle methods are not working as expected.",
+    "causes": [
+      "Memory leaks due to unresolved subscriptions or timers.",
+      "Component is not properly cleaned up in `useEffect`."
+    ],
+    "solutions": [
+      "Clean up subscriptions and timers in `useEffect`.",
+      "Use the cleanup function in `useEffect`."
+    ]
+  },
+
+  
     {
-      "id": 1,
-      "title": "Module not found: Can't resolve in React",
-      "message": "Module not found: Can't resolve './ComponentName'",
+      "id": 11,
+      "title": "CORS error in React and Node.js",
+      "message": "Cross-Origin Resource Sharing (CORS) error when fetching data.",
       "causes": [
-        "Incorrect file path.",
-        "Component name does not match case-sensitive file name.",
-        "Missing import statement."
+        "Backend server is not configured to allow requests from the frontend.",
+        "Missing CORS headers in the backend."
       ],
       "solutions": [
-        "Check the file path and ensure correct casing.",
-        "Make sure the file extension is included.",
-        "Restart the development server."
+        "Install and configure the `cors` middleware in Node.js.",
+        "Set appropriate CORS headers in the backend."
       ]
     },
     {
-      "id": 2,
-      "title": "React Hook useState is not defined",
-      "message": "React Hook 'useState' cannot be found.",
+      "id": 12,
+      "title": "Proxy error in React and Node.js",
+      "message": "Proxy configuration is not working in React.",
       "causes": [
-        "React is not imported properly.",
-        "The 'useState' function is not imported from React."
+        "Incorrect proxy setup in `package.json`.",
+        "Backend server is not running."
       ],
       "solutions": [
-        "Import React and useState at the top of the file: `import React, { useState } from 'react';`",
-        "Ensure React is installed correctly using `npx expo install react`."
+        "Add `proxy` field in `package.json` with the backend URL.",
+        "Ensure the backend server is running."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Environment variables not working",
+      "message": "Environment variables are undefined in React.",
+      "causes": [
+        "Environment variables are not prefixed with `REACT_APP_`.",
+        "Environment variables are not loaded correctly."
+      ],
+      "solutions": [
+        "Prefix environment variables with `REACT_APP_`.",
+        "Restart the development server after adding environment variables."
       ]
     }
-  ]
+  ,
   
+    {
+      "id": 14,
+      "title": "MongoDB connection error",
+      "message": "Failed to connect to MongoDB from React.",
+      "causes": [
+        "Incorrect MongoDB connection string.",
+        "MongoDB server is not running."
+      ],
+      "solutions": [
+        "Check the MongoDB connection string.",
+        "Ensure the MongoDB server is running."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "MongoDB query not returning data",
+      "message": "No data returned from MongoDB query.",
+      "causes": [
+        "Incorrect query syntax.",
+        "Database collection or document does not exist."
+      ],
+      "solutions": [
+        "Check the query syntax.",
+        "Verify the collection and document exist in the database."
+      ]
+    }
+  ,
+  
+    {
+      "id": 16,
+      "title": "Express server not responding",
+      "message": "Express server is not handling requests from React.",
+      "causes": [
+        "Incorrect route setup in Express.",
+        "Server is not running on the correct port."
+      ],
+      "solutions": [
+        "Check the route setup in Express.",
+        "Ensure the server is running on the correct port."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Express middleware not working",
+      "message": "Middleware is not executing in Express.",
+      "causes": [
+        "Middleware is not properly configured.",
+        "Middleware is placed after the route handler."
+      ],
+      "solutions": [
+        "Check the middleware configuration.",
+        "Place middleware before the route handler."
+      ]
+    }
+  ,
+  
+    {
+      "id": 18,
+      "title": "Node.js module not found",
+      "message": "Module not found error in Node.js.",
+      "causes": [
+        "Incorrect module path or name.",
+        "Module is not installed in the project."
+      ],
+      "solutions": [
+        "Check the module path and name.",
+        "Install the missing module using `npm install`."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Node.js callback not a function",
+      "message": "TypeError: callback is not a function in Node.js.",
+      "causes": [
+        "Incorrect usage of callback functions.",
+        "Callback function is not defined."
+      ],
+      "solutions": [
+        "Ensure the callback function is defined and passed correctly.",
+        "Check the syntax and usage of callback functions."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Node.js async/await error handling",
+      "message": "UnhandledPromiseRejectionWarning: Error in async function.",
+      "causes": [
+        "Missing error handling in async/await functions.",
+        "Error is not caught in the `catch` block."
+      ],
+      "solutions": [
+        "Add error handling using `try/catch` in async functions.",
+        "Use `.catch()` or `try/catch` to handle errors in async/await functions."
+      ]
+    }
+         , {
+          "id": 21,
+          "title": "White Screen of Death (WSOD)",
+          "message": "React application renders a blank white screen with no visible errors in the UI.",
+          "causes": [
+            "Syntax error or uncaught exception in a component.",
+            "Routing misconfiguration causing no component to render.",
+            "Missing or broken `ReactDOM.render()` or root setup in `index.js`."
+          ],
+          "solutions": [
+            "Check the browser console for errors (e.g., using DevTools).",
+            "Verify routing configuration and ensure a valid component is rendered.",
+            "Ensure `ReactDOM.render()` or `createRoot` is correctly set up in the entry file."
+          ]
+        },
+        {
+          "id": 22,
+          "title": "Unexpected Token in JSX",
+          "message": "SyntaxError: Unexpected token '<' or similar in JSX.",
+          "causes": [
+            "JSX syntax used in a file not processed by a transpiler like Babel.",
+            "File extension mismatch (e.g., `.js` instead of `.jsx`).",
+            "Incorrect import or export causing JSX to be misinterpreted."
+          ],
+          "solutions": [
+            "Ensure the file uses `.jsx` or `.tsx` extension if JSX is present.",
+            "Verify Babel is configured in your build setup.",
+            "Check imports and exports for correctness."
+          ]
+        },
+        {
+          "id": 23,
+          "title": "Key Prop Missing in Lists",
+          "message": "Warning: Each child in a list should have a unique 'key' prop.",
+          "causes": [
+            "Rendering a list of elements without a `key` prop.",
+            "Using array index as a key when it’s not stable."
+          ],
+          "solutions": [
+            "Add a unique `key` prop to each child in a `.map()` loop.",
+            "Use a stable identifier (e.g., item ID) instead of the array index."
+          ]
+        },
+        {
+          "id": 24,
+          "title": "ReferenceError: Window is not defined",
+          "message": "ReferenceError during server-side rendering (SSR) or static site generation (SSG).",
+          "causes": [
+            "Accessing browser-specific objects like `window` or `document` during SSR.",
+            "Code running on the server where browser APIs are unavailable."
+          ],
+          "solutions": [
+            "Wrap browser-specific code in a `typeof window !== 'undefined'` check.",
+            "Use `useEffect` to ensure code runs only on the client side."
+          ]
+        },
+        {
+          "id": 25,
+          "title": "Stale Closure in React",
+          "message": "Component uses outdated state or props due to a closure issue.",
+          "causes": [
+            "Using stale state or props in a callback or effect.",
+            "Not including dependencies in `useEffect` or `useCallback`."
+          ],
+          "solutions": [
+            "Add missing dependencies to `useEffect` or `useCallback` dependency arrays.",
+            "Use a functional update form for state (e.g., `setCount(prev => prev + 1)`)."
+          ]
+        },
+        {
+          "id": 26,
+          "title": "Hydration Mismatch",
+          "message": "React hydration error: Server-rendered markup doesn’t match client-rendered markup.",
+          "causes": [
+            "Differences between server and client rendering (e.g., dynamic dates).",
+            "Conditional rendering that changes between server and client."
+          ],
+          "solutions": [
+            "Ensure server and client render the same content (e.g., delay dynamic content until client-side).",
+            "Use `suppressHydrationWarning` attribute for specific cases (with caution)."
+          ]
+        },
+        {
+          "id": 27,
+          "title": "Cannot Destructure Property of Undefined",
+          "message": "TypeError: Cannot destructure property 'x' of 'undefined' or 'null'.",
+          "causes": [
+            "Attempting to destructure an object that hasn’t been initialized.",
+            "API data not yet loaded before accessing nested properties."
+          ],
+          "solutions": [
+            "Add a loading check or default value (e.g., `data || {}`).",
+            "Use optional chaining (e.g., `data?.property`)."
+          ]
+        },
+        {
+          "id": 28,
+          "title": "Event Listener Memory Leak",
+          "message": "Warning: Cannot perform a React state update on an unmounted component.",
+          "causes": [
+            "Adding event listeners or timers without cleanup.",
+            "Async operations completing after a component unmounts."
+          ],
+          "solutions": [
+            "Use `useEffect` with a cleanup function to remove listeners.",
+            "Track mounted state with a ref (e.g., `isMounted.current`)."
+          ]
+        },
+        {
+          "id": 29,
+          "title": "React Lazy Loading Failure",
+          "message": "Error: A component suspended while responding to synchronous input.",
+          "causes": [
+            "Improper use of `React.lazy` without a `Suspense` fallback.",
+            "Dynamic import fails due to a missing module."
+          ],
+          "solutions": [
+            "Wrap `React.lazy` components in a `Suspense` component with a `fallback`.",
+            "Verify the dynamically imported module exists and is correctly exported."
+          ]
+        },
+        {
+          "id": 30,
+          "title": "CSS Modules Not Applying",
+          "message": "Styles from CSS Modules are not being applied to components.",
+          "causes": [
+            "Incorrect file naming convention (e.g., missing `.module.css`).",
+            "Misconfigured build tool (e.g., Webpack or Vite)."
+          ],
+          "solutions": [
+            "Ensure CSS files are named correctly (e.g., `styles.module.css`).",
+            "Check build configuration for CSS Modules support."
+          ]
+        },
+        {
+          "id": 31,
+          "title": "Failed to Compile: Unexpected Character",
+          "message": "Module parse failed: Unexpected character or token.",
+          "causes": [
+            "Invalid syntax in a file (e.g., stray characters or non-UTF-8 encoding).",
+            "Using a loader-incompatible file type without proper configuration."
+          ],
+          "solutions": [
+            "Check the file for syntax errors or invalid characters.",
+            "Ensure the correct loader is configured in your bundler (e.g., Webpack)."
+          ]
+        },
+        {
+          "id": 32,
+          "title": "React Strict Mode Double Render",
+          "message": "Components render twice unexpectedly in development.",
+          "causes": [
+            "React Strict Mode intentionally double-invokes effects and renders to detect side effects.",
+            "Misunderstanding of Strict Mode behavior."
+          ],
+          "solutions": [
+            "Understand this is intentional in development; it won’t happen in production.",
+            "Ensure side effects in `useEffect` are idempotent or cleaned up properly."
+          ]
+        },
+        {
+          "id": 33,
+          "title": "Cannot Update During an Existing State Transition",
+          "message": "Warning: Cannot update a component while rendering another component.",
+          "causes": [
+            "Calling `setState` or dispatching actions during a render phase.",
+            "Side effects in the render method causing state updates."
+          ],
+          "solutions": [
+            "Move state updates to `useEffect` or event handlers.",
+            "Avoid side effects directly in the render logic."
+          ]
+        },
+        {
+          "id": 34,
+          "title": "Missing Dependency in useEffect",
+          "message": "React Hook useEffect has a missing dependency warning.",
+          "causes": [
+            "Dependencies used in `useEffect` are not listed in the dependency array.",
+            "ESLint React Hooks rule flagging incomplete dependencies."
+          ],
+          "solutions": [
+            "Add all referenced variables to the dependency array.",
+            "Disable the ESLint rule with caution if intentional (e.g., `// eslint-disable-next-line`)."
+          ]
+        },
+        {
+          "id": 35,
+          "title": "Invalid Prop Type",
+          "message": "Warning: Failed prop type: Invalid prop `x` supplied to `Component`.",
+          "causes": [
+            "Passing a prop with a type that doesn’t match the component’s PropTypes.",
+            "Missing or incorrect PropTypes definition."
+          ],
+          "solutions": [
+            "Check the prop value and type being passed.",
+            "Define or update PropTypes correctly (e.g., `PropTypes.string`)."
+          ]
+        },
+        {
+          "id": 36,
+          "title": "Uncaught TypeError: setState is not a function",
+          "message": "TypeError when trying to update state in a class component.",
+          "causes": [
+            "Lost `this` binding in a class method.",
+            "Incorrect use of functional component syntax in a class component."
+          ],
+          "solutions": [
+            "Bind methods in the constructor (e.g., `this.handleClick = this.handleClick.bind(this)`).",
+            "Use arrow functions for methods (e.g., `handleClick = () => {}`)."
+          ]
+        },
+        {
+          "id": 37,
+          "title": "React Router URL Parameter Not Found",
+          "message": "URL parameters are undefined or not accessible.",
+          "causes": [
+            "Incorrect usage of `useParams` or missing parameter in route definition.",
+            "Mismatch between route path and parameter name."
+          ],
+          "solutions": [
+            "Ensure route is defined with parameters (e.g., `/path/:id`).",
+            "Use `useParams` correctly in functional components."
+          ]
+        },
+        {
+          "id": 38,
+          "title": "ChunkLoadError: Loading Chunk Failed",
+          "message": "Error loading a code-split chunk in production.",
+          "causes": [
+            "Deployed app has outdated chunk files after a new build.",
+            "Network issues preventing chunk file download."
+          ],
+          "solutions": [
+            "Force a page refresh to load the latest chunks.",
+            "Implement a retry mechanism or error boundary for chunk loading."
+          ]
+        },
+        {
+          "id": 39,
+          "title": "Children Not Rendering",
+          "message": "Child components or content passed via `children` prop are not displayed.",
+          "causes": [
+            "Forgetting to render `{props.children}` in a component.",
+            "Conditional rendering accidentally excluding children."
+          ],
+          "solutions": [
+            "Add `{props.children}` explicitly in the parent component’s JSX.",
+            "Verify conditional logic isn’t hiding the children."
+          ]
+        },
+        {
+          "id": 40,
+          "title": "Invalid DOM Property Warning",
+          "message": "Warning: React does not recognize the `x` prop on a DOM element.",
+          "causes": [
+            "Using a non-standard HTML attribute without `data-` prefix.",
+            "Passing React-specific props to native DOM elements."
+          ],
+          "solutions": [
+            "Use `data-` attributes for custom properties (e.g., `data-test`).",
+            "Filter out React props before passing to DOM elements."
+          ]
+        }
+        ,
+          {
+            "id": 41,
+            "title": "Text Editor Auto-Save Breaking Hot Reload",
+            "message": "Changes in the code don’t reflect in the browser due to hot reloading failing.",
+            "causes": [
+              "Text editor’s auto-save conflicting with React’s development server.",
+              "File watcher not detecting changes due to editor settings."
+            ],
+            "solutions": [
+              "Disable auto-save temporarily or adjust editor settings (e.g., VS Code’s `files.autoSave`).",
+              "Restart the development server (`npm start`) to reset the file watcher."
+            ]
+          },
+          {
+            "id": 42,
+            "title": "ESLint/Prettier Formatting Conflict",
+            "message": "Code formatting changes unexpectedly or throws errors on save.",
+            "causes": [
+              "Conflicting ESLint and Prettier rules in the project.",
+              "Misconfigured `.eslintrc` or `.prettierrc` files."
+            ],
+            "solutions": [
+              "Align ESLint and Prettier configs (e.g., use `eslint-config-prettier`).",
+              "Run `eslint --fix` and `prettier --write` to resolve inconsistencies."
+            ]
+          },
+          {
+            "id": 43,
+            "title": "Browser Cache Causing Stale UI",
+            "message": "Old version of the React app displays despite code updates.",
+            "causes": [
+              "Browser caching outdated JavaScript bundles or service worker files.",
+              "No cache-busting mechanism in place after deployment."
+            ],
+            "solutions": [
+              "Hard refresh the browser (Ctrl + F5 or Cmd + Shift + R).",
+              "Add cache-busting to your build (e.g., `[contenthash]` in Webpack)."
+            ]
+          },
+          {
+            "id": 44,
+            "title": "Node Version Mismatch",
+            "message": "Errors like 'SyntaxError' or 'module not found' due to incompatible Node.js version.",
+            "causes": [
+              "Team members using different Node versions than specified in the project.",
+              "Dependencies requiring a specific Node version."
+            ],
+            "solutions": [
+              "Define a `.nvmrc` file or `engines` field in `package.json`.",
+              "Use a version manager like `nvm` to switch to the correct Node version."
+            ]
+          },
+          {
+            "id": 45,
+            "title": "Third-Party Library Conflict",
+            "message": "Unexpected behavior or errors after adding a new React library.",
+            "causes": [
+              "Peer dependency mismatches between React and the library.",
+              "Library overriding React’s internals (e.g., hooks or context)."
+            ],
+            "solutions": [
+              "Check peer dependencies in the library’s documentation and match versions.",
+              "Use `npm ls` or `yarn why` to diagnose conflicting packages."
+            ]
+          },
+          {
+            "id": 46,
+            "title": "Build Tool Configuration Error",
+            "message": "Build fails with cryptic errors like 'ModuleScopePlugin' or 'Invalid configuration object'.",
+            "causes": [
+              "Misconfigured Webpack, Vite, or Create React App overrides.",
+              "Outdated or incompatible plugins/loaders."
+            ],
+            "solutions": [
+              "Review and simplify custom config files (e.g., `webpack.config.js`).",
+              "Update build tools and plugins to compatible versions."
+            ]
+          },
+          {
+            "id": 47,
+            "title": "Git Merge Conflict in package-lock.json",
+            "message": "Dependencies fail to install or behave inconsistently after a merge.",
+            "causes": [
+              "Merge conflicts in `package-lock.json` or `yarn.lock` not properly resolved.",
+              "Team members installing different versions of dependencies."
+            ],
+            "solutions": [
+              "Resolve conflicts manually, then run `npm install` or `yarn` to regenerate the lockfile.",
+              "Standardize dependency installation process across the team."
+            ]
+          },
+          {
+            "id": 48,
+            "title": "Cypress/Jest Test Failing Unexpectedly",
+            "message": "Tests pass locally but fail in CI or vice versa.",
+            "causes": [
+              "Environment differences (e.g., browser version, Node version).",
+              "Mocked data or timers not behaving consistently."
+            ],
+            "solutions": [
+              "Use consistent environments with Docker or `.nvmrc` in CI.",
+              "Ensure timers are mocked properly (e.g., `jest.useFakeTimers()`)."
+            ]
+          },
+          {
+            "id": 49,
+            "title": "CSS Specificity Override",
+            "message": "Styles in React components don’t apply as expected.",
+            "causes": [
+              "Global CSS overriding component-specific styles due to specificity.",
+              "Imported CSS order affecting precedence."
+            ],
+            "solutions": [
+              "Use scoped styles (e.g., CSS Modules or styled-components).",
+              "Adjust import order or increase specificity where needed."
+            ]
+          },
+          {
+            "id": 50,
+            "title": "API Rate Limit Exceeded",
+            "message": "React app fails to fetch data with a 429 Too Many Requests error.",
+            "causes": [
+              "Excessive API calls during development or in a loop.",
+              "No throttling or debouncing on API requests."
+            ],
+            "solutions": [
+              "Implement throttling/debouncing (e.g., with `lodash.debounce`).",
+              "Use API keys or caching to reduce requests."
+            ]
+          },
+          {
+            "id": 51,
+            "title": "IDE IntelliSense Not Recognizing Imports",
+            "message": "IDE shows import errors, but the app runs fine.",
+            "causes": [
+              "Misconfigured `jsconfig.json` or `tsconfig.json` paths.",
+              "IDE not refreshing its module cache."
+            ],
+            "solutions": [
+              "Add proper path mappings in `jsconfig.json` or `tsconfig.json`.",
+              "Restart the IDE or clear its cache."
+            ]
+          },
+          {
+            "id": 52,
+            "title": "Accidental Overwrite of node_modules",
+            "message": "Dependencies fail to load or throw errors after a file operation.",
+            "causes": [
+              "Copy-pasting project files overwrites `node_modules`.",
+              "Running `npm install` in the wrong directory."
+            ],
+            "solutions": [
+              "Delete `node_modules` and reinstall with `npm install` or `yarn`.",
+              "Use `.gitignore` to exclude `node_modules` from version control."
+            ]
+          },
+          {
+            "id": 53,
+            "title": "Browser Extension Interfering with React",
+            "message": "React app behaves oddly only in certain browsers.",
+            "causes": [
+              "Browser extensions (e.g., ad blockers) modifying DOM or requests.",
+              "Extensions injecting scripts that conflict with React."
+            ],
+            "solutions": [
+              "Test in incognito mode or disable extensions.",
+              "Advise users to whitelist the app if necessary."
+            ]
+          },
+          {
+            "id": 54,
+            "title": "Misconfigured CORS in Development",
+            "message": "Fetch requests fail locally with a CORS error.",
+            "causes": [
+              "Local backend not allowing requests from `localhost:3000`.",
+              "Proxy setup in React not forwarding requests correctly."
+            ],
+            "solutions": [
+              "Add `proxy` to `package.json` or configure backend CORS.",
+              "Use a development proxy like `http-proxy-middleware`."
+            ]
+          },
+          {
+            "id": 55,
+            "title": "Incorrect MIME Type in Production",
+            "message": "Scripts or styles fail to load with a MIME type error.",
+            "causes": [
+              "Server not serving `.js` or `.css` files with correct MIME types.",
+              "Misconfigured static file hosting (e.g., Nginx, Apache)."
+            ],
+            "solutions": [
+              "Update server config to set `application/javascript` for `.js` files.",
+              "Verify deployment setup for static assets."
+            ]
+          }
+        , 
+
+        
+          {
+            "id": 56,
+            "title": "Performance Lag from Over-Rendering",
+            "message": "UI feels sluggish due to excessive component re-renders.",
+            "causes": [
+              "Missing `React.memo` or `useMemo` on expensive computations.",
+              "Parent component re-rendering unnecessarily, triggering child updates."
+            ],
+            "solutions": [
+              "Use `React.memo` for functional components with stable props.",
+              "Optimize with `useMemo` or `useCallback` for costly operations."
+            ]
+          },
+          {
+            "id": 57,
+            "title": "Mobile Browser Gesture Conflict",
+            "message": "Touch events in React app don’t work as expected on mobile.",
+            "causes": [
+              "Browser default gestures (e.g., pinch-to-zoom) overriding custom handlers.",
+              "Missing `touch-action` CSS property on interactive elements."
+            ],
+            "solutions": [
+              "Add `touch-action: none` or `manipulation` to relevant CSS.",
+              "Test and handle `touchstart`, `touchmove`, and `touchend` events."
+            ]
+          },
+          {
+            "id": 58,
+            "title": "Redux State Not Persisting",
+            "message": "Redux store resets on page refresh unexpectedly.",
+            "causes": [
+              "No persistence layer (e.g., `redux-persist`) configured.",
+              "Misunderstanding of Redux’s in-memory store behavior."
+            ],
+            "solutions": [
+              "Integrate `redux-persist` to save state to localStorage.",
+              "Manually sync state with localStorage if persistence isn’t needed globally."
+            ]
+          },
+          {
+            "id": 59,
+            "title": "Deployment Pipeline Artifact Mismatch",
+            "message": "Deployed React app shows old code or fails entirely.",
+            "causes": [
+              "CI/CD pipeline caching outdated build artifacts.",
+              "Build step skipped or misconfigured in deployment workflow."
+            ],
+            "solutions": [
+              "Clear cache in CI/CD settings (e.g., GitHub Actions, Jenkins).",
+              "Ensure `npm run build` runs fresh in the pipeline."
+            ]
+          },
+          {
+            "id": 60,
+            "title": "Incorrect Dependency Version Installed",
+            "message": "App breaks due to wrong library version despite `package.json` specs.",
+            "causes": [
+              "Using `npm install` instead of `npm ci` in CI or local setup.",
+              "Lockfile (`package-lock.json`) out of sync with `package.json`."
+            ],
+            "solutions": [
+              "Run `npm ci` to install exact versions from the lockfile.",
+              "Commit an updated lockfile after dependency changes."
+            ]
+          },
+          {
+            "id": 61,
+            "title": "Misinterpreted Documentation",
+            "message": "Feature doesn’t work as expected due to library or API docs.",
+            "causes": [
+              "Outdated or unclear documentation for a React library.",
+              "Developer misreading prop names or hook usage."
+            ],
+            "solutions": [
+              "Cross-check with the library’s GitHub issues or examples.",
+              "Test assumptions with a minimal reproduction case."
+            ]
+          },
+          {
+            "id": 62,
+            "title": "Hot Module Replacement (HMR) Stalling",
+            "message": "Changes don’t update in the browser despite HMR running.",
+            "causes": [
+              "Syntax error halting HMR without clear feedback.",
+              "Development server losing connection to the file system."
+            ],
+            "solutions": [
+              "Check console for silent errors and fix them.",
+              "Restart the dev server (`npm start`) to reconnect HMR."
+            ]
+          },
+          {
+            "id": 63,
+            "title": "State Management Race Condition",
+            "message": "State updates overwrite each other unpredictably.",
+            "causes": [
+              "Multiple async actions updating the same state concurrently.",
+              "No locking or queueing mechanism for state changes."
+            ],
+            "solutions": [
+              "Use a reducer or middleware (e.g., Redux Thunk) to sequence updates.",
+              "Debounce or throttle rapid state changes."
+            ]
+          },
+          {
+            "id": 64,
+            "title": "SVG Import Failing",
+            "message": "Imported SVG files throw errors or don’t render.",
+            "causes": [
+              "Missing SVG loader in build configuration.",
+              "Incorrect import syntax for SVGs in React."
+            ],
+            "solutions": [
+              "Add `@svgr/webpack` or similar to Webpack/Vite config.",
+              "Import as React component: `import { ReactComponent as Icon } from './icon.svg';`."
+            ]
+          },
+          {
+            "id": 65,
+            "title": "Server-Side Rendering (SSR) Timeout",
+            "message": "SSR requests time out or return partial content.",
+            "causes": [
+              "Slow API calls or heavy computation during SSR.",
+              "Server resource limits reached (e.g., Vercel’s 10-second limit)."
+            ],
+            "solutions": [
+              "Optimize SSR by pre-fetching data or using static generation.",
+              "Move heavy logic to the client side with `useEffect`."
+            ]
+          },
+          {
+            "id": 66,
+            "title": "Accidental Deletion of Critical File",
+            "message": "App fails after a file like `public/index.html` goes missing.",
+            "causes": [
+              "Human error during refactoring or cleanup.",
+              "Git operations removing tracked files unintentionally."
+            ],
+            "solutions": [
+              "Restore from Git history (`git checkout -- <file>`).",
+              "Recreate default files from a fresh Create React App setup."
+            ]
+          },
+          {
+            "id": 67,
+            "title": "Font or Asset 404 in Production",
+            "message": "Fonts or images fail to load with 404 errors after deployment.",
+            "causes": [
+              "Relative paths breaking in production build.",
+              "Assets not copied to the build folder."
+            ],
+            "solutions": [
+              "Use absolute paths or import assets in JS (e.g., `import font from './font.woff';`).",
+              "Ensure assets are in the `public` folder or configured in the build."
+            ]
+          },
+          {
+            "id": 68,
+            "title": "Browser Compatibility Issue",
+            "message": "App works in Chrome but fails in Safari or Edge.",
+            "causes": [
+              "Unpolyfilled ES6+ features (e.g., `Promise`, `Array.includes`).",
+              "CSS properties not supported across browsers."
+            ],
+            "solutions": [
+              "Add polyfills via `core-js` or `babel-polyfill`.",
+              "Use a CSS prefixer (e.g., `autoprefixer`) in the build."
+            ]
+          },
+          {
+            "id": 69,
+            "title": "Misconfigured Environment in CI",
+            "message": "Build or tests fail in CI but pass locally.",
+            "causes": [
+              "Missing environment variables in CI pipeline.",
+              "Different OS or file system behavior (e.g., case sensitivity)."
+            ],
+            "solutions": [
+              "Define `.env` variables in CI settings (e.g., GitHub Secrets).",
+              "Test locally with a CI-like setup (e.g., Docker)."
+            ]
+          },
+          {
+            "id": 70,
+            "title": "Unexpected Console Logs Flooding",
+            "message": "Console overwhelmed with logs, obscuring real issues.",
+            "causes": [
+              "Debugging `console.log` statements left in production code.",
+              "Third-party libraries logging excessively."
+            ],
+            "solutions": [
+              "Remove or comment out stray `console.log` calls.",
+              "Use a logging library with levels (e.g., `loglevel`) and disable in prod."
+            ]
+          }
+        , 
+        {
+          "id": 71,
+          "title": "Cross-Site Scripting (XSS) Vulnerability",
+          "message": "User input renders as raw HTML, exposing XSS risks.",
+          "causes": [
+            "Using `dangerouslySetInnerHTML` without sanitizing input.",
+            "Improperly trusting user-generated content."
+          ],
+          "solutions": [
+            "Sanitize input with a library like `sanitize-html`.",
+            "Avoid `dangerouslySetInnerHTML` unless absolutely necessary."
+          ]
+        },
+        {
+          "id": 72,
+          "title": "Slow Initial Page Load (UX)",
+          "message": "Users experience a long delay before the app becomes interactive.",
+          "causes": [
+            "Large JavaScript bundles not optimized for production.",
+            "No lazy loading or code-splitting implemented."
+          ],
+          "solutions": [
+            "Use `React.lazy` and `Suspense` for dynamic imports.",
+            "Analyze bundle size with tools like `webpack-bundle-analyzer` and optimize."
+          ]
+        },
+        {
+          "id": 73,
+          "title": "i18n Translation Missing",
+          "message": "UI shows untranslated keys (e.g., 'header.title') instead of text.",
+          "causes": [
+            "Missing translation strings in language files.",
+            "Incorrect key reference in `react-intl` or similar libraries."
+          ],
+          "solutions": [
+            "Ensure all keys exist in translation files (e.g., `en.json`).",
+            "Provide fallback text with `defaultMessage` in i18n libraries."
+          ]
+        },
+        {
+          "id": 74,
+          "title": "Accessibility Focus Trap",
+          "message": "Keyboard users get stuck in a modal or component.",
+          "causes": [
+            "Modal lacks proper focus management or `tabIndex`.",
+            "No escape hatch (e.g., ESC key) to exit focusable areas."
+          ],
+          "solutions": [
+            "Use a library like `react-focus-lock` for modals.",
+            "Add `onKeyDown` handlers to close modals on ESC."
+          ]
+        },
+        {
+          "id": 75,
+          "title": "WebSocket Connection Dropping",
+          "message": "Real-time features (e.g., chat) stop updating unexpectedly.",
+          "causes": [
+            "WebSocket connection not reconnecting after a drop.",
+            "No error handling for disconnected states."
+          ],
+          "solutions": [
+            "Implement a reconnection logic with exponential backoff.",
+            "Show UI feedback (e.g., 'Reconnecting…') during disconnects."
+          ]
+        },
+        {
+          "id": 76,
+          "title": "Package Manager Lockfile Corruption",
+          "message": "Install fails with errors about invalid `package-lock.json` or `yarn.lock`.",
+          "causes": [
+            "Manual edits or merges corrupting the lockfile.",
+            "Switching between `npm` and `yarn` without cleanup."
+          ],
+          "solutions": [
+            "Delete the lockfile and regenerate with `npm install` or `yarn`.",
+            "Stick to one package manager across the project."
+          ]
+        },
+        {
+          "id": 77,
+          "title": "Cloud Hosting Path Resolution Error",
+          "message": "Routes return 404 in production on platforms like Netlify or Vercel.",
+          "causes": [
+            "Single-page app (SPA) routing not configured for server redirects.",
+            "Base path mismatch in `react-router` or build config."
+          ],
+          "solutions": [
+            "Add a `_redirects` file (Netlify) or `vercel.json` with SPA redirects.",
+            "Set `basename` in `BrowserRouter` if hosted in a subdirectory."
+          ]
+        },
+        {
+          "id": 78,
+          "title": "Infinite API Polling Loop",
+          "message": "App slows down or crashes due to excessive API requests.",
+          "causes": [
+            "Uncontrolled `useEffect` polling without cleanup.",
+            "Missing dependency array causing repeated fetches."
+          ],
+          "solutions": [
+            "Use a `setInterval` with cleanup in `useEffect`.",
+            "Switch to WebSockets or a more efficient polling strategy."
+          ]
+        },
+        {
+          "id": 79,
+          "title": "Broken Image Links After Build",
+          "message": "Images don’t load in production, showing 404 errors.",
+          "causes": [
+            "Relative paths failing due to build output structure.",
+            "Images not processed by the build tool."
+          ],
+          "solutions": [
+            "Import images in JS (e.g., `import img from './img.png';`).",
+            "Place static assets in `public` and reference with absolute paths."
+          ]
+        },
+        {
+          "id": 80,
+          "title": "Session Expiry Breaking State",
+          "message": "App crashes or behaves oddly after a user session expires.",
+          "causes": [
+            "API calls failing without proper error handling.",
+            "State not resetting after auth token expiry."
+          ],
+          "solutions": [
+            "Add global error handling for 401/403 responses.",
+            "Clear state and redirect to login on session expiry."
+          ]
+        },
+        {
+          "id": 81,
+          "title": "CSS-in-JS Runtime Error",
+          "message": "Styled-components or Emotion fails with a runtime exception.",
+          "causes": [
+            "Server-side rendering missing proper style hydration.",
+            "Version mismatch between CSS-in-JS library and React."
+          ],
+          "solutions": [
+            "Use SSR setup (e.g., `ServerStyleSheet` for styled-components).",
+            "Match library versions with React in `package.json`."
+          ]
+        },
+        {
+          "id": 82,
+          "title": "Incorrect Timezone Display",
+          "message": "Dates or times show incorrectly for users in different timezones.",
+          "causes": [
+            "No timezone normalization in date handling.",
+            "Server and client timezones mismatching."
+          ],
+          "solutions": [
+            "Use a library like `date-fns` or `moment-timezone` for consistent handling.",
+            "Normalize dates to UTC on the server and adjust client-side."
+          ]
+        },
+        {
+          "id": 83,
+          "title": "Memory Leak from Event Listeners",
+          "message": "App slows down over time due to unremoved listeners.",
+          "causes": [
+            "Global event listeners (e.g., `window.addEventListener`) not cleaned up.",
+            "Third-party libraries adding listeners without disposal."
+          ],
+          "solutions": [
+            "Remove listeners in `useEffect` cleanup function.",
+            "Check third-party docs for cleanup methods."
+          ]
+        },
+        {
+          "id": 84,
+          "title": "GraphQL Query Failing Silently",
+          "message": "Data isn’t fetched, but no error appears in the UI.",
+          "causes": [
+            "Incorrect GraphQL query syntax or variables.",
+            "Apollo Client or Relay not logging errors properly."
+          ],
+          "solutions": [
+            "Validate queries with GraphiQL or a similar tool.",
+            "Add error boundaries or Apollo’s `onError` handler."
+          ]
+        },
+        {
+          "id": 85,
+          "title": "Static Site Generation (SSG) Data Stale",
+          "message": "Pre-rendered pages show outdated content.",
+          "causes": [
+            "Incremental Static Regeneration (ISR) not configured or failing.",
+            "Build-time data not refreshing due to cache."
+          ],
+          "solutions": [
+            "Set revalidation intervals in Next.js ISR.",
+            "Force a rebuild or clear cache on data updates."
+          ]
+        },
+        {
+          "id": 86,
+          "title": "Unresponsive UI from Expensive Operations",
+          "message": "App freezes or lags during heavy computations or rendering.",
+          "causes": [
+            "Blocking the main thread with synchronous code.",
+            "Rendering large lists without virtualization."
+          ],
+          "solutions": [
+            "Offload work to Web Workers or `setTimeout` for async processing.",
+            "Use virtualized lists (e.g., `react-window`) for large data sets."
+          ]
+        },
+        {
+          "id": 87,
+          "title": "Uncaught SyntaxError: Unexpected Token",
+          "message": "Parsing error due to unexpected characters or tokens.",
+          "causes": [
+            "Typo or syntax error in JavaScript code.",
+            "Incorrect file extension or missing transpilation."
+          ],
+          "solutions": [
+            "Check the file for syntax errors or missing imports.",
+            "Ensure the file is processed by Babel or TypeScript."      
+          ]},
+          {
+            "id": 88,
+            "title": "React DevTools Not Working",
+            "message": "DevTools extension fails to detect or inspect React components.",
+            "causes": [
+              "React version mismatch between app and DevTools.",
+              "Browser extension conflicts or outdated DevTools."
+            ],
+            "solutions": [
+              "Update React and DevTools to the latest versions.",
+              "Disable conflicting extensions or try another browser."
+            ]
+          },
+          {
+            "id": 89,
+            "title": "Uncaught RangeError: Maximum Call Stack Size Exceeded",
+            "message": "Recursion or infinite loop causing the call stack to overflow.",
+            "causes": [
+              "Recursive function without a base case.",
+              "Infinite loop due to state changes triggering re-renders."
+            ],
+            "solutions": [
+              "Add a termination condition to recursive functions.",
+              "Optimize re-renders with `React.memo` or `useMemo`."
+            ]
+          },
+          {
+            "id": 90,
+            "title": "React Router Redirect Not Working",
+            "message": "Redirects don’t navigate to the correct route or fail to trigger.",
+            "causes": [
+              "Incorrect `to` prop or route path in `Redirect` component.",
+              "Nested routes or components interfering with redirects."
+            ],
+            "solutions": [
+              "Check the `to` prop for the correct path or URL.",
+              "Ensure `Redirect` is rendered at the top level of a component."
+            ]
+          },
+          {
+            "id": 91,
+            "title": "Uncaught TypeError: Cannot Read Property 'x' of Undefined",
+            "message": "Accessing a property of `undefined` or `null` in JavaScript.",
+            "causes": [
+              "Missing or uninitialized object properties.",
+              "API data not loaded before accessing nested properties."
+            ],
+            "solutions": [
+              "Add a loading check or default value (e.g., `data || {}`).",
+              "Use optional chaining (e.g., `data?.property`)."
+            ]
+          },
+          {
+            "id": 92,
+            "title": "React Component Re-Recreating on Render",
+            "message": "Component re-renders cause child components to remount.",
+            "causes": [
+              "Creating new functions or objects in the render method.",
+              "Not using `React.memo` or `useCallback` for stable dependencies."  
+            ],  
+            "solutions": [
+              "Move functions or objects outside the render method.",
+              "Memoize functions with `useMemo` or `useCallback`."
+            ]
+          }
+
+]

@@ -1,18 +1,1060 @@
 [
-    {
-      "id": 1,
-      "title": "SyntaxError: Unexpected token in JSON",
-      "message": "SyntaxError: Unexpected token in JSON at position 0",
-      "causes": [
-        "JSON is incorrectly formatted.",
-        "Extra or missing commas in the JSON file.",
-        "Parsing an empty response."
-      ],
-      "solutions": [
-        "Check the JSON format using a validator.",
-        "Ensure there are no trailing commas in objects or arrays.",
-        "Make sure the API response is not empty before parsing."
-      ]
-    }
-  ]
+  {
+    "id": 1,
+    "title": "SyntaxError: Unexpected token in JSON",
+    "message": "SyntaxError: Unexpected token in JSON at position 0",
+    "causes": [
+      "JSON is incorrectly formatted.",
+      "Extra or missing commas in the JSON file.",
+      "Parsing an empty response."
+    ],
+    "solutions": [
+      "Check the JSON format using a validator (e.g., JSONLint).",
+      "Ensure there are no trailing commas in objects or arrays.",
+      "Make sure the API response is not empty before parsing (e.g., `if (data) JSON.parse(data)`)."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "TypeError: Cannot read property 'x' of undefined",
+    "message": "TypeError: Cannot read property 'x' of undefined",
+    "causes": [
+      "Accessing a property on an undefined object.",
+      "Object not initialized before use.",
+      "API response missing expected fields."
+    ],
+    "solutions": [
+      "Add a check for undefined (e.g., `if (obj && obj.x)`).",
+      "Use optional chaining (e.g., `obj?.x`).",
+      "Initialize objects with default values (e.g., `const obj = { x: null }`)."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "ReferenceError: variable is not defined",
+    "message": "ReferenceError: x is not defined",
+    "causes": [
+      "Using a variable before declaring it.",
+      "Typo in variable name.",
+      "Scope issue (e.g., variable not accessible outside a function)."
+    ],
+    "solutions": [
+      "Declare variables with `let`, `const`, or `var` before use.",
+      "Check for typos in variable names.",
+      "Ensure variables are in the correct scope or hoist them if needed."
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Uncaught Promise Rejection",
+    "message": "Uncaught (in promise) Error: Something went wrong",
+    "causes": [
+      "Promise rejected without a `.catch()` handler.",
+      "Async function throwing an error without try/catch.",
+      "Fetch API failing silently without error handling."
+    ],
+    "solutions": [
+      "Add `.catch()` to promise chains (e.g., `fetch().then().catch(err => console.error(err))`).",
+      "Use try/catch in async functions (e.g., `try { await fetch() } catch (err) {}`).",
+      "Listen for `unhandledrejection` events globally."
+    ]
+  },
+  {
+    "id": 5,
+    "title": "TypeError: x is not a function",
+    "message": "TypeError: x is not a function",
+    "causes": [
+      "Calling a non-function variable (e.g., typo or reassignment).",
+      "Lost `this` binding in a method.",
+      "Imported function not exported correctly."
+    ],
+    "solutions": [
+      "Verify the variable is a function (e.g., `typeof x === 'function'`).",
+      "Bind methods (e.g., `this.method = this.method.bind(this)`).",
+      "Check module exports/imports (e.g., `export function x()`)."
+    ]
+  },
+  {
+    "id": 6,
+    "title": "DOMException: Failed to execute 'querySelector'",
+    "message": "DOMException: Failed to execute 'querySelector' on 'Document': Invalid selector",
+    "causes": [
+      "Invalid CSS selector syntax.",
+      "DOM not loaded before script runs.",
+      "Element doesn’t exist in the DOM."
+    ],
+    "solutions": [
+      "Validate selector syntax (e.g., `#id` not `# id`).",
+      "Run script after DOM loads (e.g., `document.addEventListener('DOMContentLoaded', ...)`).",
+      "Check for element existence (e.g., `if (document.querySelector('#id'))`)."
+    ]
+  },
+  {
+    "id": 7,
+    "title": "RangeError: Maximum call stack size exceeded",
+    "message": "RangeError: Maximum call stack size exceeded",
+    "causes": [
+      "Infinite recursion in a function.",
+      "Deeply nested object or array operations.",
+      "Event listener triggering itself repeatedly."
+    ],
+    "solutions": [
+      "Add a base case to recursive functions.",
+      "Use iteration instead of recursion for large datasets.",
+      "Debounce or throttle event listeners (e.g., with `lodash.debounce`)."
+    ]
+  },
+  {
+    "id": 8,
+    "title": "SecurityError: Blocked a frame with origin",
+    "message": "SecurityError: Blocked a frame with origin from accessing a cross-origin frame",
+    "causes": [
+      "Trying to access an iframe from a different origin.",
+      "Browser enforcing Same-Origin Policy."
+    ],
+    "solutions": [
+      "Ensure both frames share the same origin.",
+      "Use `postMessage` for cross-origin communication."
+    ]
+  },
+  {
+    "id": 9,
+    "title": "SyntaxError: Unexpected end of input",
+    "message": "SyntaxError: Unexpected end of input",
+    "causes": [
+      "Missing closing brace, parenthesis, or bracket.",
+      "Incomplete code due to copy-paste errors.",
+      "Truncated file during save or upload."
+    ],
+    "solutions": [
+      "Check for matching brackets using an editor’s linting tools.",
+      "Revisit recent code changes for incomplete statements.",
+      "Re-save or re-upload the file to ensure it’s intact."
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Performance: Memory Leak from Closures",
+    "message": "App slows down over time due to increasing memory usage.",
+    "causes": [
+      "Closures holding references to large objects unnecessarily.",
+      "Event listeners not removed after use."
+    ],
+    "solutions": [
+      "Nullify references in closures when done (e.g., `obj = null`).",
+      "Remove event listeners (e.g., `element.removeEventListener('click', handler)`)."
+    ]
+  },
+  {
+    "id": 11,
+    "title": "TypeError: fetch is not defined",
+    "message": "TypeError: fetch is not defined",
+    "causes": [
+      "Running code in Node.js without a fetch polyfill.",
+      "Browser compatibility issue with older versions."
+    ],
+    "solutions": [
+      "Use a polyfill like `node-fetch` in Node.js.",
+      "Ensure browser support or include `whatwg-fetch` polyfill."
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Tooling: ESLint Parse Error",
+    "message": "Parsing error: Unexpected token",
+    "causes": [
+      "ESLint not configured for modern JS features (e.g., optional chaining).",
+      "Mismatched parser or environment settings."
+    ],
+    "solutions": [
+      "Update `.eslintrc` with `parserOptions: { ecmaVersion: 2020 }`.",
+      "Set correct env (e.g., `env: { browser: true, node: true }`)."
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Async Race Condition",
+    "message": "Data updates inconsistently due to timing issues.",
+    "causes": [
+      "Multiple async operations modifying the same variable.",
+      "No coordination between promises."
+    ],
+    "solutions": [
+      "Use `Promise.all` to wait for all operations.",
+      "Implement a locking mechanism or queue for updates."
+    ]
+  },
+  {
+    "id": 14,
+    "title": "CORS Policy Violation",
+    "message": "Access to fetch at 'URL' has been blocked by CORS policy",
+    "causes": [
+      "Cross-origin request lacking proper server headers.",
+      "Preflight OPTIONS request failing."
+    ],
+    "solutions": [
+      "Configure server to allow origin (e.g., `Access-Control-Allow-Origin`).",
+      "Use a proxy during development (e.g., via `http-proxy-middleware`)."
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Browser Quirk: Event Not Firing",
+    "message": "Event listeners don’t trigger as expected in some browsers.",
+    "causes": [
+      "Browser-specific event quirks (e.g., Safari ignoring `click` on non-buttons).",
+      "Event delegation missing target element."
+    ],
+    "solutions": [
+      "Test across browsers and adjust events (e.g., use `mousedown` instead).",
+      "Delegate events to a parent (e.g., `parent.addEventListener('click', e => e.target)`)."
+    ]
+  }
+  ,
+  {
+    "id": 16,
+    "title": "Silent Data Mutation",
+    "message": "Data changes unexpectedly without clear error messages.",
+    "causes": [
+      "Accidental mutation of an object passed by reference.",
+      "Side effects in a function modifying global or shared state.",
+      "Third-party library altering data unexpectedly."
+    ],
+    "solutions": [
+      "Use deep cloning (e.g., `structuredClone` or `JSON.parse(JSON.stringify(obj))`).",
+      "Trace data flow with console.logs or debugging tools.",
+      "Isolate state changes with immutable patterns (e.g., spread operator: `{ ...obj }`)."
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Stale Closure Capturing Old Values",
+    "message": "Callbacks or timeouts use outdated variable values.",
+    "causes": [
+      "Closure capturing a variable by reference, not value.",
+      "SetTimeout or event handlers running after state changes."
+    ],
+    "solutions": [
+      "Use a factory function or IIFE to capture current value (e.g., `(val => setTimeout(() => console.log(val), 1000))(x)`).",
+      "Refactor to avoid closures where possible, or use `let` in loops.",
+      "Debug with breakpoints to inspect captured values."
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Intermittent Event Listener Failure",
+    "message": "Event listeners work inconsistently with no errors logged.",
+    "causes": [
+      "Dynamic DOM elements added after listeners are bound.",
+      "Browser throttling events during high CPU load.",
+      "Race condition between listener setup and element availability."
+    ],
+    "solutions": [
+      "Use event delegation (e.g., `document.addEventListener('click', e => e.target.matches('.class'))`).",
+      "Delay listener attachment with a check (e.g., `if (element) element.addEventListener()`).",
+      "Test under load to replicate throttling."
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Floating-Point Precision Error",
+    "message": "Calculations produce unexpected decimals (e.g., 0.1 + 0.2 !== 0.3).",
+    "causes": [
+      "JavaScript’s IEEE 754 floating-point arithmetic limitations.",
+      "No rounding applied to cumulative operations."
+    ],
+    "solutions": [
+      "Round results explicitly (e.g., `(0.1 + 0.2).toFixed(2)`).",
+      "Use a library like `decimal.js` for precise arithmetic.",
+      "Log intermediate values to spot precision drift."
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Unintended Infinite Loop in setTimeout",
+    "message": "Code runs repeatedly without stopping, slowing the app.",
+    "causes": [
+      "Recursive `setTimeout` missing a termination condition.",
+      "State change triggering a re-call unintentionally."
+    ],
+    "solutions": [
+      "Add a clear exit condition (e.g., `if (count < 10) setTimeout(...)`).",
+      "Use `clearTimeout` to stop the loop manually.",
+      "Trace execution flow with a debugger to find the loop source."
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Browser Autofill Breaking Logic",
+    "message": "Form logic fails silently due to autofill values.",
+    "causes": [
+      "Autofill not triggering `input` or `change` events.",
+      "Code relying on user-triggered events for validation."
+    ],
+    "solutions": [
+      "Listen for `input` events and check `value` on load (e.g., `element.value`).",
+      "Poll form fields on page load for autofilled data.",
+      "Test with autofill enabled to catch edge cases."
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Global Variable Collision",
+    "message": "Variables behave unexpectedly due to naming conflicts.",
+    "causes": [
+      "Accidental global variable overwrite (e.g., no `var`/`let`/`const`).",
+      "Multiple scripts on a page using the same variable names."
+    ],
+    "solutions": [
+      "Use strict mode (`'use strict';`) to catch undeclared variables.",
+      "Namespace variables (e.g., `window.myApp = { x: 1 }`).",
+      "Audit scripts with a tool like browser DevTools’ Scope pane."
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Cached API Response Misleading Behavior",
+    "message": "App uses old data despite API updates, with no errors.",
+    "causes": [
+      "Browser or service worker caching responses.",
+      "No cache-control headers set on the server."
+    ],
+    "solutions": [
+      "Add cache-busting query params (e.g., `fetch(url + '?t=' + Date.now())`).",
+      "Set `cache: 'no-store'` in fetch options.",
+      "Inspect network tab in DevTools to confirm caching."
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Subtle Regex Failure",
+    "message": "Regular expression doesn’t match or behaves unexpectedly.",
+    "causes": [
+      "Edge case in input not covered by the regex pattern.",
+      "Unescaped special characters breaking the expression."
+    ],
+    "solutions": [
+      "Test regex with varied inputs using a tool like RegExr.",
+      "Log failing inputs to refine the pattern.",
+      "Simplify or break down complex regex into steps."
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Silent Third-Party Script Failure",
+    "message": "External script fails without throwing errors.",
+    "causes": [
+      "Third-party script blocked by ad blockers or network.",
+      "Script loaded asynchronously but not ready when used."
+    ],
+    "solutions": [
+      "Check for script presence (e.g., `if (window.googleMaps) {...}`).",
+      "Add fallback logic or retry loading.",
+      "Monitor network requests in DevTools for failures."
+    ]
+  },
+  {
+    "id": 26,
+    "title": "Device-Specific Touch Event Bug",
+    "message": "Touch interactions fail on some devices without errors.",
+    "causes": [
+      "Device interpreting touch events differently (e.g., multi-touch issues).",
+      "Missing normalization for touch vs. mouse events."
+    ],
+    "solutions": [
+      "Handle both `touch` and `mouse` events (e.g., `touchstart`, `mousedown`).",
+      "Test on physical devices, not just emulators.",
+      "Log event coordinates to debug discrepancies."
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Memory Leak from Detached DOM Nodes",
+    "message": "App slows over time due to unreleased DOM references.",
+    "causes": [
+      "Removed DOM elements still referenced in variables.",
+      "Event listeners on detached nodes not cleaned up."
+    ],
+    "solutions": [
+      "Nullify references after removal (e.g., `element = null`).",
+      "Remove listeners before detaching (e.g., `element.removeEventListener()`).",
+      "Use browser memory profiler to identify leaks."
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Unexpected NaN in Calculations",
+    "message": "Math operations return NaN without clear cause.",
+    "causes": [
+      "Non-numeric input (e.g., `parseInt('abc')`).",
+      "Dividing by zero or undefined values."
+    ],
+    "solutions": [
+      "Validate inputs before math (e.g., `isNaN(x) || Number(x)`).",
+      "Set defaults (e.g., `x || 0`).",
+      "Trace values with logs to find the source."
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Hidden Scope Shadowing",
+    "message": "Variables behave unexpectedly due to shadowing.",
+    "causes": [
+      "Inner scope redeclaring a variable with the same name.",
+      "Confusion between global and local scope."
+    ],
+    "solutions": [
+      "Use unique names or refactor scopes.",
+      "Enable ESLint’s `no-shadow` rule to catch issues.",
+      "Inspect variables in DevTools’ Scope pane."
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Async Cleanup Missed",
+    "message": "Async operations persist after component or page unload.",
+    "causes": [
+      "No cancellation of fetches or timeouts on cleanup.",
+      "Promises resolving after context is gone."
+    ],
+    "solutions": [
+      "Use `AbortController` to cancel fetches (e.g., `controller.abort()`).",
+      "Clear timeouts (e.g., `clearTimeout(id)`).",
+      "Track execution with logs to ensure cleanup."
+    ]
+  }
+  , {
+    "id": 31,
+    "title": "Delayed UI Feedback from Debounce",
+    "message": "User actions feel unresponsive with no errors logged.",
+    "causes": [
+      "Overly long debounce delay on input or click handlers.",
+      "Debounce applied to critical UI updates unintentionally."
+    ],
+    "solutions": [
+      "Reduce debounce delay (e.g., `debounce(func, 200)` instead of 1000ms).",
+      "Exclude immediate feedback actions from debouncing.",
+      "Test user perception with real-time feedback loops."
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Legacy Code Type Coercion Bug",
+    "message": "Values behave unexpectedly due to implicit type conversion.",
+    "causes": [
+      "Old code relying on loose equality (`==`) instead of strict (`===`).",
+      "String concatenation with numbers (e.g., `5 + '5' = '55'`)."
+    ],
+    "solutions": [
+      "Refactor to use strict equality (`===`).",
+      "Explicitly convert types (e.g., `Number(x)` or `String(x)`).",
+      "Trace values with `typeof` to catch coercion."
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Microsecond Timing Discrepancy",
+    "message": "Animations or timers misalign subtly across devices.",
+    "causes": [
+      "Browser `requestAnimationFrame` inconsistencies.",
+      "High-precision timers affected by system load."
+    ],
+    "solutions": [
+      "Normalize with `requestAnimationFrame` instead of `setTimeout`.",
+      "Adjust timing based on delta (e.g., `performance.now()`).",
+      "Test on multiple devices to calibrate."
+    ]
+  },
+  {
+    "id": 34,
+    "title": "User Scroll Breaking Logic",
+    "message": "Scroll-based calculations fail intermittently.",
+    "causes": [
+      "Scroll event firing too frequently, overwhelming logic.",
+      "Scroll position misread due to browser rendering lag."
+    ],
+    "solutions": [
+      "Throttle scroll events (e.g., `throttle(func, 100)`).",
+      "Use Intersection Observer for performance over `scrollTop`.",
+      "Log scroll values to debug timing issues."
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Hidden Prototype Pollution",
+    "message": "Object methods behave oddly with no clear cause.",
+    "causes": [
+      "Accidental modification of `Object.prototype` or built-ins.",
+      "Third-party library polluting global prototypes."
+    ],
+    "solutions": [
+      "Avoid extending built-ins (e.g., `Object.prototype.x = 1`).",
+      "Use `Object.create(null)` for clean objects.",
+      "Inspect prototype chain with `Object.getPrototypeOf`."
+    ]
+  },
+  {
+    "id": 36,
+    "title": "Team Overwritten Callback",
+    "message": "Callbacks stop working after a team merge.",
+    "causes": [
+      "Multiple developers assigning the same callback variable.",
+      "Merged code redefining or skipping callback execution."
+    ],
+    "solutions": [
+      "Namespace callbacks (e.g., `callbacks.onSave`).",
+      "Review git diffs to spot overwrites.",
+      "Add logging to verify callback execution."
+    ]
+  },
+  {
+    "id": 37,
+    "title": "CSS Animation Sync Failure",
+    "message": "JS-driven animations desync from CSS transitions.",
+    "causes": [
+      "CSS transition duration not matching JS timing.",
+      "Browser repaint lag affecting JS calculations."
+    ],
+    "solutions": [
+      "Sync durations (e.g., match `setTimeout` to CSS `transition: 0.5s`).",
+      "Use `transitionend` event to coordinate.",
+      "Profile with DevTools Performance tab."
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Silent Array Sort Mutation",
+    "message": "Array order changes unexpectedly elsewhere in the app.",
+    "causes": [
+      "Using `array.sort()` which mutates the original array.",
+      "Shared array reference across functions."
+    ],
+    "solutions": [
+      "Clone before sorting (e.g., `[...array].sort()`).",
+      "Use immutable patterns or libraries like `immer`.",
+      "Trace array references with logs."
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Clipboard API Permission Issue",
+    "message": "Copy/paste fails silently on some browsers.",
+    "causes": [
+      "Browser blocking `navigator.clipboard` without user gesture.",
+      "Missing permissions or HTTPS requirement."
+    ],
+    "solutions": [
+      "Trigger clipboard access on user action (e.g., click).",
+      "Fallback to `document.execCommand('copy')` for older browsers.",
+      "Test in non-HTTPS and restricted contexts."
+    ]
+  },
+  {
+    "id": 40,
+    "title": "Micro-Optimization Overkill",
+    "message": "Code runs slower despite optimization attempts.",
+    "causes": [
+      "Overuse of caching or memoization adding overhead.",
+      "Premature optimization ignoring browser JIT."
+    ],
+    "solutions": [
+      "Profile with `performance.now()` to measure impact.",
+      "Simplify code and let V8 engine optimize.",
+      "Focus on bottlenecks identified by profiling."
+    ]
+  },
+  {
+    "id": 41,
+    "title": "Hidden try/catch Swallowing Errors",
+    "message": "Bugs go unnoticed due to overbroad error handling.",
+    "causes": [
+      "Empty or silent `catch` blocks masking issues.",
+      "Generic error handling hiding specific failures."
+    ],
+    "solutions": [
+      "Log errors in `catch` (e.g., `console.error(err)`).",
+      "Rethrow specific errors (e.g., `if (!(err instanceof TypeError)) throw err`).",
+      "Review error handling during debugging."
+    ]
+  },
+  {
+    "id": 42,
+    "title": "Dynamic Import Loading Delay",
+    "message": "Imported module functionality lags or fails silently.",
+    "causes": [
+      "Network delay in loading dynamic imports.",
+      "Code assuming instant availability of imported modules."
+    ],
+    "solutions": [
+      "Add loading states (e.g., `import().then(mod => setLoaded(true))`).",
+      "Handle errors with `.catch()` on dynamic imports.",
+      "Monitor network tab for import timing."
+    ]
+  },
+  {
+    "id": 43,
+    "title": "User Timing Out Async Operation",
+    "message": "Async tasks complete after user leaves, causing odd behavior.",
+    "causes": [
+      "No cancellation of long-running operations on navigation.",
+      "Promises resolving post-context."
+    ],
+    "solutions": [
+      "Track page state (e.g., `let isActive = true; window.onunload = () => isActive = false`).",
+      "Cancel with `AbortController` or clear timers.",
+      "Test navigation scenarios to catch leftovers."
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Accidental Strict Mode Violation",
+    "message": "Code fails silently in strict mode environments.",
+    "causes": [
+      "Using deprecated features (e.g., `with` statement).",
+      "Undeclared variables slipping through in non-strict code."
+    ],
+    "solutions": [
+      "Enable `'use strict'` globally or per file.",
+      "Test in strict mode early to catch issues.",
+      "Refactor offending code based on runtime logs."
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Browser-Specific Date Parsing",
+    "message": "Dates render inconsistently across browsers.",
+    "causes": [
+      "Non-standard date strings parsed differently (e.g., `new Date('2023-01-01')`).",
+      "Timezone or locale affecting output."
+    ],
+    "solutions": [
+      "Use ISO 8601 format (e.g., `new Date('2023-01-01T00:00:00Z')`).",
+      "Leverage a library like `date-fns` for consistency.",
+      "Log parsed dates to identify discrepancies."
+    ]
+  }
+  ,
+
+  {
+    "id": 46,
+    "title": "Sticky Event Listener Overlap",
+    "message": "Multiple event handlers fire unexpectedly for the same action.",
+    "causes": [
+      "Event listeners added repeatedly without removal.",
+      "Dynamic elements re-binding listeners on DOM updates."
+    ],
+    "solutions": [
+      "Remove listeners before adding (e.g., `element.removeEventListener('click', handler)`).",
+      "Use a flag to prevent duplicate binding (e.g., `if (!element.dataset.bound) {...}`).",
+      "Log listener attachment to track overlaps."
+    ]
+  },
+  {
+    "id": 47,
+    "title": "Network Latency Masking Logic",
+    "message": "App logic fails silently due to delayed network responses.",
+    "causes": [
+      "Code assuming instant API responses.",
+      "No timeout or retry logic for slow networks."
+    ],
+    "solutions": [
+      "Add timeouts to fetches (e.g., `signal: AbortController.signal` with `setTimeout`).",
+      "Implement retry logic with exponential backoff.",
+      "Simulate slow networks in DevTools to test."
+    ]
+  },
+  {
+    "id": 48,
+    "title": "User Double-Click Breaking State",
+    "message": "Rapid user clicks cause inconsistent state or duplicate actions.",
+    "causes": [
+      "No debouncing or locking on click handlers.",
+      "Async operations triggered multiple times before completion."
+    ],
+    "solutions": [
+      "Debounce clicks (e.g., `debounce(handleClick, 300)`).",
+      "Disable buttons during processing (e.g., `button.disabled = true`).",
+      "Test with rapid clicks to replicate."
+    ]
+  },
+  {
+    "id": 49,
+    "title": "Evolving Code Base Assumption Failure",
+    "message": "Old code breaks due to new assumptions in refactored logic.",
+    "causes": [
+      "Function signature changes not propagated everywhere.",
+      "Deprecated variables or methods still in use."
+    ],
+    "solutions": [
+      "Search codebase for usage (e.g., grep or IDE tools).",
+      "Add deprecation warnings and migrate gradually.",
+      "Review commit history to spot assumption shifts."
+    ]
+  },
+  {
+    "id": 50,
+    "title": "Hidden Repaint Performance Hit",
+    "message": "UI janks or lags with no obvious errors.",
+    "causes": [
+      "Frequent DOM updates triggering costly reflows.",
+      "CSS properties like `box-shadow` causing slow renders."
+    ],
+    "solutions": [
+      "Batch DOM updates (e.g., use `requestAnimationFrame`).",
+      "Optimize CSS (e.g., use `transform` instead of `top`).",
+      "Profile with DevTools Performance tab."
+    ]
+  },
+  {
+    "id": 51,
+    "title": "Geolocation API Silent Rejection",
+    "message": "Location data unavailable without user-facing errors.",
+    "causes": [
+      "User denying permission without code handling it.",
+      "Device or browser lacking geolocation support."
+    ],
+    "solutions": [
+      "Handle rejection (e.g., `navigator.geolocation.getCurrentPosition(success, error)`).",
+      "Provide fallback UI (e.g., 'Location unavailable').",
+      "Test in incognito or restricted modes."
+    ]
+  },
+  {
+    "id": 52,
+    "title": "Worker Thread Communication Lag",
+    "message": "Web Worker responses arrive late or out of order.",
+    "causes": [
+      "No synchronization between main thread and worker.",
+      "Heavy computation in worker delaying messages."
+    ],
+    "solutions": [
+      "Add message IDs to track order (e.g., `{ id: 1, data }`).",
+      "Offload less to workers and profile workload.",
+      "Log worker messages to debug timing."
+    ]
+  },
+  {
+    "id": 53,
+    "title": "Unexpected Object Freeze",
+    "message": "Attempts to modify an object fail silently.",
+    "causes": [
+      "Object frozen with `Object.freeze()` unintentionally.",
+      "Library returning immutable objects."
+    ],
+    "solutions": [
+      "Check if frozen (e.g., `Object.isFrozen(obj)`).",
+      "Clone before modifying (e.g., `{ ...obj }`).",
+      "Trace object origins to find freeze point."
+    ]
+  },
+  {
+    "id": 54,
+    "title": "User Paste Breaking Input Validation",
+    "message": "Pasted text bypasses input checks with no errors.",
+    "causes": [
+      "Validation only on `input` event, not `paste`.",
+      "Pasted content exceeding expected format."
+    ],
+    "solutions": [
+      "Add `paste` event listener (e.g., `element.addEventListener('paste', validate)`).",
+      "Re-validate on blur (e.g., `onblur='checkInput()'`).",
+      "Test with varied paste inputs."
+    ]
+  },
+  {
+    "id": 55,
+    "title": "Microtask Queue Overload",
+    "message": "Async tasks delay UI updates without crashing.",
+    "causes": [
+      "Excessive `Promise.resolve()` or `queueMicrotask` calls.",
+      "Chained promises clogging the event loop."
+    ],
+    "solutions": [
+      "Batch microtasks into fewer calls.",
+      "Move heavy logic to `setTimeout` for macrotask scheduling.",
+      "Profile event loop with DevTools."
+    ]
+  },
+  {
+    "id": 56,
+    "title": "Local Storage Quota Exceeded",
+    "message": "Data save fails silently after working initially.",
+    "causes": [
+      "Exceeding browser’s localStorage limit (e.g., 5-10MB).",
+      "No error handling for storage overflow."
+    ],
+    "solutions": [
+      "Wrap in try/catch (e.g., `try { localStorage.setItem() } catch (e) {...}`).",
+      "Monitor usage (e.g., `JSON.stringify(localStorage).length`).",
+      "Clear or compress data to fit limits."
+    ]
+  },
+  {
+    "id": 57,
+    "title": "Vendor-Specific CSS Interference",
+    "message": "JS-driven styles misalign due to browser defaults.",
+    "causes": [
+      "Vendor prefixes or defaults overriding JS calculations.",
+      "Unreset CSS properties (e.g., `margin`, `padding`)."
+    ],
+    "solutions": [
+      "Apply a CSS reset (e.g., Normalize.css).",
+      "Test computed styles (e.g., `getComputedStyle(element)`).",
+      "Adjust JS logic to account for defaults."
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Code Minification Name Collision",
+    "message": "Minified code breaks functionality with no clear error.",
+    "causes": [
+      "Minifier shortening variable names into conflicts.",
+      "External script dependencies on unmangled names."
+    ],
+    "solutions": [
+      "Use `mangle: false` in minifier config (e.g., Terser).",
+      "Expose globals explicitly (e.g., `window.myFunc`).",
+      "Compare unminified vs. minified behavior."
+    ]
+  },
+  {
+    "id": 59,
+    "title": "User Zoom Breaking Layout Logic",
+    "message": "JS calculations fail when user zooms in/out.",
+    "causes": [
+      "Pixel-based measurements not adjusting for zoom.",
+      "Viewport size misreported during zoom."
+    ],
+    "solutions": [
+      "Use relative units (e.g., `vw`, `rem`) in calculations.",
+      "Listen for `resize` events to recalculate.",
+      "Test with browser zoom enabled."
+    ]
+  },
+  {
+    "id": 60,
+    "title": "Hidden Iframe Messaging Bug",
+    "message": "Messages to/from iframe fail silently.",
+    "causes": [
+      "Incorrect target window or origin in `postMessage`.",
+      "Iframe not loaded when message sent."
+    ],
+    "solutions": [
+      "Verify target (e.g., `iframe.contentWindow.postMessage(data, '*')`).",
+      "Wait for iframe load (e.g., `iframe.onload = () => {...}`).",
+      "Log messages to debug delivery."
+    ]
+  },
+  {
+    "id": 61,
+    "title": "Test Flakiness from Timing",
+    "message": "Unit tests pass inconsistently with no clear failures.",
+    "causes": [
+      "Async operations completing out of order in tests.",
+      "Mocked timers not synchronized with real delays."
+    ],
+    "solutions": [
+      "Use fake timers (e.g., `jest.useFakeTimers()` and `jest.advanceTimersByTime()`).",
+      "Await all promises explicitly in tests.",
+      "Run tests multiple times to spot patterns."
+    ]
+  },
+  {
+    "id": 62,
+    "title": "Worker Thread Memory Overuse",
+    "message": "App slows or crashes over time with Web Workers.",
+    "causes": [
+      "Worker holding large data without cleanup.",
+      "No termination of unused worker instances."
+    ],
+    "solutions": [
+      "Transfer data with `postMessage` using transferable objects (e.g., `ArrayBuffer`).",
+      "Terminate workers when done (e.g., `worker.terminate()`).",
+      "Monitor memory in DevTools’ Memory tab."
+    ]
+  },
+  {
+    "id": 63,
+    "title": "Audio Playback Stutter",
+    "message": "Audio skips or lags without throwing errors.",
+    "causes": [
+      "Audio buffer underflow from heavy JS execution.",
+      "Browser throttling audio during tab inactivity."
+    ],
+    "solutions": [
+      "Offload heavy tasks to a worker to free main thread.",
+      "Preload audio buffers (e.g., `audio.load()`).",
+      "Test with background tabs and CPU load."
+    ]
+  },
+  {
+    "id": 64,
+    "title": "Battery API Misreporting",
+    "message": "Battery status updates irregularly or inaccurately.",
+    "causes": [
+      "Browser caching old battery state.",
+      "Device-specific API quirks or lack of support."
+    ],
+    "solutions": [
+      "Poll with `navigator.getBattery()` and handle stale data.",
+      "Fallback to default behavior if unsupported (e.g., `if (!navigator.getBattery) {...}`).",
+      "Log updates to verify behavior."
+    ]
+  },
+  {
+    "id": 65,
+    "title": "Config Drift Across Environments",
+    "message": "App works in dev but fails in prod with no errors.",
+    "causes": [
+      "Environment-specific configs (e.g., API URLs) not aligned.",
+      "Missing or overridden `.env` values in production."
+    ],
+    "solutions": [
+      "Centralize configs with validation (e.g., `if (!process.env.API_URL) throw Error()`).",
+      "Mirror dev and prod setups locally.",
+      "Audit env vars in each environment."
+    ]
+  },
+  {
+    "id": 66,
+    "title": "Cross-Team API Contract Break",
+    "message": "App breaks silently after backend updates.",
+    "causes": [
+      "Backend changing response shape without notice.",
+      "Frontend assuming static API structure."
+    ],
+    "solutions": [
+      "Add runtime type checks (e.g., `if (!data.id) console.warn('Missing id')`).",
+      "Use API versioning or contract testing (e.g., OpenAPI).",
+      "Coordinate with backend team to log changes."
+    ]
+  },
+  {
+    "id": 67,
+    "title": "Low-Memory Device Crash",
+    "message": "App fails on older devices without clear logs.",
+    "causes": [
+      "Excessive DOM nodes or large arrays in memory.",
+      "No optimization for low-RAM environments."
+    ],
+    "solutions": [
+      "Reduce memory footprint (e.g., paginate data).",
+      "Test on low-end hardware or emulators.",
+      "Profile heap size in DevTools."
+    ]
+  },
+  {
+    "id": 68,
+    "title": "Video Autoplay Blocked",
+    "message": "Video doesn’t play automatically as expected.",
+    "causes": [
+      "Browser policy blocking unmuted autoplay.",
+      "No user interaction prior to play attempt."
+    ],
+    "solutions": [
+      "Start muted (e.g., `video.muted = true; video.play()`).",
+      "Trigger play on user action (e.g., click).",
+      "Test across browsers for policy quirks."
+    ]
+  },
+  {
+    "id": 69,
+    "title": "Intersection Observer False Negatives",
+    "message": "Elements not detected as visible when they should be.",
+    "causes": [
+      "Observer threshold misconfigured for edge cases.",
+      "Parent container overflow hiding elements."
+    ],
+    "solutions": [
+      "Adjust threshold (e.g., `new IntersectionObserver(callback, { threshold: 0.1 })`).",
+      "Check CSS `overflow` and positioning.",
+      "Log intersection events to debug."
+    ]
+  },
+  {
+    "id": 70,
+    "title": "Custom Event Not Triggering",
+    "message": "Custom events fire inconsistently or not at all.",
+    "causes": [
+      "Event name typo or mismatch between dispatch and listener.",
+      "Event bubbling blocked by DOM structure."
+    ],
+    "solutions": [
+      "Verify event names (e.g., `new CustomEvent('myEvent')` vs. `addEventListener('myEvent')`).",
+      "Ensure bubbling if needed (e.g., `{ bubbles: true }`).",
+      "Log dispatched events to confirm."
+    ]
+  },
+  {
+    "id": 71,
+    "title": "Service Worker Cache Stale Data",
+    "message": "App shows outdated content after updates.",
+    "causes": [
+      "Service worker caching old assets without refresh.",
+      "No cache invalidation strategy."
+    ],
+    "solutions": [
+      "Update cache version (e.g., `const CACHE_NAME = 'v2'`).",
+      "Clear old caches on activation (e.g., `caches.delete()`).",
+      "Inspect service worker in DevTools Application tab."
+    ]
+  },
+  {
+    "id": 72,
+    "title": "Pointer Event Misalignment",
+    "message": "Touch or mouse events register at wrong coordinates.",
+    "causes": [
+      "CSS transforms skewing event positions.",
+      "Viewport zoom or scroll offsetting coordinates."
+    ],
+    "solutions": [
+      "Adjust for transforms (e.g., `element.getBoundingClientRect()`).",
+      "Normalize with `pageX`/`pageY` instead of `clientX`/`clientY`.",
+      "Log event coords to trace misalignment."
+    ]
+  },
+  {
+    "id": 73,
+    "title": "File API Read Failure",
+    "message": "File uploads or reads fail silently.",
+    "causes": [
+      "Large files exceeding browser memory limits.",
+      "FileReader errors not caught."
+    ],
+    "solutions": [
+      "Chunk large files (e.g., `file.slice()`).",
+      "Add error handlers (e.g., `reader.onerror = () => {...}`).",
+      "Test with oversized files to replicate."
+    ]
+  },
+  {
+    "id": 74,
+    "title": "Intl API Locale Mismatch",
+    "message": "Formatted numbers/dates look wrong for some users.",
+    "causes": [
+      "Browser locale differing from expected settings.",
+      "No fallback for unsupported locales."
+    ],
+    "solutions": [
+      "Specify locale explicitly (e.g., `new Intl.NumberFormat('en-US')`).",
+      "Detect user locale (e.g., `navigator.language`).",
+      "Log formatted outputs to spot issues."
+    ]
+  },
   
+  {
+    "id": 75,
+    "title": "Cross-Browser Fullscreen Bug",
+    "message": "Fullscreen mode fails or exits unexpectedly.",
+    "causes": [
+      "Vendor-prefixed fullscreen APIs not handled.",
+      "User gesture requirement not met."
+    ],
+    "solutions": [
+      "Use cross-browser prefixes (e.g., `element.webkitRequestFullscreen()`).",
+      "Trigger on user action (e.g., click).",
+      "Test in multiple browsers."
+    ]
+  }
+
+]
