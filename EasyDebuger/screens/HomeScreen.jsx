@@ -33,9 +33,10 @@ const HomeScreen = () => {
           />
         )}
       />
-      <Footer flatListRef={flatListRef} /> {/* Add Footer */}
+      <Footer flatListRef={flatListRef} /> 
     </Container>
   );
 };
+
 
 export default HomeScreen;
