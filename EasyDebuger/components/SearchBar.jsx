@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 8,
     paddingHorizontal: 10,
-    elevation: 3, // Adds shadow on Android
+    elevation: 3, // to add shodow on Android
   },
   input: {
     height: 40,
