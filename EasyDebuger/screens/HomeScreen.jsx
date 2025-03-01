@@ -13,6 +13,9 @@ const languages = [
   { id: "5", name: "Java", key: "java" },
   { id: "6", name: "Python", key: "python" },
   { id: "7", name: "React Native", key: "react_native" },
+  { id: "8", name: "PhP", key: "php" },
+  { id: "9", name: "Laravel", key: "laravel" },
+  { id: "10", name: "Git and Github", key: "git_and_github" },
 ];
 
 const HomeScreen = () => {
