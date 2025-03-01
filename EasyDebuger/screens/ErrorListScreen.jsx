@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView } from "
 import { useNavigation } from "@react-navigation/native";
 import errorData from "../data/index";
 import Footer from "../components/Footer";
-import SearchBar from "../components/SearchBar"; // Import SearchBar
+import SearchBar from "../components/SearchBar"; 
 
 const ErrorListScreen = ({ route }) => {
   const { file } = route.params;
@@ -11,7 +11,7 @@ const ErrorListScreen = ({ route }) => {
 
   const errors = errorData[file] || [];
   const [selectedError, setSelectedError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const [searchQuery, setSearchQuery] = useState(""); 
   const scrollRef = useRef(null);
 
   const handleErrorPress = (error) => {
@@ -50,7 +50,7 @@ const ErrorListScreen = ({ route }) => {
       <ScrollView ref={scrollRef} contentContainerStyle={styles.scrollContainer}>
         <View style={styles.container}>
           <FlatList
-            data={filteredErrors} // Use filtered errors
+            data={filteredErrors} 
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderItem}
             scrollEnabled={false}
