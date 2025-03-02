@@ -1,0 +1,1438 @@
+[
+    {
+      "id": 1,
+      "title": "Module not found: Can't resolve module",
+      "message": "Error: Cannot find module 'module-name'",
+      "causes": [
+        "Module is not installed in the project.",
+        "Incorrect module path or name."
+      ],
+      "solutions": [
+        "Install the missing module using `npm install module-name`.",
+        "Check the module path and ensure it is correct."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "SyntaxError: Unexpected token",
+      "message": "SyntaxError: Unexpected token in JavaScript code",
+      "causes": [
+        "Typo or syntax error in the code.",
+        "Using unsupported JavaScript features."
+      ],
+      "solutions": [
+        "Check the file for syntax errors or missing imports.",
+        "Ensure the code is compatible with the Node.js version."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Error: listen EADDRINUSE",
+      "message": "Port is already in use",
+      "causes": [
+        "Another process is using the same port.",
+        "Server was not properly shut down."
+      ],
+      "solutions": [
+        "Kill the process using the port: `kill -9 $(lsof -t -i:PORT)`.",
+        "Change the port number in the server configuration."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Error: Connection refused",
+      "message": "Cannot connect to the database",
+      "causes": [
+        "Incorrect database connection string.",
+        "Database server is not running."
+      ],
+      "solutions": [
+        "Check the database connection string.",
+        "Ensure the database server is running."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Error: Cannot read property 'x' of undefined",
+      "message": "Trying to access a property of an undefined object",
+      "causes": [
+        "Object is not initialized before accessing its properties.",
+        "API data not loaded before accessing nested properties."
+      ],
+      "solutions": [
+        "Add a loading check or default value (e.g., `data || {}`).",
+        "Use optional chaining (e.g., `data?.property`)."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Error: Maximum call stack size exceeded",
+      "message": "Recursion or infinite loop causing the call stack to overflow",
+      "causes": [
+        "Recursive function without a base case.",
+        "Infinite loop due to state changes."
+      ],
+      "solutions": [
+        "Add a termination condition to recursive functions.",
+        "Optimize re-renders with `React.memo` or `useMemo`."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Error: ENOENT: no such file or directory",
+      "message": "File or directory not found",
+      "causes": [
+        "Incorrect file path or name.",
+        "File or directory does not exist."
+      ],
+      "solutions": [
+        "Check the file path and ensure it is correct.",
+        "Create the missing file or directory."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Error: Unhandled promise rejection",
+      "message": "Promise rejection was not handled",
+      "causes": [
+        "Missing error handling in async/await functions.",
+        "Error is not caught in the `catch` block."
+      ],
+      "solutions": [
+        "Add error handling using `try/catch` in async functions.",
+        "Use `.catch()` or `try/catch` to handle errors in async/await functions."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Error: MongoDB connection failed",
+      "message": "Failed to connect to MongoDB",
+      "causes": [
+        "Incorrect MongoDB connection string.",
+        "MongoDB server is not running."
+      ],
+      "solutions": [
+        "Check the MongoDB connection string.",
+        "Ensure the MongoDB server is running."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Error: Mongoose validation failed",
+      "message": "Validation error when saving to MongoDB",
+      "causes": [
+        "Required fields are missing.",
+        "Data does not match the schema definition."
+      ],
+      "solutions": [
+        "Check the schema definition and ensure all required fields are provided.",
+        "Validate data before saving to the database."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Error: JWT token invalid",
+      "message": "Invalid or expired JWT token",
+      "causes": [
+        "Token is expired or malformed.",
+        "Secret key used to sign the token is incorrect."
+      ],
+      "solutions": [
+        "Generate a new token with the correct secret key.",
+        "Check the token expiration time and renew if necessary."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Error: CORS policy blocked",
+      "message": "Cross-Origin Resource Sharing (CORS) error",
+      "causes": [
+        "Backend server is not configured to allow requests from the frontend.",
+        "Missing CORS headers in the backend."
+      ],
+      "solutions": [
+        "Install and configure the `cors` middleware in Node.js.",
+        "Set appropriate CORS headers in the backend."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Error: Environment variables not found",
+      "message": "Environment variables are undefined",
+      "causes": [
+        "Environment variables are not set in the system.",
+        "Environment variables are not loaded correctly."
+      ],
+      "solutions": [
+        "Set environment variables in the system or `.env` file.",
+        "Restart the server after adding environment variables."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Error: File upload failed",
+      "message": "Failed to upload file to the server",
+      "causes": [
+        "File size exceeds the limit.",
+        "File type is not allowed."
+      ],
+      "solutions": [
+        "Check the file size and ensure it is within the allowed limit.",
+        "Validate the file type before uploading."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Error: Rate limit exceeded",
+      "message": "Too many requests to the API",
+      "causes": [
+        "Excessive API calls during development or in a loop.",
+        "No throttling or debouncing on API requests."
+      ],
+      "solutions": [
+        "Implement throttling/debouncing (e.g., with `lodash.debounce`).",
+        "Use API keys or caching to reduce requests."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Error: WebSocket connection failed",
+      "message": "Failed to establish WebSocket connection",
+      "causes": [
+        "WebSocket server is not running.",
+        "Incorrect WebSocket URL or protocol."
+      ],
+      "solutions": [
+        "Ensure the WebSocket server is running.",
+        "Check the WebSocket URL and protocol."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Error: Memory leak detected",
+      "message": "Memory usage increases over time",
+      "causes": [
+        "Unremoved event listeners or timers.",
+        "Large data sets not being garbage collected."
+      ],
+      "solutions": [
+        "Remove event listeners and timers in cleanup functions.",
+        "Optimize memory usage by reducing large data sets."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Error: Database query timeout",
+      "message": "Database query took too long to execute",
+      "causes": [
+        "Complex query with no indexes.",
+        "Database server is under heavy load."
+      ],
+      "solutions": [
+        "Optimize the query by adding indexes.",
+        "Scale the database server to handle more load."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Error: Invalid JSON response",
+      "message": "API returned invalid JSON",
+      "causes": [
+        "Server returned malformed JSON.",
+        "API response is not properly formatted."
+      ],
+      "solutions": [
+        "Check the API response and ensure it is valid JSON.",
+        "Handle JSON parsing errors in the client."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Error: SSL certificate issue",
+      "message": "SSL certificate is invalid or expired",
+      "causes": [
+        "SSL certificate is not properly configured.",
+        "Certificate has expired or is self-signed."
+      ],
+      "solutions": [
+        "Renew or update the SSL certificate.",
+        "Use a valid SSL certificate from a trusted authority."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Error: File system permission denied",
+      "message": "Cannot access file or directory due to permissions",
+      "causes": [
+        "Incorrect file or directory permissions.",
+        "Running the server with insufficient privileges."
+      ],
+      "solutions": [
+        "Change the file or directory permissions.",
+        "Run the server with elevated privileges (e.g., `sudo`)."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Error: Database connection pool exhausted",
+      "message": "Too many database connections",
+      "causes": [
+        "Database connection pool size is too small.",
+        "Connections are not being released properly."
+      ],
+      "solutions": [
+        "Increase the database connection pool size.",
+        "Ensure connections are released after use."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Error: Invalid session data",
+      "message": "Session data is corrupted or invalid",
+      "causes": [
+        "Session data is not properly serialized.",
+        "Session store is not configured correctly."
+      ],
+      "solutions": [
+        "Check the session store configuration.",
+        "Ensure session data is properly serialized."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Error: API endpoint not found",
+      "message": "404 error when accessing an API endpoint",
+      "causes": [
+        "Incorrect API endpoint URL.",
+        "API route is not defined in the server."
+      ],
+      "solutions": [
+        "Check the API endpoint URL.",
+        "Define the missing API route in the server."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Error: Invalid input data",
+      "message": "Invalid data provided to the API",
+      "causes": [
+        "Missing or incorrect data fields.",
+        "Data validation failed."
+      ],
+      "solutions": [
+        "Check the API request and ensure all required fields are provided.",
+        "Validate data before processing it."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Error: Server timeout",
+      "message": "Server took too long to respond",
+      "causes": [
+        "Heavy server load or slow database queries.",
+        "Network issues or high latency."
+      ],
+      "solutions": [
+        "Optimize server performance and database queries.",
+        "Check the network connection and reduce latency."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Error: Invalid redirect URI",
+      "message": "OAuth redirect URI is invalid",
+      "causes": [
+        "Incorrect redirect URI in OAuth configuration.",
+        "Redirect URI does not match the registered URI."
+      ],
+      "solutions": [
+        "Check the OAuth configuration and ensure the redirect URI is correct.",
+        "Register the correct redirect URI with the OAuth provider."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Error: Invalid API key",
+      "message": "API key is invalid or expired",
+      "causes": [
+        "Incorrect API key provided.",
+        "API key has expired or been revoked."
+      ],
+      "solutions": [
+        "Check the API key and ensure it is correct.",
+        "Generate a new API key if necessary."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Error: Database deadlock",
+      "message": "Database deadlock detected",
+      "causes": [
+        "Multiple transactions are waiting for each other.",
+        "Poorly optimized database queries."
+      ],
+      "solutions": [
+        "Optimize database queries to avoid deadlocks.",
+        "Use transaction retry logic to handle deadlocks."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Error: Invalid file format",
+      "message": "File format is not supported",
+      "causes": [
+        "File format is not supported by the server.",
+        "File is corrupted or malformed."
+      ],
+      "solutions": [
+        "Check the file format and ensure it is supported.",
+        "Validate the file before processing it."
+      ]
+    }
+
+    ,
+        {
+          "id": 31,
+          "title": "Error: Package not installed",
+          "message": "Package or library is not installed in the project",
+          "causes": [
+            "Package was not installed using `npm install` or `yarn add`.",
+            "Package is missing from `package.json`."
+          ],
+          "solutions": [
+            "Install the missing package using `npm install package-name` or `yarn add package-name`.",
+            "Ensure the package is listed in `package.json`."
+          ]
+        },
+        {
+          "id": 32,
+          "title": "Error: Incorrect directory during installation",
+          "message": "Package installed in the wrong directory",
+          "causes": [
+            "Running `npm install` or `yarn add` in the wrong directory.",
+            "Global installation instead of local installation."
+          ],
+          "solutions": [
+            "Ensure you are in the correct project directory before running `npm install` or `yarn add`.",
+            "Use `npm install --save` or `yarn add` for local installation."
+          ]
+        },
+        {
+          "id": 33,
+          "title": "Error: Peer dependency conflict",
+          "message": "Conflicting versions of peer dependencies",
+          "causes": [
+            "Different versions of the same package required by multiple dependencies.",
+            "Peer dependencies not properly resolved."
+          ],
+          "solutions": [
+            "Check the peer dependencies and ensure compatible versions are installed.",
+            "Use `npm dedupe` or `yarn dedupe` to resolve conflicts."
+          ]
+        },
+        {
+          "id": 34,
+          "title": "Error: Missing script in package.json",
+          "message": "Script defined in `package.json` is missing or incorrect",
+          "causes": [
+            "Script name is misspelled or does not exist.",
+            "Script is not defined in `package.json`."
+          ],
+          "solutions": [
+            "Check the `package.json` file and ensure the script is defined correctly.",
+            "Add the missing script to `package.json`."
+          ]
+        },
+        {
+          "id": 35,
+          "title": "Error: NPM/Yarn cache corruption",
+          "message": "Package installation fails due to corrupted cache",
+          "causes": [
+            "NPM or Yarn cache is corrupted.",
+            "Incomplete or failed package downloads."
+          ],
+          "solutions": [
+            "Clear the NPM cache using `npm cache clean --force`.",
+            "Clear the Yarn cache using `yarn cache clean`."
+          ]
+        },
+        {
+          "id": 36,
+          "title": "Error: Invalid package.json",
+          "message": "`package.json` file is invalid or malformed",
+          "causes": [
+            "Syntax error in `package.json`.",
+            "Missing required fields in `package.json`."
+          ],
+          "solutions": [
+            "Check the `package.json` file for syntax errors.",
+            "Ensure all required fields (e.g., `name`, `version`) are present."
+          ]
+        },
+        {
+          "id": 37,
+          "title": "Error: Global package not found",
+          "message": "Globally installed package is not recognized",
+          "causes": [
+            "Global package is not in the system's PATH.",
+            "Global package was not installed correctly."
+          ],
+          "solutions": [
+            "Ensure the global package is installed using `npm install -g package-name`.",
+            "Add the global package path to the system's PATH environment variable."
+          ]
+        },
+        {
+          "id": 38,
+          "title": "Error: NPM/Yarn lockfile conflict",
+          "message": "Conflicts in `package-lock.json` or `yarn.lock`",
+          "causes": [
+            "Merge conflicts in `package-lock.json` or `yarn.lock`.",
+            "Different versions of dependencies installed by team members."
+          ],
+          "solutions": [
+            "Resolve conflicts manually and regenerate the lockfile using `npm install` or `yarn`.",
+            "Ensure all team members use the same package manager and version."
+          ]
+        },
+        {
+          "id": 39,
+          "title": "Error: Missing dependency in production",
+          "message": "Dependency is missing in production environment",
+          "causes": [
+            "Dependency was not installed in production mode.",
+            "Dependency is listed in `devDependencies` instead of `dependencies`."
+          ],
+          "solutions": [
+            "Install dependencies in production mode using `npm install --production`.",
+            "Move the dependency from `devDependencies` to `dependencies` in `package.json`."
+          ]
+        },
+        {
+          "id": 40,
+          "title": "Error: NPM/Yarn registry issue",
+          "message": "Unable to connect to NPM or Yarn registry",
+          "causes": [
+            "Network issues or firewall blocking access to the registry.",
+            "Registry URL is incorrect or outdated."
+          ],
+          "solutions": [
+            "Check your internet connection and firewall settings.",
+            "Update the registry URL in `.npmrc` or `.yarnrc`."
+          ]
+        },
+        {
+          "id": 41,
+          "title": "Error: Invalid package version",
+          "message": "Package version is invalid or not found",
+          "causes": [
+            "Package version does not exist in the registry.",
+            "Incorrect version specified in `package.json`."
+          ],
+          "solutions": [
+            "Check the package version in `package.json` and ensure it exists in the registry.",
+            "Use a valid version range (e.g., `^1.0.0`)."
+          ]
+        },
+        {
+          "id": 42,
+          "title": "Error: Circular dependency detected",
+          "message": "Circular dependency between modules",
+          "causes": [
+            "Module A depends on Module B, and Module B depends on Module A.",
+            "Improper module organization."
+          ],
+          "solutions": [
+            "Refactor the code to remove circular dependencies.",
+            "Use dependency injection or a mediator pattern to break the cycle."
+          ]
+        },
+        {
+          "id": 43,
+          "title": "Error: NPM/Yarn script timeout",
+          "message": "Script execution timed out",
+          "causes": [
+            "Script takes too long to execute.",
+            "Network or resource issues during script execution."
+          ],
+          "solutions": [
+            "Optimize the script to reduce execution time.",
+            "Increase the timeout limit in the script configuration."
+          ]
+        },
+        {
+          "id": 44,
+          "title": "Error: Invalid NPM/Yarn configuration",
+          "message": "NPM or Yarn configuration is invalid",
+          "causes": [
+            "Incorrect settings in `.npmrc` or `.yarnrc`.",
+            "Global configuration conflicts with local configuration."
+          ],
+          "solutions": [
+            "Check the `.npmrc` or `.yarnrc` file for incorrect settings.",
+            "Use `npm config edit` or `yarn config set` to update the configuration."
+          ]
+        },
+        {
+          "id": 45,
+          "title": "Error: Missing build script",
+          "message": "Build script is missing or not defined",
+          "causes": [
+            "Build script is not defined in `package.json`.",
+            "Build script is misspelled or incorrect."
+          ],
+          "solutions": [
+            "Add the build script to `package.json`.",
+            "Check the script name and ensure it is correct."
+          ]
+        },
+        {
+          "id": 46,
+          "title": "Error: NPM/Yarn permission denied",
+          "message": "Permission denied during package installation",
+          "causes": [
+            "Insufficient permissions to write to the `node_modules` directory.",
+            "Running NPM or Yarn without sufficient privileges."
+          ],
+          "solutions": [
+            "Run the command with elevated privileges (e.g., `sudo npm install`).",
+            "Change the ownership of the `node_modules` directory."
+          ]
+        },
+        {
+          "id": 47,
+          "title": "Error: NPM/Yarn outdated dependencies",
+          "message": "Outdated dependencies in the project",
+          "causes": [
+            "Dependencies have not been updated for a long time.",
+            "Newer versions of dependencies are available."
+          ],
+          "solutions": [
+            "Update dependencies using `npm update` or `yarn upgrade`.",
+            "Check for breaking changes in the new versions before updating."
+          ]
+        },
+        {
+          "id": 48,
+          "title": "Error: NPM/Yarn workspace issue",
+          "message": "Issues with NPM or Yarn workspaces",
+          "causes": [
+            "Incorrect workspace configuration in `package.json`.",
+            "Dependencies not properly linked between workspaces."
+          ],
+          "solutions": [
+            "Check the workspace configuration in `package.json`.",
+            "Use `npm link` or `yarn link` to link dependencies between workspaces."
+          ]
+        },
+        {
+          "id": 49,
+          "title": "Error: NPM/Yarn audit failure",
+          "message": "Security vulnerabilities found in dependencies",
+          "causes": [
+            "Dependencies have known security vulnerabilities.",
+            "Outdated or insecure packages."
+          ],
+          "solutions": [
+            "Run `npm audit fix` or `yarn audit` to fix vulnerabilities.",
+            "Update or replace insecure packages."
+          ]
+        },
+        {
+          "id": 50,
+          "title": "Error: NPM/Yarn global package conflict",
+          "message": "Conflict between global and local packages",
+          "causes": [
+            "Global package version conflicts with local package version.",
+            "Global package is overriding local package."
+          ],
+          "solutions": [
+            "Use local packages instead of global packages.",
+            "Ensure the correct version of the package is installed locally."
+          ]
+        }
+        ,
+            {
+              "id": 51,
+              "title": "Error: Database connection timeout",
+              "message": "Database connection timed out",
+              "causes": [
+                "Database server is under heavy load.",
+                "Network issues or high latency."
+              ],
+              "solutions": [
+                "Optimize database queries to reduce load.",
+                "Check the network connection and reduce latency."
+              ]
+            },
+            {
+              "id": 52,
+              "title": "Error: File system quota exceeded",
+              "message": "File system quota has been exceeded",
+              "causes": [
+                "Too many files or large files stored on the server.",
+                "Disk space is full."
+              ],
+              "solutions": [
+                "Delete unnecessary files to free up disk space.",
+                "Increase the disk quota or move files to an external storage service."
+              ]
+            },
+            {
+              "id": 53,
+              "title": "Error: Environment variable not set",
+              "message": "Environment variable is missing or not set",
+              "causes": [
+                "Environment variable was not defined in the system.",
+                "Environment variable is not loaded correctly."
+              ],
+              "solutions": [
+                "Set the environment variable in the system or `.env` file.",
+                "Restart the server after adding the environment variable."
+              ]
+            },
+            {
+              "id": 54,
+              "title": "Error: Invalid file path",
+              "message": "File path is invalid or does not exist",
+              "causes": [
+                "Incorrect file path specified in the code.",
+                "File or directory does not exist."
+              ],
+              "solutions": [
+                "Check the file path and ensure it is correct.",
+                "Create the missing file or directory if necessary."
+              ]
+            },
+            {
+              "id": 55,
+              "title": "Error: Server crashed due to unhandled exception",
+              "message": "Unhandled exception caused the server to crash",
+              "causes": [
+                "Error was not caught in a try/catch block.",
+                "Asynchronous error was not handled properly."
+              ],
+              "solutions": [
+                "Wrap the code in a try/catch block to handle exceptions.",
+                "Use `process.on('uncaughtException')` to handle uncaught errors."
+              ]
+            },
+            {
+              "id": 56,
+              "title": "Error: Invalid JSON data",
+              "message": "JSON data is malformed or invalid",
+              "causes": [
+                "JSON data is not properly formatted.",
+                "Incorrect data type used in JSON."
+              ],
+              "solutions": [
+                "Validate the JSON data before processing it.",
+                "Use a JSON validator to check for errors."
+              ]
+            },
+            {
+              "id": 57,
+              "title": "Error: API rate limit exceeded",
+              "message": "Too many requests to the API",
+              "causes": [
+                "Excessive API calls during development or in a loop.",
+                "No throttling or debouncing on API requests."
+              ],
+              "solutions": [
+                "Implement throttling/debouncing (e.g., with `lodash.debounce`).",
+                "Use API keys or caching to reduce requests."
+              ]
+            },
+            {
+              "id": 58,
+              "title": "Error: Invalid SSL certificate",
+              "message": "SSL certificate is invalid or expired",
+              "causes": [
+                "SSL certificate is not properly configured.",
+                "Certificate has expired or is self-signed."
+              ],
+              "solutions": [
+                "Renew or update the SSL certificate.",
+                "Use a valid SSL certificate from a trusted authority."
+              ]
+            },
+            {
+              "id": 59,
+              "title": "Error: Database query failed",
+              "message": "Database query returned an error",
+              "causes": [
+                "Incorrect SQL syntax or query structure.",
+                "Database server is not responding."
+              ],
+              "solutions": [
+                "Check the SQL query for syntax errors.",
+                "Ensure the database server is running and accessible."
+              ]
+            },
+            {
+              "id": 60,
+              "title": "Error: File upload failed",
+              "message": "Failed to upload file to the server",
+              "causes": [
+                "File size exceeds the limit.",
+                "File type is not allowed."
+              ],
+              "solutions": [
+                "Check the file size and ensure it is within the allowed limit.",
+                "Validate the file type before uploading."
+              ]
+            },
+            {
+              "id": 61,
+              "title": "Error: Invalid session data",
+              "message": "Session data is corrupted or invalid",
+              "causes": [
+                "Session data is not properly serialized.",
+                "Session store is not configured correctly."
+              ],
+              "solutions": [
+                "Check the session store configuration.",
+                "Ensure session data is properly serialized."
+              ]
+            },
+            {
+              "id": 62,
+              "title": "Error: API endpoint not found",
+              "message": "404 error when accessing an API endpoint",
+              "causes": [
+                "Incorrect API endpoint URL.",
+                "API route is not defined in the server."
+              ],
+              "solutions": [
+                "Check the API endpoint URL.",
+                "Define the missing API route in the server."
+              ]
+            },
+            {
+              "id": 63,
+              "title": "Error: Invalid input data",
+              "message": "Invalid data provided to the API",
+              "causes": [
+                "Missing or incorrect data fields.",
+                "Data validation failed."
+              ],
+              "solutions": [
+                "Check the API request and ensure all required fields are provided.",
+                "Validate data before processing it."
+              ]
+            },
+            {
+              "id": 64,
+              "title": "Error: Server timeout",
+              "message": "Server took too long to respond",
+              "causes": [
+                "Heavy server load or slow database queries.",
+                "Network issues or high latency."
+              ],
+              "solutions": [
+                "Optimize server performance and database queries.",
+                "Check the network connection and reduce latency."
+              ]
+            },
+            {
+              "id": 65,
+              "title": "Error: Invalid redirect URI",
+              "message": "OAuth redirect URI is invalid",
+              "causes": [
+                "Incorrect redirect URI in OAuth configuration.",
+                "Redirect URI does not match the registered URI."
+              ],
+              "solutions": [
+                "Check the OAuth configuration and ensure the redirect URI is correct.",
+                "Register the correct redirect URI with the OAuth provider."
+              ]
+            },
+            {
+              "id": 66,
+              "title": "Error: Invalid API key",
+              "message": "API key is invalid or expired",
+              "causes": [
+                "Incorrect API key provided.",
+                "API key has expired or been revoked."
+              ],
+              "solutions": [
+                "Check the API key and ensure it is correct.",
+                "Generate a new API key if necessary."
+              ]
+            },
+            {
+              "id": 67,
+              "title": "Error: Database deadlock",
+              "message": "Database deadlock detected",
+              "causes": [
+                "Multiple transactions are waiting for each other.",
+                "Poorly optimized database queries."
+              ],
+              "solutions": [
+                "Optimize database queries to avoid deadlocks.",
+                "Use transaction retry logic to handle deadlocks."
+              ]
+            },
+            {
+              "id": 68,
+              "title": "Error: Invalid file format",
+              "message": "File format is not supported",
+              "causes": [
+                "File format is not supported by the server.",
+                "File is corrupted or malformed."
+              ],
+              "solutions": [
+                "Check the file format and ensure it is supported.",
+                "Validate the file before processing it."
+              ]
+            },
+            {
+              "id": 69,
+              "title": "Error: Memory leak detected",
+              "message": "Memory usage increases over time",
+              "causes": [
+                "Unremoved event listeners or timers.",
+                "Large data sets not being garbage collected."
+              ],
+              "solutions": [
+                "Remove event listeners and timers in cleanup functions.",
+                "Optimize memory usage by reducing large data sets."
+              ]
+            },
+            {
+              "id": 70,
+              "title": "Error: Invalid JSON response",
+              "message": "API returned invalid JSON",
+              "causes": [
+                "Server returned malformed JSON.",
+                "API response is not properly formatted."
+              ],
+              "solutions": [
+                "Check the API response and ensure it is valid JSON.",
+                "Handle JSON parsing errors in the client."
+              ]
+            }
+
+            ,
+                {
+                  "id": 71,
+                  "title": "Error: Authentication failed",
+                  "message": "User authentication failed",
+                  "causes": [
+                    "Incorrect username or password.",
+                    "Authentication token is invalid or expired."
+                  ],
+                  "solutions": [
+                    "Check the username and password for correctness.",
+                    "Generate a new authentication token if necessary."
+                  ]
+                },
+                {
+                  "id": 72,
+                  "title": "Error: Third-party API integration failed",
+                  "message": "Failed to integrate with a third-party API",
+                  "causes": [
+                    "Incorrect API endpoint or parameters.",
+                    "Third-party API is down or unreachable."
+                  ],
+                  "solutions": [
+                    "Check the API documentation and ensure the endpoint and parameters are correct.",
+                    "Verify the third-party API status and retry the request."
+                  ]
+                },
+                {
+                  "id": 73,
+                  "title": "Error: File system permission denied",
+                  "message": "Cannot access file or directory due to permissions",
+                  "causes": [
+                    "Incorrect file or directory permissions.",
+                    "Running the server with insufficient privileges."
+                  ],
+                  "solutions": [
+                    "Change the file or directory permissions.",
+                    "Run the server with elevated privileges (e.g., `sudo`)."
+                  ]
+                },
+                {
+                  "id": 74,
+                  "title": "Error: Database connection pool exhausted",
+                  "message": "Too many database connections",
+                  "causes": [
+                    "Database connection pool size is too small.",
+                    "Connections are not being released properly."
+                  ],
+                  "solutions": [
+                    "Increase the database connection pool size.",
+                    "Ensure connections are released after use."
+                  ]
+                },
+                {
+                  "id": 75,
+                  "title": "Error: Invalid session data",
+                  "message": "Session data is corrupted or invalid",
+                  "causes": [
+                    "Session data is not properly serialized.",
+                    "Session store is not configured correctly."
+                  ],
+                  "solutions": [
+                    "Check the session store configuration.",
+                    "Ensure session data is properly serialized."
+                  ]
+                },
+                {
+                  "id": 76,
+                  "title": "Error: API endpoint not found",
+                  "message": "404 error when accessing an API endpoint",
+                  "causes": [
+                    "Incorrect API endpoint URL.",
+                    "API route is not defined in the server."
+                  ],
+                  "solutions": [
+                    "Check the API endpoint URL.",
+                    "Define the missing API route in the server."
+                  ]
+                },
+                {
+                  "id": 77,
+                  "title": "Error: Invalid input data",
+                  "message": "Invalid data provided to the API",
+                  "causes": [
+                    "Missing or incorrect data fields.",
+                    "Data validation failed."
+                  ],
+                  "solutions": [
+                    "Check the API request and ensure all required fields are provided.",
+                    "Validate data before processing it."
+                  ]
+                },
+                {
+                  "id": 78,
+                  "title": "Error: Server timeout",
+                  "message": "Server took too long to respond",
+                  "causes": [
+                    "Heavy server load or slow database queries.",
+                    "Network issues or high latency."
+                  ],
+                  "solutions": [
+                    "Optimize server performance and database queries.",
+                    "Check the network connection and reduce latency."
+                  ]
+                },
+                {
+                  "id": 79,
+                  "title": "Error: Invalid redirect URI",
+                  "message": "OAuth redirect URI is invalid",
+                  "causes": [
+                    "Incorrect redirect URI in OAuth configuration.",
+                    "Redirect URI does not match the registered URI."
+                  ],
+                  "solutions": [
+                    "Check the OAuth configuration and ensure the redirect URI is correct.",
+                    "Register the correct redirect URI with the OAuth provider."
+                  ]
+                },
+                {
+                  "id": 80,
+                  "title": "Error: Invalid API key",
+                  "message": "API key is invalid or expired",
+                  "causes": [
+                    "Incorrect API key provided.",
+                    "API key has expired or been revoked."
+                  ],
+                  "solutions": [
+                    "Check the API key and ensure it is correct.",
+                    "Generate a new API key if necessary."
+                  ]
+                },
+                {
+                  "id": 81,
+                  "title": "Error: Database deadlock",
+                  "message": "Database deadlock detected",
+                  "causes": [
+                    "Multiple transactions are waiting for each other.",
+                    "Poorly optimized database queries."
+                  ],
+                  "solutions": [
+                    "Optimize database queries to avoid deadlocks.",
+                    "Use transaction retry logic to handle deadlocks."
+                  ]
+                },
+                {
+                  "id": 82,
+                  "title": "Error: Invalid file format",
+                  "message": "File format is not supported",
+                  "causes": [
+                    "File format is not supported by the server.",
+                    "File is corrupted or malformed."
+                  ],
+                  "solutions": [
+                    "Check the file format and ensure it is supported.",
+                    "Validate the file before processing it."
+                  ]
+                },
+                {
+                  "id": 83,
+                  "title": "Error: Memory leak detected",
+                  "message": "Memory usage increases over time",
+                  "causes": [
+                    "Unremoved event listeners or timers.",
+                    "Large data sets not being garbage collected."
+                  ],
+                  "solutions": [
+                    "Remove event listeners and timers in cleanup functions.",
+                    "Optimize memory usage by reducing large data sets."
+                  ]
+                },
+                {
+                  "id": 84,
+                  "title": "Error: Invalid JSON response",
+                  "message": "API returned invalid JSON",
+                  "causes": [
+                    "Server returned malformed JSON.",
+                    "API response is not properly formatted."
+                  ],
+                  "solutions": [
+                    "Check the API response and ensure it is valid JSON.",
+                    "Handle JSON parsing errors in the client."
+                  ]
+                },
+                {
+                  "id": 85,
+                  "title": "Error: Cross-Site Scripting (XSS) vulnerability",
+                  "message": "User input renders as raw HTML, exposing XSS risks",
+                  "causes": [
+                    "Using `dangerouslySetInnerHTML` without sanitizing input.",
+                    "Improperly trusting user-generated content."
+                  ],
+                  "solutions": [
+                    "Sanitize input with a library like `sanitize-html`.",
+                    "Avoid `dangerouslySetInnerHTML` unless absolutely necessary."
+                  ]
+                },
+                {
+                  "id": 86,
+                  "title": "Error: Slow initial page load",
+                  "message": "Users experience a long delay before the app becomes interactive",
+                  "causes": [
+                    "Large JavaScript bundles not optimized for production.",
+                    "No lazy loading or code-splitting implemented."
+                  ],
+                  "solutions": [
+                    "Use `React.lazy` and `Suspense` for dynamic imports.",
+                    "Analyze bundle size with tools like `webpack-bundle-analyzer` and optimize."
+                  ]
+                },
+                {
+                  "id": 87,
+                  "title": "Error: i18n translation missing",
+                  "message": "UI shows untranslated keys (e.g., 'header.title') instead of text",
+                  "causes": [
+                    "Missing translation strings in language files.",
+                    "Incorrect key reference in `react-intl` or similar libraries."
+                  ],
+                  "solutions": [
+                    "Ensure all keys exist in translation files (e.g., `en.json`).",
+                    "Provide fallback text with `defaultMessage` in i18n libraries."
+                  ]
+                },
+                {
+                  "id": 88,
+                  "title": "Error: Accessibility focus trap",
+                  "message": "Keyboard users get stuck in a modal or component",
+                  "causes": [
+                    "Modal lacks proper focus management or `tabIndex`.",
+                    "No escape hatch (e.g., ESC key) to exit focusable areas."
+                  ],
+                  "solutions": [
+                    "Use a library like `react-focus-lock` for modals.",
+                    "Add `onKeyDown` handlers to close modals on ESC."
+                  ]
+                },
+                {
+                  "id": 89,
+                  "title": "Error: WebSocket connection dropping",
+                  "message": "Real-time features (e.g., chat) stop updating unexpectedly",
+                  "causes": [
+                    "WebSocket connection not reconnecting after a drop.",
+                    "No error handling for disconnected states."
+                  ],
+                  "solutions": [
+                    "Implement a reconnection logic with exponential backoff.",
+                    "Show UI feedback (e.g., 'Reconnecting…') during disconnects."
+                  ]
+                },
+                {
+                  "id": 90,
+                  "title": "Error: Package manager lockfile corruption",
+                  "message": "Install fails with errors about invalid `package-lock.json` or `yarn.lock`",
+                  "causes": [
+                    "Manual edits or merges corrupting the lockfile.",
+                    "Switching between `npm` and `yarn` without cleanup."
+                  ],
+                  "solutions": [
+                    "Delete the lockfile and regenerate with `npm install` or `yarn`.",
+                    "Stick to one package manager across the project."
+                  ]
+                }
+                ,
+                    {
+                      "id": 91,
+                      "title": "Error: Cryptographic operation failed",
+                      "message": "Encryption or decryption process failed",
+                      "causes": [
+                        "Incorrect encryption key or algorithm.",
+                        "Data is corrupted or tampered with during transmission."
+                      ],
+                      "solutions": [
+                        "Verify the encryption key and algorithm used.",
+                        "Ensure data integrity by using hashing or checksums."
+                      ]
+                    },
+                    {
+                      "id": 92,
+                      "title": "Error: Deployment failed due to missing files",
+                      "message": "Required files are missing during deployment",
+                      "causes": [
+                        "Files were not included in the deployment package.",
+                        "Build process did not copy necessary files."
+                      ],
+                      "solutions": [
+                        "Check the build process and ensure all required files are included.",
+                        "Verify the deployment pipeline for missing file steps."
+                      ]
+                    },
+                    {
+                      "id": 93,
+                      "title": "Error: Logging system not working",
+                      "message": "Logs are not being generated or stored",
+                      "causes": [
+                        "Logging configuration is incorrect or missing.",
+                        "Log files are not writable due to permissions."
+                      ],
+                      "solutions": [
+                        "Check the logging configuration (e.g., `winston`, `morgan`).",
+                        "Ensure the log directory has proper write permissions."
+                      ]
+                    },
+                    {
+                      "id": 94,
+                      "title": "Error: Event loop blocked",
+                      "message": "Node.js event loop is blocked, causing the server to freeze",
+                      "causes": [
+                        "Synchronous code blocking the event loop.",
+                        "Long-running operations without proper async handling."
+                      ],
+                      "solutions": [
+                        "Use asynchronous code for long-running operations.",
+                        "Offload heavy tasks to worker threads or external services."
+                      ]
+                    },
+                    {
+                      "id": 95,
+                      "title": "Error: Invalid DNS resolution",
+                      "message": "Failed to resolve a domain name to an IP address",
+                      "causes": [
+                        "Incorrect domain name or DNS server issues.",
+                        "Network configuration problems."
+                      ],
+                      "solutions": [
+                        "Check the domain name for typos or errors.",
+                        "Verify DNS server settings and network connectivity."
+                      ]
+                    },
+                    {
+                      "id": 96,
+                      "title": "Error: File descriptor limit exceeded",
+                      "message": "Too many open files, causing the server to crash",
+                      "causes": [
+                        "File descriptors are not being closed properly.",
+                        "System file descriptor limit is too low."
+                      ],
+                      "solutions": [
+                        "Ensure files and sockets are closed after use.",
+                        "Increase the file descriptor limit using `ulimit`."
+                      ]
+                    },
+                    {
+                      "id": 97,
+                      "title": "Error: Invalid character encoding",
+                      "message": "Text data is corrupted due to incorrect encoding",
+                      "causes": [
+                        "Incorrect character encoding specified (e.g., UTF-8 vs. ASCII).",
+                        "Data is being read or written with the wrong encoding."
+                      ],
+                      "solutions": [
+                        "Specify the correct character encoding when reading/writing files.",
+                        "Use libraries like `iconv-lite` to handle encoding conversions."
+                      ]
+                    },
+                    {
+                      "id": 98,
+                      "title": "Error: Server-side rendering (SSR) hydration mismatch",
+                      "message": "Server-rendered HTML does not match client-side rendering",
+                      "causes": [
+                        "Differences in data between server and client.",
+                        "Dynamic content not being handled correctly."
+                      ],
+                      "solutions": [
+                        "Ensure data consistency between server and client.",
+                        "Use `suppressHydrationWarning` for non-critical mismatches."
+                      ]
+                    },
+                    {
+                      "id": 99,
+                      "title": "Error: Invalid HTTP headers",
+                      "message": "HTTP headers are malformed or invalid",
+                      "causes": [
+                        "Incorrect header format or values.",
+                        "Headers exceed size limits."
+                      ],
+                      "solutions": [
+                        "Check the HTTP headers for correct formatting.",
+                        "Ensure headers comply with size limits and standards."
+                      ]
+                    },
+                    {
+                      "id": 100,
+                      "title": "Error: Invalid WebSocket frame",
+                      "message": "WebSocket connection failed due to invalid frame",
+                      "causes": [
+                        "WebSocket client or server sent an invalid frame.",
+                        "Data corruption during transmission."
+                      ],
+                      "solutions": [
+                        "Check the WebSocket implementation for frame handling.",
+                        "Ensure data integrity by validating frames before processing."
+                      ]
+                    },
+                    {
+                      "id": 101,
+                      "title": "Error: Invalid GraphQL query",
+                      "message": "GraphQL query is malformed or invalid",
+                      "causes": [
+                        "Syntax error in the GraphQL query.",
+                        "Query contains unsupported fields or arguments."
+                      ],
+                      "solutions": [
+                        "Validate the GraphQL query using a tool like GraphiQL.",
+                        "Check the schema for supported fields and arguments."
+                      ]
+                    },
+                    {
+                      "id": 102,
+                      "title": "Error: Invalid Docker container configuration",
+                      "message": "Docker container failed to start or run",
+                      "causes": [
+                        "Incorrect Dockerfile configuration.",
+                        "Missing or incorrect environment variables."
+                      ],
+                      "solutions": [
+                        "Check the Dockerfile for errors and missing dependencies.",
+                        "Ensure all required environment variables are set."
+                      ]
+                    },
+                    {
+                      "id": 103,
+                      "title": "Error: Invalid Kubernetes configuration",
+                      "message": "Kubernetes deployment or service failed",
+                      "causes": [
+                        "Incorrect YAML configuration for pods or services.",
+                        "Resource limits or requests are not properly set."
+                      ],
+                      "solutions": [
+                        "Validate the Kubernetes YAML files for errors.",
+                        "Ensure resource limits and requests are correctly configured."
+                      ]
+                    },
+                    {
+                      "id": 104,
+                      "title": "Error: Invalid Redis connection",
+                      "message": "Failed to connect to Redis server",
+                      "causes": [
+                        "Incorrect Redis connection string or credentials.",
+                        "Redis server is not running or unreachable."
+                      ],
+                      "solutions": [
+                        "Check the Redis connection string and credentials.",
+                        "Ensure the Redis server is running and accessible."
+                      ]
+                    },
+                    {
+                      "id": 105,
+                      "title": "Error: Invalid RabbitMQ configuration",
+                      "message": "Failed to connect to RabbitMQ or send messages",
+                      "causes": [
+                        "Incorrect RabbitMQ connection settings.",
+                        "Queue or exchange configuration is invalid."
+                      ],
+                      "solutions": [
+                        "Check the RabbitMQ connection settings.",
+                        "Verify the queue and exchange configurations."
+                      ]
+                    },
+                    {
+                      "id": 106,
+                      "title": "Error: Invalid Kafka configuration",
+                      "message": "Failed to produce or consume messages in Kafka",
+                      "causes": [
+                        "Incorrect Kafka broker or topic configuration.",
+                        "Consumer or producer settings are invalid."
+                      ],
+                      "solutions": [
+                        "Check the Kafka broker and topic configurations.",
+                        "Verify the consumer and producer settings."
+                      ]
+                    },
+                    {
+                      "id": 107,
+                      "title": "Error: Invalid Elasticsearch query",
+                      "message": "Elasticsearch query returned an error",
+                      "causes": [
+                        "Syntax error in the Elasticsearch query.",
+                        "Query contains unsupported fields or parameters."
+                      ],
+                      "solutions": [
+                        "Validate the Elasticsearch query using Kibana or a similar tool.",
+                        "Check the Elasticsearch documentation for supported fields."
+                      ]
+                    },
+                    {
+                      "id": 108,
+                      "title": "Error: Invalid AWS S3 configuration",
+                      "message": "Failed to upload or download files from AWS S3",
+                      "causes": [
+                        "Incorrect AWS credentials or bucket permissions.",
+                        "S3 bucket or file path is invalid."
+                      ],
+                      "solutions": [
+                        "Check the AWS credentials and bucket permissions.",
+                        "Verify the S3 bucket and file path."
+                      ]
+                    },
+                    {
+                      "id": 109,
+                      "title": "Error: Invalid Google Cloud Storage configuration",
+                      "message": "Failed to upload or download files from Google Cloud Storage",
+                      "causes": [
+                        "Incorrect Google Cloud credentials or bucket permissions.",
+                        "Bucket or file path is invalid."
+                      ],
+                      "solutions": [
+                        "Check the Google Cloud credentials and bucket permissions.",
+                        "Verify the bucket and file path."
+                      ]
+                    },
+                    {
+                      "id": 110,
+                      "title": "Error: Invalid Stripe API request",
+                      "message": "Stripe API request failed",
+                      "causes": [
+                        "Incorrect API key or parameters.",
+                        "Stripe API is down or unreachable."
+                      ],
+                      "solutions": [
+                        "Check the API key and parameters.",
+                        "Verify the Stripe API status and retry the request."
+                      ]
+                    }
+]

@@ -1,0 +1,787 @@
+[
+    {
+      "id": 1,
+      "title": "Error: MongoDB connection failed",
+      "message": "Failed to connect to MongoDB",
+      "causes": [
+        "Incorrect MongoDB connection string.",
+        "MongoDB server is not running or unreachable."
+      ],
+      "solutions": [
+        "Check the MongoDB connection string for accuracy.",
+        "Ensure the MongoDB server is running and accessible."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Error: Authentication failed",
+      "message": "Failed to authenticate with MongoDB",
+      "causes": [
+        "Incorrect username or password.",
+        "Authentication mechanism is not properly configured."
+      ],
+      "solutions": [
+        "Verify the username and password in the connection string.",
+        "Ensure the correct authentication mechanism (e.g., SCRAM-SHA-256) is used."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Error: Invalid MongoDB query",
+      "message": "MongoDB query returned an error",
+      "causes": [
+        "Syntax error in the query.",
+        "Query contains unsupported operators or fields."
+      ],
+      "solutions": [
+        "Check the query syntax and ensure it is valid.",
+        "Refer to MongoDB documentation for supported operators and fields."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Error: Schema validation failed",
+      "message": "Document does not match the schema",
+      "causes": [
+        "Required fields are missing in the document.",
+        "Data types do not match the schema definition."
+      ],
+      "solutions": [
+        "Check the schema definition and ensure all required fields are provided.",
+        "Validate data types before inserting or updating documents."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Error: Duplicate key error",
+      "message": "Document with the same key already exists",
+      "causes": [
+        "Unique index violation.",
+        "Duplicate key inserted into a collection."
+      ],
+      "solutions": [
+        "Check the unique index constraints on the collection.",
+        "Ensure no duplicate keys are inserted."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Error: Write operation failed",
+      "message": "Failed to perform a write operation (insert, update, delete)",
+      "causes": [
+        "Insufficient permissions for the operation.",
+        "Write concern is not satisfied."
+      ],
+      "solutions": [
+        "Check user permissions for the collection.",
+        "Adjust the write concern settings if necessary."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Error: Read operation failed",
+      "message": "Failed to perform a read operation (find, aggregate)",
+      "causes": [
+        "Insufficient permissions for the operation.",
+        "Query is too complex or inefficient."
+      ],
+      "solutions": [
+        "Check user permissions for the collection.",
+        "Optimize the query or add indexes to improve performance."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Error: Index creation failed",
+      "message": "Failed to create an index on a collection",
+      "causes": [
+        "Index key exceeds the maximum size limit.",
+        "Duplicate index name or key pattern."
+      ],
+      "solutions": [
+        "Ensure the index key does not exceed the size limit.",
+        "Use a unique name or key pattern for the index."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Error: Aggregation pipeline failed",
+      "message": "Aggregation pipeline returned an error",
+      "causes": [
+        "Syntax error in the pipeline stages.",
+        "Unsupported operators or expressions in the pipeline."
+      ],
+      "solutions": [
+        "Check the pipeline stages for syntax errors.",
+        "Refer to MongoDB documentation for supported operators and expressions."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Error: Transaction failed",
+      "message": "MongoDB transaction could not be completed",
+      "causes": [
+        "Transaction conflicts with another operation.",
+        "Transaction exceeds the maximum time limit."
+      ],
+      "solutions": [
+        "Retry the transaction after a short delay.",
+        "Increase the transaction timeout if necessary."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Error: Connection pool exhausted",
+      "message": "Too many connections to MongoDB",
+      "causes": [
+        "Connection pool size is too small.",
+        "Connections are not being released properly."
+      ],
+      "solutions": [
+        "Increase the connection pool size in the MongoDB driver settings.",
+        "Ensure connections are released after use."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Error: Timeout during operation",
+      "message": "MongoDB operation timed out",
+      "causes": [
+        "Network latency or server load.",
+        "Operation is too complex or inefficient."
+      ],
+      "solutions": [
+        "Optimize the query or operation to reduce execution time.",
+        "Increase the timeout setting in the MongoDB driver."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Error: Invalid BSON data",
+      "message": "BSON data is malformed or invalid",
+      "causes": [
+        "Incorrect data types in the BSON document.",
+        "Data exceeds the maximum BSON size limit."
+      ],
+      "solutions": [
+        "Check the data types in the BSON document.",
+        "Ensure the BSON document does not exceed the size limit (16MB)."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Error: Sharding configuration failed",
+      "message": "Failed to configure sharding for a collection",
+      "causes": [
+        "Incorrect shard key or configuration.",
+        "Sharding is not enabled on the MongoDB cluster."
+      ],
+      "solutions": [
+        "Choose an appropriate shard key for the collection.",
+        "Enable sharding on the MongoDB cluster."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Error: Replica set configuration failed",
+      "message": "Failed to configure a replica set",
+      "causes": [
+        "Incorrect replica set configuration.",
+        "Network issues between replica set members."
+      ],
+      "solutions": [
+        "Check the replica set configuration for errors.",
+        "Ensure network connectivity between replica set members."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Error: Change stream error",
+      "message": "Failed to create or use a change stream",
+      "causes": [
+        "Change stream is not supported on the MongoDB version.",
+        "Insufficient permissions to create a change stream."
+      ],
+      "solutions": [
+        "Ensure the MongoDB version supports change streams.",
+        "Check user permissions for the collection."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Error: GridFS operation failed",
+      "message": "Failed to perform a GridFS operation (upload, download)",
+      "causes": [
+        "File exceeds the maximum size limit.",
+        "GridFS bucket is not properly configured."
+      ],
+      "solutions": [
+        "Ensure the file size is within the allowed limit.",
+        "Check the GridFS bucket configuration."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Error: Atlas cluster connection failed",
+      "message": "Failed to connect to a MongoDB Atlas cluster",
+      "causes": [
+        "Incorrect Atlas connection string.",
+        "IP address is not whitelisted in Atlas."
+      ],
+      "solutions": [
+        "Check the Atlas connection string for accuracy.",
+        "Whitelist the IP address in the Atlas dashboard."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Error: Atlas cluster scaling failed",
+      "message": "Failed to scale a MongoDB Atlas cluster",
+      "causes": [
+        "Insufficient permissions to scale the cluster.",
+        "Cluster is already at the maximum or minimum size."
+      ],
+      "solutions": [
+        "Check user permissions for the Atlas cluster.",
+        "Ensure the cluster is within the allowed size limits."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Error: Atlas backup failed",
+      "message": "Failed to create or restore a MongoDB Atlas backup",
+      "causes": [
+        "Insufficient permissions to perform backup operations.",
+        "Backup storage limit is exceeded."
+      ],
+      "solutions": [
+        "Check user permissions for backup operations.",
+        "Increase the backup storage limit if necessary."
+      ]
+    }
+
+    ,
+        {
+          "id": 21,
+          "title": "Error: MongoDB Atlas cluster not responding",
+          "message": "MongoDB Atlas cluster is unresponsive or slow",
+          "causes": [
+            "High load on the cluster due to heavy queries.",
+            "Network issues between the application and Atlas."
+          ],
+          "solutions": [
+            "Optimize queries to reduce load on the cluster.",
+            "Check network connectivity and latency between the application and Atlas."
+          ]
+        },
+        {
+          "id": 22,
+          "title": "Error: MongoDB connection dropped",
+          "message": "Connection to MongoDB was unexpectedly dropped",
+          "causes": [
+            "Network instability or server downtime.",
+            "MongoDB server terminated the connection due to inactivity."
+          ],
+          "solutions": [
+            "Implement connection retry logic in the application.",
+            "Increase the connection timeout settings in the MongoDB driver."
+          ]
+        },
+        {
+          "id": 23,
+          "title": "Error: MongoDB cursor timeout",
+          "message": "MongoDB cursor timed out during iteration",
+          "causes": [
+            "Cursor was open for too long without being used.",
+            "Query took too long to execute."
+          ],
+          "solutions": [
+            "Use `noCursorTimeout` option for long-running queries.",
+            "Optimize the query to reduce execution time."
+          ]
+        },
+        {
+          "id": 24,
+          "title": "Error: MongoDB bulk operation failed",
+          "message": "Bulk write operation returned an error",
+          "causes": [
+            "One or more documents in the bulk operation failed validation.",
+            "Bulk operation exceeded the maximum batch size."
+          ],
+          "solutions": [
+            "Check the documents for validation errors.",
+            "Split the bulk operation into smaller batches."
+          ]
+        },
+        {
+          "id": 25,
+          "title": "Error: MongoDB TTL index not working",
+          "message": "TTL index is not deleting expired documents",
+          "causes": [
+            "TTL index is not properly configured.",
+            "Documents do not have a valid date field for the TTL index."
+          ],
+          "solutions": [
+            "Ensure the TTL index is set on a date field.",
+            "Verify that the date field contains valid dates."
+          ]
+        },
+        {
+          "id": 26,
+          "title": "Error: MongoDB geospatial query failed",
+          "message": "Geospatial query returned an error",
+          "causes": [
+            "Incorrect geospatial index or query syntax.",
+            "Data does not contain valid geospatial coordinates."
+          ],
+          "solutions": [
+            "Check the geospatial index and query syntax.",
+            "Ensure the data contains valid geospatial coordinates."
+          ]
+        },
+        {
+          "id": 27,
+          "title": "Error: MongoDB text search failed",
+          "message": "Text search query returned an error",
+          "causes": [
+            "Text index is not properly configured.",
+            "Query contains unsupported text search operators."
+          ],
+          "solutions": [
+            "Create a text index on the desired fields.",
+            "Refer to MongoDB documentation for supported text search operators."
+          ]
+        },
+        {
+          "id": 28,
+          "title": "Error: MongoDB Atlas backup restore failed",
+          "message": "Failed to restore a backup in MongoDB Atlas",
+          "causes": [
+            "Backup file is corrupted or incomplete.",
+            "Insufficient permissions to restore the backup."
+          ],
+          "solutions": [
+            "Verify the integrity of the backup file.",
+            "Check user permissions for backup restore operations."
+          ]
+        },
+        {
+          "id": 29,
+          "title": "Error: MongoDB Atlas cluster scaling failed",
+          "message": "Failed to scale a MongoDB Atlas cluster",
+          "causes": [
+            "Insufficient permissions to scale the cluster.",
+            "Cluster is already at the maximum or minimum size."
+          ],
+          "solutions": [
+            "Check user permissions for the Atlas cluster.",
+            "Ensure the cluster is within the allowed size limits."
+          ]
+        },
+        {
+          "id": 30,
+          "title": "Error: MongoDB Atlas alert configuration failed",
+          "message": "Failed to configure alerts in MongoDB Atlas",
+          "causes": [
+            "Incorrect alert settings or thresholds.",
+            "Insufficient permissions to configure alerts."
+          ],
+          "solutions": [
+            "Check the alert settings and thresholds.",
+            "Ensure the user has the necessary permissions."
+          ]
+        },
+        {
+          "id": 31,
+          "title": "Error: Node.js MongoDB driver not installed",
+          "message": "MongoDB driver is not installed in the Node.js project",
+          "causes": [
+            "MongoDB driver package is missing from `package.json`.",
+            "Package installation failed due to network issues."
+          ],
+          "solutions": [
+            "Install the MongoDB driver using `npm install mongodb`.",
+            "Check the network connection and retry the installation."
+          ]
+        },
+        {
+          "id": 32,
+          "title": "Error: React app cannot connect to MongoDB",
+          "message": "React app fails to fetch data from MongoDB",
+          "causes": [
+            "Backend API is not properly configured to connect to MongoDB.",
+            "CORS issues preventing the React app from accessing the backend."
+          ],
+          "solutions": [
+            "Ensure the backend API is correctly connected to MongoDB.",
+            "Configure CORS in the backend to allow requests from the React app."
+          ]
+        },
+        {
+          "id": 33,
+          "title": "Error: MongoDB data not rendering in React",
+          "message": "Data fetched from MongoDB is not displayed in the React app",
+          "causes": [
+            "Data is not properly passed from the backend to the frontend.",
+            "React state or props are not updated correctly."
+          ],
+          "solutions": [
+            "Check the backend API response and ensure data is sent correctly.",
+            "Verify that React state or props are updated with the fetched data."
+          ]
+        },
+        {
+          "id": 34,
+          "title": "Error: MongoDB aggregation pipeline not working in Node.js",
+          "message": "Aggregation pipeline returned incorrect or no results",
+          "causes": [
+            "Incorrect pipeline stages or syntax.",
+            "Data does not match the expected structure for the pipeline."
+          ],
+          "solutions": [
+            "Check the pipeline stages and syntax for errors.",
+            "Validate the data structure before running the pipeline."
+          ]
+        },
+        {
+          "id": 35,
+          "title": "Error: MongoDB change stream not working in Node.js",
+          "message": "Change stream does not emit events",
+          "causes": [
+            "Change stream is not properly configured.",
+            "MongoDB version does not support change streams."
+          ],
+          "solutions": [
+            "Ensure the MongoDB version supports change streams.",
+            "Check the change stream configuration and permissions."
+          ]
+        },
+        {
+          "id": 36,
+          "title": "Error: MongoDB transactions not working in Node.js",
+          "message": "Transactions fail to commit or rollback",
+          "causes": [
+            "Session is not properly started or ended.",
+            "Transaction conflicts with another operation."
+          ],
+          "solutions": [
+            "Ensure the session is correctly started and ended.",
+            "Retry the transaction after a short delay."
+          ]
+        },
+        {
+          "id": 37,
+          "title": "Error: MongoDB data not syncing with React state",
+          "message": "Changes in MongoDB are not reflected in the React app",
+          "causes": [
+            "React app is not polling or subscribing to MongoDB changes.",
+            "Backend API is not sending updated data to the frontend."
+          ],
+          "solutions": [
+            "Implement polling or real-time updates (e.g., with WebSockets).",
+            "Ensure the backend API sends updated data to the React app."
+          ]
+        },
+        {
+          "id": 38,
+          "title": "Error: MongoDB Atlas cluster not accessible from Node.js",
+          "message": "Node.js app cannot connect to MongoDB Atlas",
+          "causes": [
+            "Incorrect Atlas connection string.",
+            "IP address is not whitelisted in Atlas."
+          ],
+          "solutions": [
+            "Check the Atlas connection string for accuracy.",
+            "Whitelist the IP address in the Atlas dashboard."
+          ]
+        },
+        {
+          "id": 39,
+          "title": "Error: MongoDB data not saving from React form",
+          "message": "Data submitted from a React form is not saved in MongoDB",
+          "causes": [
+            "Form data is not properly sent to the backend.",
+            "Backend API is not correctly handling the data."
+          ],
+          "solutions": [
+            "Check the form submission logic in the React app.",
+            "Ensure the backend API correctly processes and saves the data."
+          ]
+        },
+        {
+          "id": 40,
+          "title": "Error: MongoDB data not updating in React app",
+          "message": "Data updates in MongoDB are not reflected in the React app",
+          "causes": [
+            "React app is not re-fetching data after updates.",
+            "Backend API is not sending updated data to the frontend."
+          ],
+          "solutions": [
+            "Implement re-fetching logic in the React app after updates.",
+            "Ensure the backend API sends updated data to the frontend."
+          ]
+        }
+      
+  ,
+    {
+      "id": 41,
+      "title": "Error: MongoDB connection pool exhausted",
+      "message": "Too many connections to MongoDB, causing connection pool exhaustion",
+      "causes": [
+        "High number of concurrent requests to the database.",
+        "Connection pool size is too small."
+      ],
+      "solutions": [
+        "Increase the connection pool size in the MongoDB driver settings.",
+        "Optimize the application to reduce the number of concurrent database requests."
+      ]
+    },
+    {
+      "id": 42,
+      "title": "Error: MongoDB query performance degradation",
+      "message": "Queries are running slower than expected",
+      "causes": [
+        "Missing or inefficient indexes.",
+        "Large datasets or complex queries."
+      ],
+      "solutions": [
+        "Add appropriate indexes to improve query performance.",
+        "Optimize queries to reduce complexity and execution time."
+      ]
+    },
+    {
+      "id": 43,
+      "title": "Error: MongoDB disk space full",
+      "message": "MongoDB server ran out of disk space",
+      "causes": [
+        "Large datasets or excessive logging.",
+        "Disk quota is too small for the database size."
+      ],
+      "solutions": [
+        "Delete unnecessary data or archive old records.",
+        "Increase the disk quota or move the database to a larger storage volume."
+      ]
+    },
+    {
+      "id": 44,
+      "title": "Error: MongoDB replica set primary not elected",
+      "message": "No primary node is elected in the replica set",
+      "causes": [
+        "Network partition or communication issues between replica set members.",
+        "Insufficient voting members to elect a primary."
+      ],
+      "solutions": [
+        "Check network connectivity between replica set members.",
+        "Ensure there are enough voting members to elect a primary."
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Error: MongoDB shard key not optimal",
+      "message": "Shard key is causing uneven data distribution",
+      "causes": [
+        "Shard key is not evenly distributed across the dataset.",
+        "Shard key is not suitable for the query patterns."
+      ],
+      "solutions": [
+        "Choose a shard key that ensures even data distribution.",
+        "Re-evaluate the shard key based on query patterns and data access."
+      ]
+    },
+    {
+      "id": 46,
+      "title": "Error: MongoDB Atlas cluster auto-scaling failed",
+      "message": "Auto-scaling did not trigger for the MongoDB Atlas cluster",
+      "causes": [
+        "Auto-scaling rules are not properly configured.",
+        "Cluster is already at the maximum or minimum size."
+      ],
+      "solutions": [
+        "Check the auto-scaling rules in the Atlas dashboard.",
+        "Ensure the cluster is within the allowed size limits."
+      ]
+    },
+    {
+      "id": 47,
+      "title": "Error: MongoDB Atlas backup failed due to storage limit",
+      "message": "Backup failed because the storage limit was exceeded",
+      "causes": [
+        "Backup storage quota is too small for the dataset.",
+        "Frequent backups are consuming too much storage."
+      ],
+      "solutions": [
+        "Increase the backup storage quota in the Atlas dashboard.",
+        "Reduce the frequency of backups or delete old backups."
+      ]
+    },
+    {
+      "id": 48,
+      "title": "Error: MongoDB Atlas cluster performance degraded",
+      "message": "Cluster performance is slow or unresponsive",
+      "causes": [
+        "High load due to inefficient queries or large datasets.",
+        "Insufficient resources allocated to the cluster."
+      ],
+      "solutions": [
+        "Optimize queries and add indexes to reduce load.",
+        "Scale up the cluster by adding more resources (e.g., RAM, CPU)."
+      ]
+    },
+    {
+      "id": 49,
+      "title": "Error: MongoDB Atlas cluster not accessible from specific region",
+      "message": "Cluster is unreachable from a specific geographic region",
+      "causes": [
+        "Network restrictions or firewall rules blocking access.",
+        "Cluster is not configured for global accessibility."
+      ],
+      "solutions": [
+        "Check firewall rules and network configurations.",
+        "Enable global accessibility in the Atlas cluster settings."
+      ]
+    },
+    {
+      "id": 50,
+      "title": "Error: MongoDB Atlas cluster backup restore failed due to version mismatch",
+      "message": "Backup restore failed because of MongoDB version incompatibility",
+      "causes": [
+        "Backup was created with a different MongoDB version.",
+        "Cluster is running an incompatible MongoDB version."
+      ],
+      "solutions": [
+        "Ensure the cluster is running the same or a compatible MongoDB version.",
+        "Create a new backup with the correct MongoDB version."
+      ]
+    },
+    {
+      "id": 51,
+      "title": "Error: MongoDB Atlas cluster backup encryption failed",
+      "message": "Backup encryption process failed",
+      "causes": [
+        "Encryption key is missing or invalid.",
+        "Backup storage does not support encryption."
+      ],
+      "solutions": [
+        "Check the encryption key configuration in the Atlas dashboard.",
+        "Ensure the backup storage supports encryption."
+      ]
+    },
+    {
+      "id": 52,
+      "title": "Error: MongoDB Atlas cluster backup retention policy failed",
+      "message": "Backup retention policy is not being enforced",
+      "causes": [
+        "Retention policy is not properly configured.",
+        "Backup storage is full or inaccessible."
+      ],
+      "solutions": [
+        "Check the backup retention policy settings in the Atlas dashboard.",
+        "Ensure backup storage is available and has sufficient space."
+      ]
+    },
+    {
+      "id": 53,
+      "title": "Error: MongoDB Atlas cluster backup scheduling failed",
+      "message": "Backup schedule is not being executed",
+      "causes": [
+        "Backup schedule is not properly configured.",
+        "Cluster is in an invalid state for backups."
+      ],
+      "solutions": [
+        "Check the backup schedule configuration in the Atlas dashboard.",
+        "Ensure the cluster is in a valid state for backups."
+      ]
+    },
+    {
+      "id": 54,
+      "title": "Error: MongoDB Atlas cluster backup compression failed",
+      "message": "Backup compression process failed",
+      "causes": [
+        "Compression algorithm is not supported.",
+        "Backup data is too large for compression."
+      ],
+      "solutions": [
+        "Use a supported compression algorithm.",
+        "Split the backup into smaller chunks for compression."
+      ]
+    },
+    {
+      "id": 55,
+      "title": "Error: MongoDB Atlas cluster backup validation failed",
+      "message": "Backup validation process failed",
+      "causes": [
+        "Backup data is corrupted or incomplete.",
+        "Validation process encountered an error."
+      ],
+      "solutions": [
+        "Verify the integrity of the backup data.",
+        "Re-run the validation process after fixing the issue."
+      ]
+    },
+    {
+      "id": 56,
+      "title": "Error: MongoDB Atlas cluster backup encryption key rotation failed",
+      "message": "Encryption key rotation process failed",
+      "causes": [
+        "Encryption key is missing or invalid.",
+        "Backup storage does not support key rotation."
+      ],
+      "solutions": [
+        "Check the encryption key configuration in the Atlas dashboard.",
+        "Ensure the backup storage supports key rotation."
+      ]
+    },
+    {
+      "id": 57,
+      "title": "Error: MongoDB Atlas cluster backup restore validation failed",
+      "message": "Backup restore validation process failed",
+      "causes": [
+        "Restored data does not match the original backup.",
+        "Validation process encountered an error."
+      ],
+      "solutions": [
+        "Verify the integrity of the restored data.",
+        "Re-run the validation process after fixing the issue."
+      ]
+    },
+    {
+      "id": 58,
+      "title": "Error: MongoDB Atlas cluster backup restore encryption failed",
+      "message": "Backup restore encryption process failed",
+      "causes": [
+        "Encryption key is missing or invalid.",
+        "Restored data is not encrypted."
+      ],
+      "solutions": [
+        "Check the encryption key configuration in the Atlas dashboard.",
+        "Ensure the restored data is encrypted."
+      ]
+    },
+    {
+      "id": 59,
+      "title": "Error: MongoDB Atlas cluster backup restore compression failed",
+      "message": "Backup restore compression process failed",
+      "causes": [
+        "Compression algorithm is not supported.",
+        "Restored data is too large for decompression."
+      ],
+      "solutions": [
+        "Use a supported compression algorithm.",
+        "Split the restored data into smaller chunks for decompression."
+      ]
+    },
+    {
+      "id": 60,
+      "title": "Error: MongoDB Atlas cluster backup restore validation failed",
+      "message": "Backup restore validation process failed",
+      "causes": [
+        "Restored data does not match the original backup.",
+        "Validation process encountered an error."
+      ],
+      
+      "solutions": [
+        "Verify the integrity of the restored data.",
+        "Re-run the validation process after fixing the issue."
+      ]
+    }
+  ]
