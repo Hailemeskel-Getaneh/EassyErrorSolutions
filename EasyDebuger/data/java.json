@@ -1,0 +1,1352 @@
+[
+    {
+      "id": 1,
+      "title": "ClassNotFoundException in Java",
+      "message": "java.lang.ClassNotFoundException: com.example.MyClass",
+      "causes": [
+        "Class is missing from the classpath.",
+        "Incorrect package or class name in the code.",
+        "Dependency is not included in the project."
+      ],
+      "solutions": [
+        "Verify the class exists and is in the correct package.",
+        "Check the classpath or add the missing JAR file to your project (e.g., using Maven or Gradle).",
+        "Run `mvn dependency:tree` or `gradle dependencies` to ensure dependencies are resolved."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "NoSuchMethodError in Java",
+      "message": "java.lang.NoSuchMethodError: com.example.MyClass.methodName",
+      "causes": [
+        "Method signature mismatch between compiled code and runtime library.",
+        "Incompatible library or dependency version.",
+        "Class file is outdated or corrupted."
+      ],
+      "solutions": [
+        "Check method signatures and ensure they match across versions.",
+        "Update or align dependency versions in `pom.xml` or `build.gradle`.",
+        "Clean and rebuild the project: `mvn clean install` or `gradle clean build`."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "NullPointerException (NPE)",
+      "message": "java.lang.NullPointerException: Cannot invoke method on null object",
+      "causes": [
+        "Attempting to access or call a method on a null object reference.",
+        "Object initialization is missing or conditional logic fails.",
+        "Uninitialized variable or returned null value from a method."
+      ],
+      "solutions": [
+        "Add null checks before accessing objects (e.g., `if (obj != null)`).",
+        "Initialize objects properly or handle null returns with try-catch or Optional.",
+        "Debug to trace where the null value originates."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "ClassCastException in Java",
+      "message": "java.lang.ClassCastException: Cannot cast com.example.ClassA to com.example.ClassB",
+      "causes": [
+        "Attempting to cast an object to an incompatible type.",
+        "Incorrect inheritance or interface implementation.",
+        "Runtime type differs from expected type."
+      ],
+      "solutions": [
+        "Verify the object’s actual type using `instanceof` before casting.",
+        "Ensure proper inheritance or interface usage in the class hierarchy.",
+        "Use generics to enforce type safety at compile time."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "ConcurrentModificationException",
+      "message": "java.util.ConcurrentModificationException while iterating a collection",
+      "causes": [
+        "Modifying a collection (e.g., adding/removing) while iterating over it.",
+        "Multiple threads accessing and modifying the same collection without synchronization.",
+        "Using an iterator without proper synchronization."
+      ],
+      "solutions": [
+        "Use `CopyOnWriteArrayList` or `Collections.synchronizedList` for thread-safe operations.",
+        "Iterate using a separate list or avoid modifications during iteration.",
+        "Synchronize access to the collection with `synchronized` blocks."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Maven Build Failure: Missing Artifact",
+      "message": "Could not find artifact com.example:dependency:jar:1.0.0",
+      "causes": [
+        "Dependency is not available in the Maven repository.",
+        "Incorrect groupId, artifactId, or version in `pom.xml`.",
+        "Repository configuration is missing or unreachable."
+      ],
+      "solutions": [
+        "Verify the dependency coordinates and version in `pom.xml`.",
+        "Add or check the repository (e.g., Maven Central) in `pom.xml` or settings.xml.",
+        "Run `mvn dependency:resolve` to diagnose issues."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Gradle Build Failure: Task Not Found",
+      "message": "Task 'build' not found in root project",
+      "causes": [
+        "Incorrect task name or typo in Gradle command.",
+        "Gradle wrapper or configuration file (`build.gradle`) is missing or misconfigured.",
+        "Project setup is incomplete."
+      ],
+      "solutions": [
+        "Check the task name in `build.gradle` (e.g., `task build { ... }`).",
+        "Run `./gradlew tasks` to list available tasks.",
+        "Initialize or regenerate Gradle wrapper with `gradle wrapper`."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Spring Boot Application Fails to Start",
+      "message": "Application failed to start: Failed to configure data source",
+      "causes": [
+        "Missing or misconfigured database driver or URL in `application.properties`.",
+        "Dependency for the database (e.g., MySQL, PostgreSQL) is not included.",
+        "Incorrect Spring Boot version or incompatible dependencies."
+      ],
+      "solutions": [
+        "Add the database driver dependency in `pom.xml` or `build.gradle` (e.g., `mysql-connector-java`).",
+        "Configure `application.properties` with correct `spring.datasource.url`, `username`, and `password`.",
+        "Update Spring Boot and dependencies to compatible versions."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Hibernate LazyInitializationException",
+      "message": "org.hibernate.LazyInitializationException: failed to lazily initialize a collection",
+      "causes": [
+        "Accessing a lazily loaded collection outside a Hibernate session.",
+        "Transaction or session is closed before accessing lazy-loaded data.",
+        "Incorrect fetch strategy (e.g., `FetchType.LAZY`)."
+      ],
+      "solutions": [
+        "Eagerly load the data with `FetchType.EAGER` if frequent access is needed.",
+        "Ensure lazy-loaded data is accessed within an open transaction or session.",
+        "Use `@Transactional` or fetch data explicitly in the service layer."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Java OutOfMemoryError",
+      "message": "java.lang.OutOfMemoryError: Java heap space",
+      "causes": [
+        "Insufficient heap memory allocated to the JVM.",
+        "Memory leak due to unclosed resources or large data structures.",
+        "Infinite loops or recursive calls consuming memory."
+      ],
+      "solutions": [
+        "Increase JVM heap size with `-Xmx` (e.g., `java -Xmx2g -jar app.jar`).",
+        "Use profiling tools (e.g., VisualVM) to identify memory leaks.",
+        "Optimize code by closing resources (e.g., streams, connections) and limiting data size."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Java StackOverflowError",
+      "message": "java.lang.StackOverflowError: Stack size exceeded",
+      "causes": [
+        "Deep recursion without a base case.",
+        "Infinite loop or recursive method calls without termination.",
+        "Excessive method call stack depth."
+      ],
+      "solutions": [
+        "Add a base case or limit recursion depth in recursive methods.",
+        "Refactor recursive code into iterative solutions (e.g., using loops).",
+        "Increase stack size with `-Xss` (e.g., `java -Xss512k -jar app.jar`), but fix the root cause."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Spring Security Authentication Failure",
+      "message": "Authentication failed: Bad credentials",
+      "causes": [
+        "Incorrect username, password, or credentials in the login request.",
+        "Misconfigured `UserDetailsService` or `AuthenticationManager`.",
+        "Password encoder mismatch (e.g., BCrypt vs. plain text)."
+      ],
+      "solutions": [
+        "Verify credentials in the login form or database.",
+        "Check `UserDetailsService` implementation for correct user loading.",
+        "Ensure password encoding matches (e.g., use `BCryptPasswordEncoder`)."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "JDBC Connection Failure",
+      "message": "java.sql.SQLException: No suitable driver found",
+      "causes": [
+        "Missing JDBC driver (e.g., MySQL Connector/J) in the classpath.",
+        "Incorrect database URL or driver class name.",
+        "Database server is down or unreachable."
+      ],
+      "solutions": [
+        "Add the JDBC driver dependency in `pom.xml` or `build.gradle`.",
+        "Verify the database URL (e.g., `jdbc:mysql://localhost:3306/dbname`) and driver class (e.g., `com.mysql.cj.jdbc.Driver`).",
+        "Ensure the database server is running and accessible."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Java Serialization Error",
+      "message": "java.io.NotSerializableException: com.example.MyClass",
+      "causes": [
+        "Class or its fields are not implementing `Serializable`.",
+        "Transient fields or non-serializable objects are included.",
+        "Serialization context is incompatible (e.g., different JVM versions)."
+      ],
+      "solutions": [
+        "Implement `Serializable` interface in the class and its non-transient fields.",
+        "Mark non-serializable fields as `transient` and handle them separately.",
+        "Ensure serialization compatibility across JVM versions."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Maven/Gradle Dependency Conflict",
+      "message": "Dependency conflict detected: Multiple versions of com.example:library",
+      "causes": [
+        "Multiple versions of the same dependency in the project.",
+        "Transitive dependencies pulling in conflicting versions.",
+        "No explicit version management in `pom.xml` or `build.gradle`."
+      ],
+      "solutions": [
+        "Use `<dependencyManagement>` in `pom.xml` or `resolutionStrategy` in `build.gradle` to enforce a single version.",
+        "Run `mvn dependency:tree` or `gradle dependencies` to identify conflicts.",
+        "Exclude conflicting transitive dependencies where necessary."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Java FileNotFoundException",
+      "message": "java.io.FileNotFoundException: file.txt (No such file or directory)",
+      "causes": [
+        "File path is incorrect or file doesn’t exist.",
+        "Insufficient permissions to access the file.",
+        "File is being referenced relative to the wrong directory."
+      ],
+      "solutions": [
+        "Verify the file path and ensure it exists (use absolute paths if needed).",
+        "Check file permissions (e.g., `chmod` on Unix systems).",
+        "Set the working directory correctly or use `ClassLoader.getResource()` for resources."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Spring Boot Actuator Endpoint Not Accessible",
+      "message": "404 Not Found for /actuator/health",
+      "causes": [
+        "Actuator endpoints are not enabled or configured in `application.properties`.",
+        "Security restrictions block access to actuator endpoints.",
+        "Incorrect endpoint path or version mismatch."
+      ],
+      "solutions": [
+        "Enable actuator in `application.properties`: `management.endpoints.web.exposure.include=health,info`.",
+        "Configure Spring Security to allow actuator endpoints.",
+        "Verify the Spring Boot and Actuator versions are compatible."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Java Thread Deadlock",
+      "message": "Thread deadlock detected: Threads waiting indefinitely",
+      "causes": [
+        "Multiple threads holding locks and waiting for each other to release.",
+        "Improper synchronization or lock ordering.",
+        "Nested synchronized blocks or methods causing contention."
+      ],
+      "solutions": [
+        "Analyze thread dumps to identify deadlocks (e.g., using `jstack` or IDE tools).",
+        "Ensure consistent lock ordering across threads.",
+        "Use `ReentrantLock` or `ReadWriteLock` for finer-grained control."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Java UnsupportedOperationException",
+      "message": "java.lang.UnsupportedOperationException: Operation not supported",
+      "causes": [
+        "Attempting to modify an unmodifiable collection (e.g., `Collections.unmodifiableList`).",
+        "Using an immutable collection method that doesn’t support modifications.",
+        "Library or framework returning an immutable wrapper unexpectedly."
+      ],
+      "solutions": [
+        "Convert the collection to a mutable type if modifications are needed (e.g., `new ArrayList<>(unmodifiableList)`).",
+        "Check documentation for the collection’s mutability.",
+        "Handle immutable collections appropriately in your code."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Java Security Exception",
+      "message": "java.lang.SecurityException: Permission denied",
+      "causes": [
+        "Insufficient permissions for the Java Security Manager.",
+        "Restricted access to system resources or network calls.",
+        "Policy file or security configuration is misconfigured."
+      ],
+      "solutions": [
+        "Configure a `java.policy` file or disable the Security Manager if not needed.",
+        "Grant necessary permissions in the policy file (e.g., `permission java.net.SocketPermission connect`)",
+        "Verify the Java environment and security settings."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Maven/Gradle Build Tool Slowdown",
+      "message": "Build process takes excessively long or hangs",
+      "causes": [
+        "Large dependency tree or transitive dependencies.",
+        "Outdated build tool version or slow internet for downloads.",
+        "Caching issues or misconfigured repositories."
+      ],
+      "solutions": [
+        "Optimize dependencies by excluding unused transitive dependencies.",
+        "Update Maven/Gradle to the latest version and clear caches (`~/.m2/repository` or `~/.gradle`).",
+        "Use local repositories or mirrors for faster downloads."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Java IO Exception: Connection Refused",
+      "message": "java.net.ConnectException: Connection refused",
+      "causes": [
+        "Target server or database is not running or unreachable.",
+        "Incorrect host or port in the connection string.",
+        "Firewall or network restrictions blocking the connection."
+      ],
+      "solutions": [
+        "Verify the server or database is running and accessible (e.g., ping the host).",
+        "Check the connection string (e.g., `localhost:3306` for MySQL).",
+        "Adjust firewall settings or network configuration to allow connections."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Spring Boot Application Context Failure",
+      "message": "org.springframework.context.ApplicationContextException: Unable to start web server",
+      "causes": [
+        "Port conflict with another application.",
+        "Misconfigured `application.properties` (e.g., `server.port`).",
+        "Missing or incompatible dependency for the web server (e.g., Tomcat)."
+      ],
+      "solutions": [
+        "Change the port in `application.properties` (e.g., `server.port=8081`).",
+        "Check for other processes using the port (e.g., `netstat -tuln` on Linux).",
+        "Ensure the `spring-boot-starter-web` dependency is included."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Java Logger Configuration Error",
+      "message": "SLF4J: Failed to load class 'org.slf4j.impl.StaticLoggerBinder'",
+      "causes": [
+        "Missing SLF4J binding (e.g., `slf4j-simple`, `logback`) in the classpath.",
+        "Multiple logging frameworks (e.g., Log4j, SLF4J) causing conflicts.",
+        "Incorrect dependency scope or version."
+      ],
+      "solutions": [
+        "Add an SLF4J binding dependency (e.g., `slf4j-simple` or `logback-classic`) in `pom.xml` or `build.gradle`.",
+        "Use `mvn dependency:tree` or `gradle dependencies` to resolve conflicts.",
+        "Ensure only one logging framework is active."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Java Compilation Error: Syntax Error",
+      "message": "Compilation failed: Syntax error on token ';', { expected",
+      "causes": [
+        "Missing semicolon, brace, or parenthesis in the Java code.",
+        "Typo or incorrect syntax in method, class, or variable declaration.",
+        "Incompatible Java version for the code syntax."
+      ],
+      "solutions": [
+        "Review the code for syntax errors (e.g., missing `;` or `{}`).",
+        "Use an IDE (e.g., IntelliJ, Eclipse) for real-time syntax checking.",
+        "Ensure the Java compiler version matches the code (e.g., Java 8 vs. Java 17)."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Hibernate Entity Mapping Error",
+      "message": "org.hibernate.MappingException: Could not determine type for: com.example.Entity",
+      "causes": [
+        "Incorrect or missing `@Entity`, `@Table`, or `@Column` annotations.",
+        "Mismatch between entity class and database schema.",
+        "Missing dependency for Hibernate or JPA."
+      ],
+      "solutions": [
+        "Verify entity annotations and mapping (e.g., `@Entity`).",
+        "Check the database schema and ensure it matches the entity.",
+        "Add `hibernate-core` and `spring-boot-starter-data-jpa` dependencies."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Java Environment Variable Not Found",
+      "message": "System.getenv('MY_VAR') returns null",
+      "causes": [
+        "Environment variable is not set in the system or IDE.",
+        "Variable name misspelled or case-sensitive mismatch.",
+        "Application not running in the correct environment."
+      ],
+      "solutions": [
+        "Set the environment variable in your OS (e.g., `export MY_VAR=value` on Linux) or IDE configuration.",
+        "Verify the variable name and casing in `System.getenv()`.",
+        "Use a `.env` file with a library like `dotenv` if applicable."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Java Thread Pool Exhaustion",
+      "message": "java.util.concurrent.RejectedExecutionException: Task rejected",
+      "causes": [
+        "Thread pool is overloaded or undersized for the workload.",
+        "Tasks are submitted faster than they can be processed.",
+        "No queue or timeout mechanism for task rejection."
+      ],
+      "solutions": [
+        "Increase thread pool size or adjust queue capacity in `ThreadPoolExecutor`.",
+        "Implement a timeout or backpressure mechanism for task submission.",
+        "Monitor and profile thread usage to optimize configuration."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Java SSL Handshake Failure",
+      "message": "javax.net.ssl.SSLHandshakeException: Received fatal alert: handshake_failure",
+      "causes": [
+        "Incorrect or expired SSL certificate on the server.",
+        "Mismatch between client and server SSL protocols or ciphers.",
+        "Missing or misconfigured trust store in the JVM."
+      ],
+      "solutions": [
+        "Verify the server’s SSL certificate and renew if expired.",
+        "Update Java Security settings or specify SSL protocols/ciphers in the code.",
+        "Import the server’s certificate into the JVM trust store (e.g., `keytool`)."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Java IDE Not Recognizing Dependencies",
+      "message": "Cannot resolve symbol 'DependencyClass' in IntelliJ/Eclipse",
+      "causes": [
+        "Dependencies not synced or imported in the IDE.",
+        "Incorrect Maven/Gradle configuration or cache issues.",
+        "IDE project setup is out of sync with `pom.xml` or `build.gradle`."
+      ],
+      "solutions": [
+        "Refresh or reimport dependencies in the IDE (e.g., `File > Invalidate Caches / Restart` in IntelliJ).",
+        "Run `mvn clean install` or `gradle build` to resolve dependencies.",
+        "Check `pom.xml` or `build.gradle` for correct dependency declarations."
+      ]
+    }
+    ,
+        {
+          "id": 31,
+          "title": "Java IllegalArgumentException",
+          "message": "java.lang.IllegalArgumentException: Argument 'value' cannot be null",
+          "causes": [
+            "Passing a null or invalid argument to a method.",
+            "Method parameter validation fails due to incorrect input.",
+            "Misunderstanding of method contract or API requirements."
+          ],
+          "solutions": [
+            "Validate input before passing it to the method (e.g., `if (value == null) throw new IllegalArgumentException('Value cannot be null');`).",
+            "Check API documentation for parameter constraints.",
+            "Use debugging tools to trace the origin of invalid arguments."
+          ]
+        },
+        {
+          "id": 32,
+          "title": "Java ArrayIndexOutOfBoundsException",
+          "message": "java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3",
+          "causes": [
+            "Accessing an array index beyond its bounds.",
+            "Loop or calculation error resulting in invalid index values.",
+            "Incorrect array size initialization or dynamic resizing."
+          ],
+          "solutions": [
+            "Check array bounds before accessing (e.g., `if (index >= array.length) ...`).",
+            "Use `Arrays.asList()` or collections for safer iteration.",
+            "Debug loops or calculations causing index errors."
+          ]
+        },
+        {
+          "id": 33,
+          "title": "Spring Boot Bean Creation Failure",
+          "message": "org.springframework.beans.factory.BeanCreationException: Could not autowire field",
+          "causes": [
+            "Missing `@Component`, `@Service`, or `@Repository` annotation on a bean.",
+            "Circular dependency between beans.",
+            "Incorrect bean configuration or missing dependency in `applicationContext`."
+          ],
+          "solutions": [
+            "Annotate the class with the appropriate Spring stereotype annotation.",
+            "Resolve circular dependencies by refactoring or using `@Lazy`.",
+            "Check `application.properties` or `@Configuration` for bean definitions."
+          ]
+        },
+        {
+          "id": 34,
+          "title": "Java InterruptedException",
+          "message": "java.lang.InterruptedException: Sleep interrupted",
+          "causes": [
+            "Thread interruption during blocking operations (e.g., `Thread.sleep()`, `wait()`).",
+            "Improper handling of thread interruption in multi-threaded code.",
+            "External interruption from another thread or process."
+          ],
+          "solutions": [
+            "Handle `InterruptedException` with `try-catch` and optionally re-interrupt the thread (`Thread.currentThread().interrupt()`).",
+            "Check for `isInterrupted()` before blocking operations.",
+            "Debug thread interactions to identify the interrupting source."
+          ]
+        },
+        {
+          "id": 35,
+          "title": "Maven/Gradle Plugin Execution Failure",
+          "message": "Plugin execution not covered by lifecycle configuration: org.apache.maven.plugins:maven-compiler-plugin",
+          "causes": [
+            "Missing plugin configuration in `pom.xml` or `build.gradle`.",
+            "Incompatible plugin version with Maven/Gradle or Java.",
+            "Lifecycle phase missing or misconfigured for plugin execution."
+          ],
+          "solutions": [
+            "Add or update the plugin configuration in `pom.xml` (e.g., `<executions><execution><phase>compile</phase></execution></executions>`).",
+            "Check plugin compatibility and update versions.",
+            "Run `mvn help:effective-pom` or `gradle dependencies` to diagnose."
+          ]
+        },
+        {
+          "id": 36,
+          "title": "Java IO Exception: Too Many Open Files",
+          "message": "java.io.IOException: Too many open files",
+          "causes": [
+            "Exceeding the system’s file descriptor limit.",
+            "Unclosed file handles, sockets, or streams in the code.",
+            "High load or concurrent access without resource cleanup."
+          ],
+          "solutions": [
+            "Close all file handles and streams explicitly using `try-with-resources`.",
+            "Increase the file descriptor limit (e.g., `ulimit -n 4096` on Unix).",
+            "Profile resource usage to identify leaks using tools like JProfiler."
+          ]
+        },
+        {
+          "id": 37,
+          "title": "Spring Security CSRF Token Missing",
+          "message": "Invalid CSRF token found in incoming request",
+          "causes": [
+            "CSRF protection is enabled but the token is not included in the request.",
+            "Frontend not sending the CSRF token with forms or AJAX calls.",
+            "Misconfigured Spring Security for stateless APIs."
+          ],
+          "solutions": [
+            "Include the CSRF token in forms or AJAX requests (e.g., using a hidden input or header).",
+            "Disable CSRF for stateless APIs if not needed (e.g., `csrf().disable()` in `SecurityConfig`).",
+            "Ensure Spring Security’s `CsrfFilter` is properly integrated."
+          ]
+        },
+        {
+          "id": 38,
+          "title": "Java Reflection Access Denied",
+          "message": "java.lang.reflect.InvocationTargetException: Access denied",
+          "causes": [
+            "Attempting to access a private or protected method/field without proper permissions.",
+            "Security manager or module system (JPMS) restrictions in Java 9+.",
+            "Incorrect use of `setAccessible(true)` in reflection."
+          ],
+          "solutions": [
+            "Use `field.setAccessible(true)` if security allows, or refactor to use public APIs.",
+            "Adjust Java module descriptors (`module-info.java`) to open packages.",
+            "Disable the security manager or configure permissions if needed."
+          ]
+        },
+        {
+          "id": 39,
+          "title": "Java DateTime Parsing Error",
+          "message": "java.time.format.DateTimeParseException: Text could not be parsed",
+          "causes": [
+            "Incorrect date/time format string in `DateTimeFormatter`.",
+            "Input string doesn’t match the expected pattern.",
+            "Locale or timezone mismatch in parsing."
+          ],
+          "solutions": [
+            "Verify the format pattern (e.g., `yyyy-MM-dd`) matches the input.",
+            "Use `DateTimeFormatter.ofPattern()` with correct locale and timezone.",
+            "Log or debug the input string to identify mismatches."
+          ]
+        },
+        {
+          "id": 40,
+          "title": "Java SSL Certificate Validation Failure",
+          "message": "javax.net.ssl.SSLPeerUnverifiedException: Certificate chain not trusted",
+          "causes": [
+            "Self-signed or untrusted certificate on the server.",
+            "Missing or misconfigured trust store in the JVM.",
+            "Outdated Java version lacking modern cipher suites."
+          ],
+          "solutions": [
+            "Import the server’s certificate into the JVM trust store (e.g., `keytool -import -file cert.pem -keystore cacerts`).",
+            "Update Java to a recent version supporting modern TLS protocols.",
+            "Use a custom `SSLContext` to bypass validation (for development only, with caution)."
+          ]
+        },
+        {
+          "id": 41,
+          "title": "Java NIO File System Error",
+          "message": "java.nio.file.NoSuchFileException: path/to/file.txt",
+          "causes": [
+            "File or directory does not exist at the specified path.",
+            "Incorrect path or relative path resolution.",
+            "Permissions issue preventing access to the file system."
+          ],
+          "solutions": [
+            "Verify the file or directory exists and the path is correct (use absolute paths if needed).",
+            "Check file permissions and user access rights.",
+            "Use `Files.exists()` or `Paths.get()` to debug path issues."
+          ]
+        },
+        {
+          "id": 42,
+          "title": "Spring Data JPA Query Syntax Error",
+          "message": "org.springframework.dao.InvalidDataAccessApiUsageException: JPQL query syntax error",
+          "causes": [
+            "Incorrect JPQL or HQL query syntax.",
+            "Missing or misspelled entity name or field in the query.",
+            "Incompatible JPA provider or version."
+          ],
+          "solutions": [
+            "Validate the JPQL/HQL query using tools like JPA Buddy or SQL logging.",
+            "Ensure entity names and field names match the model classes.",
+            "Update JPA/Hibernate dependencies to compatible versions."
+          ]
+        },
+        {
+          "id": 43,
+          "title": "Java ExecutorService Shutdown Issue",
+          "message": "Task never completes: ExecutorService hangs after shutdown",
+          "causes": [
+            "Failing to call `shutdown()` or `awaitTermination()` on `ExecutorService`.",
+            "Tasks submitted after shutdown attempt to run indefinitely.",
+            "Uncaught exceptions in task execution preventing completion."
+          ],
+          "solutions": [
+            "Call `executor.shutdown()` and `executor.awaitTermination()` to properly close the service.",
+            "Handle exceptions in task execution to ensure completion.",
+            "Use `Future` objects to track and cancel tasks if needed."
+          ]
+        },
+        {
+          "id": 44,
+          "title": "Java Garbage Collection Pause",
+          "message": "Application freezes due to long GC pauses",
+          "causes": [
+            "Insufficient heap memory or poor GC configuration.",
+            "Large object allocations or memory leaks causing frequent GC.",
+            "Inappropriate GC algorithm for the workload (e.g., G1 vs. CMS)."
+          ],
+          "solutions": [
+            "Tune JVM GC settings with `-XX:+UseG1GC`, `-Xmx`, and `-Xms`.",
+            "Profile memory usage with `jvisualvm` or `jprofiler` to identify leaks.",
+            "Optimize object creation and lifecycle to reduce GC pressure."
+          ]
+        },
+        {
+          "id": 45,
+          "title": "Java RMI Connection Error",
+          "message": "java.rmi.ConnectException: Connection refused to host",
+          "causes": [
+            "RMI registry or server not running on the specified host/port.",
+            "Firewall or network restrictions blocking RMI traffic.",
+            "Incorrect RMI URL or binding name."
+          ],
+          "solutions": [
+            "Start the RMI registry with `rmiregistry` or programmatically.",
+            "Check firewall settings and open the RMI port (default 1099).",
+            "Verify the RMI URL (e.g., `rmi://localhost:1099/MyService`)."
+          ]
+        },
+        {
+          "id": 46,
+          "title": "Java Serialization Version Mismatch",
+          "message": "java.io.InvalidClassException: local class incompatible",
+          "causes": [
+            "Different `serialVersionUID` values between serialized and deserialized classes.",
+            "Class structure (fields, methods) changed after serialization.",
+            "Incompatible Java versions or library updates."
+          ],
+          "solutions": [
+            "Explicitly define `serialVersionUID` in the class (e.g., `private static final long serialVersionUID = 1L;`).",
+            "Ensure class structure matches between serialization and deserialization.",
+            "Handle version mismatches with custom `readObject()` and `writeObject()` methods."
+          ]
+        },
+        {
+          "id": 47,
+          "title": "Java JUnit Test Failure",
+          "message": "Test method failed: AssertionError: Expected 5 but was 3",
+          "causes": [
+            "Incorrect assertion or test logic in JUnit tests.",
+            "Mocked behavior or data doesn’t match expected outcomes.",
+            "Test environment differs from production (e.g., database, mocks)."
+          ],
+          "solutions": [
+            "Review and fix assertions in test methods (e.g., `assertEquals(5, result);`).",
+            "Use mocking frameworks (e.g., Mockito) to simulate dependencies correctly.",
+            "Ensure test data and environment match production behavior."
+          ]
+        },
+        {
+          "id": 48,
+          "title": "Java Deployment Failure on Server",
+          "message": "Application deployment fails: JAR not found or incompatible",
+          "causes": [
+            "Missing or misconfigured deployment scripts (e.g., Docker, Kubernetes).",
+            "Incompatible Java version on the server.",
+            "Dependency or library not available in the server environment."
+          ],
+          "solutions": [
+            "Verify deployment scripts and ensure JAR/WAR files are correctly built.",
+            "Install the required Java version on the server (e.g., OpenJDK 17).",
+            "Include all dependencies in the deployment package or configure a repository proxy."
+          ]
+        },
+        {
+          "id": 49,
+          "title": "Java Docker Container Crash",
+          "message": "Container exited with code 137 (Out of Memory)",
+          "causes": [
+            "Insufficient memory allocated to the Docker container.",
+            "Memory leak in the Java application.",
+            "Docker resource limits not properly configured."
+          ],
+          "solutions": [
+            "Increase container memory limits in `docker-compose.yml` or `Dockerfile` (e.g., `--memory=2g`).",
+            "Profile the application for memory leaks using tools like JProfiler.",
+            "Optimize Java heap settings (`-Xmx`, `-Xms`) within the container."
+          ]
+        },
+        {
+          "id": 50,
+          "title": "Java Security Manager Configuration Error",
+          "message": "java.security.AccessControlException: Access denied",
+          "causes": [
+            "Security Manager is enabled but permissions are not configured.",
+            "Policy file (`java.policy`) is missing or misconfigured.",
+            "Application attempting restricted operations (e.g., file I/O, network)."
+          ],
+          "solutions": [
+            "Disable the Security Manager if not required (e.g., `-Djava.security.manager=null`).",
+            "Configure permissions in `java.policy` (e.g., `grant { permission java.io.FilePermission; };`).",
+            "Test with `java -Djava.security.debug=access` to diagnose permission issues."
+          ]
+        }
+      ,{
+        "id": 51,
+        "title": "Java IllegalStateException",
+        "message": "java.lang.IllegalStateException: Cannot perform this operation after onSaveInstanceState",
+        "causes": [
+          "Calling methods like `startActivity()` or `showDialog()` after the activity’s state is saved.",
+          "Lifecycle method timing issues in Android or Java EE applications.",
+          "Misuse of application state management (e.g., in servlets or Spring controllers)."
+        ],
+        "solutions": [
+          "Check the lifecycle state before performing operations (e.g., in Android, use `isFinishing()`).",
+          "Move the operation to an earlier lifecycle method or handle state restoration.",
+          "Debug the application flow to identify state transition issues."
+        ]
+      },
+      {
+        "id": 52,
+        "title": "Java NumberFormatException",
+        "message": "java.lang.NumberFormatException: For input string: 'invalid'",
+        "causes": [
+          "Attempting to parse a non-numeric string as a number (e.g., `Integer.parseInt()`).",
+          "Input data contains unexpected characters or formatting.",
+          "Missing input validation before parsing."
+        ],
+        "solutions": [
+          "Validate input strings before parsing (e.g., use regex or `try-catch` with `NumberFormatException`).",
+          "Use `NumberUtils.toInt()` from Apache Commons for safer parsing.",
+          "Log or debug the input data to identify formatting issues."
+        ]
+      },
+      {
+        "id": 53,
+        "title": "Spring Boot Auto-Configuration Conflict",
+        "message": "org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport: Multiple auto-configurations found for bean",
+        "causes": [
+          "Multiple auto-configuration classes conflicting (e.g., different data source configs).",
+          "Incompatible or duplicate dependencies in `pom.xml` or `build.gradle`.",
+          "Custom configuration overriding Spring Boot defaults improperly."
+        ],
+        "solutions": [
+          "Disable conflicting auto-configurations with `@EnableAutoConfiguration(exclude={...})`.",
+          "Use `mvn dependency:tree` or `gradle dependencies` to resolve dependency conflicts.",
+          "Review `application.properties` or `@Configuration` classes for overrides."
+        ]
+      },
+      {
+        "id": 54,
+        "title": "Java SQLException: Duplicate Entry",
+        "message": "java.sql.SQLException: Duplicate entry 'value' for key 'PRIMARY'",
+        "causes": [
+          "Attempting to insert a duplicate value into a unique or primary key column.",
+          "Database constraint violation (e.g., UNIQUE, PRIMARY KEY).",
+          "Data inconsistency or duplicate record in the input."
+        ],
+        "solutions": [
+          "Check for duplicate values before insertion (e.g., query the database first).",
+          "Modify the SQL statement to handle duplicates (e.g., `INSERT IGNORE` or `ON DUPLICATE KEY UPDATE`).",
+          "Validate input data to prevent duplicates."
+        ]
+      },
+      {
+        "id": 55,
+        "title": "Java Serialization IO Exception",
+        "message": "java.io.StreamCorruptedException: invalid stream header",
+        "causes": [
+          "Corrupted or incompatible serialized data stream.",
+          "Attempting to deserialize data with a different class structure or version.",
+          "File or stream format mismatch (e.g., binary vs. text)."
+        ],
+        "solutions": [
+          "Verify the serialized data and ensure compatibility with the deserializing class.",
+          "Use a consistent `serialVersionUID` across versions.",
+          "Debug the input stream or file format to identify corruption."
+        ]
+      },
+      {
+        "id": 56,
+        "title": "Maven/Gradle Build Cache Corruption",
+        "message": "Build fails with 'Invalid cached data' or inconsistent dependency resolution",
+        "causes": [
+          "Corrupted build cache in `~/.m2/repository` or `~/.gradle/caches`.",
+          "Network issues interrupting dependency downloads.",
+          "Manual edits or interruptions during build causing cache inconsistency."
+        ],
+        "solutions": [
+          "Clear the build cache: `rm -rf ~/.m2/repository` or `rm -rf ~/.gradle/caches`.",
+          "Run `mvn clean install -U` or `gradle clean build --refresh-dependencies`.",
+          "Ensure stable internet and retry the build."
+        ]
+      },
+      {
+        "id": 57,
+        "title": "Java Socket Timeout Exception",
+        "message": "java.net.SocketTimeoutException: Read timed out",
+        "causes": [
+          "Network connection is slow or unresponsive.",
+          "Server not responding within the socket timeout period.",
+          "Incorrect timeout configuration in socket or HTTP client."
+        ],
+        "solutions": [
+          "Increase the socket timeout with `setSoTimeout()` or adjust HTTP client settings.",
+          "Check network connectivity and server status.",
+          "Handle `SocketTimeoutException` with retry logic or fallback strategies."
+        ]
+      },
+      {
+        "id": 58,
+        "title": "Spring MVC Controller Not Mapping",
+        "message": "No mapping found for HTTP request with URI [/api/endpoint]",
+        "causes": [
+          "Missing or incorrect `@RequestMapping` or `@GetMapping` annotation.",
+          "Controller class not scanned by Spring Boot (e.g., missing `@Controller` or `@Component`).",
+          "URL path mismatch or typo in the mapping."
+        ],
+        "solutions": [
+          "Verify the `@RequestMapping` or `@GetMapping` path and HTTP method match the request.",
+          "Annotate the controller with `@Controller` or `@RestController`.",
+          "Enable component scanning or add the package to `@ComponentScan`."
+        ]
+      },
+      {
+        "id": 59,
+        "title": "Java Date Parsing Ambiguity",
+        "message": "java.text.ParseException: Unparseable date: '01/02/2023'",
+        "causes": [
+          "Ambiguous date format (e.g., MM/dd/yyyy vs. dd/MM/yyyy).",
+          "Incorrect `SimpleDateFormat` pattern or locale.",
+          "Input string doesn’t match the expected format."
+        ],
+        "solutions": [
+          "Specify a clear date format in `SimpleDateFormat` (e.g., `new SimpleDateFormat`).",
+          "Use `java.time` API (e.g., `DateTimeFormatter`) for modern, unambiguous parsing.",
+          "Log or debug the input date string to match the expected format."
+        ]
+      },
+      {
+        "id": 60,
+        "title": "Java Thread Pool Rejection Handling",
+        "message": "java.util.concurrent.RejectedExecutionHandler: Task rejected from java.util.concurrent.ThreadPoolExecutor",
+        "causes": [
+          "Thread pool is full and rejecting new tasks due to exhaustion.",
+          "No custom `RejectedExecutionHandler` configured.",
+          "Tasks submitted exceed the pool’s capacity and queue size."
+        ],
+        "solutions": [
+          "Configure a custom `RejectedExecutionHandler` (e.g., `CallerRunsPolicy`) in `ThreadPoolExecutor`.",
+          "Increase thread pool size or queue capacity.",
+          "Implement backpressure or retry logic for rejected tasks."
+        ]
+      },
+      {
+        "id": 61,
+        "title": "Java JAX-RS REST Endpoint Not Found",
+        "message": "404 Not Found for REST endpoint /api/resource",
+        "causes": [
+          "Incorrect path or method annotation in JAX-RS (`@Path`, `@GET`, etc.).",
+          "Resource class not registered with the JAX-RS application.",
+          "Server configuration missing or misconfigured (e.g., Jersey, RESTEasy)."
+        ],
+        "solutions": [
+          "Verify the `@Path` and HTTP method annotations match the request.",
+          "Register the resource class in the JAX-RS application (e.g., `@ApplicationPath('/api')`).",
+          "Check server setup and ensure JAX-RS libraries are included."
+        ]
+      },
+      {
+        "id": 62,
+        "title": "Java NIO Channel Closed Error",
+        "message": "java.nio.channels.ClosedChannelException: Channel is closed",
+        "causes": [
+          "Attempting to use a closed `FileChannel`, `SocketChannel`, or `DatagramChannel`.",
+          "Improper resource cleanup or premature channel closing.",
+          "Concurrent access or race condition closing the channel."
+        ],
+        "solutions": [
+          "Check if the channel is open before operations (e.g., `channel.isOpen()`).",
+          "Use `try-with-resources` to manage channel lifecycle automatically.",
+          "Debug threading or concurrent access to identify premature closures."
+        ]
+      },
+      {
+        "id": 63,
+        "title": "Java XML Parsing Exception",
+        "message": "javax.xml.parsers.ParserConfigurationException: Unable to configure XML parser",
+        "causes": [
+          "Missing or incompatible XML parser library (e.g., Xerces, SAX).",
+          "Invalid XML document or schema.",
+          "Security restrictions or policy files blocking XML parsing."
+        ],
+        "solutions": [
+          "Ensure XML parser libraries are included (e.g., `xml-apis`, `xercesImpl`).",
+          "Validate the XML document against its schema or DTD.",
+          "Configure Java security policies to allow XML parsing if restricted."
+        ]
+      },
+      {
+        "id": 64,
+        "title": "Java Tomcat Deployment Failure",
+        "message": "FAIL - Application at context path /app failed to start",
+        "causes": [
+          "Missing or misconfigured `web.xml` or Spring Boot configuration.",
+          "Incompatible Servlet API or Tomcat version.",
+          "Resource (e.g., database, file) not available on the server."
+        ],
+        "solutions": [
+          "Check `web.xml` or `application.properties` for correct configuration.",
+          "Match Tomcat version with the Servlet API and Java version.",
+          "Ensure all resources (e.g., JDBC drivers, files) are deployed and accessible."
+        ]
+      },
+      {
+        "id": 65,
+        "title": "Java JSON Processing Error",
+        "message": "com.fasterxml.jackson.databind.JsonMappingException: Can not deserialize instance",
+        "causes": [
+          "JSON input doesn’t match the Java class structure (e.g., missing fields).",
+          "Incorrect Jackson annotations (`@JsonProperty`, `@JsonIgnore`).",
+          "Incompatible Jackson version or missing dependency."
+        ],
+        "solutions": [
+          "Verify the JSON structure matches the Java class fields.",
+          "Add or adjust Jackson annotations for proper serialization/deserialization.",
+          "Update Jackson dependencies and ensure compatibility."
+        ]
+      },
+      {
+        "id": 66,
+        "title": "Java Log4j Vulnerability (Log4Shell)",
+        "message": "CVE-2021-44228: Log4j vulnerability detected",
+        "causes": [
+          "Using an outdated version of Log4j vulnerable to remote code execution.",
+          "Improper configuration or logging of user input.",
+          "Missing security patches or updates."
+        ],
+        "solutions": [
+          "Update Log4j to the latest version (e.g., 2.16.0 or higher).",
+          "Mitigate by configuring Log4j to block unsafe lookups (e.g., `-Dlog4j2.formatMsgNoLookups=true`).",
+          "Scan and patch all dependencies using tools like OWASP Dependency-Check."
+        ]
+      },
+      {
+        "id": 67,
+        "title": "Java Microservices Communication Failure",
+        "message": "org.springframework.web.client.RestClientException: I/O error on POST request",
+        "causes": [
+          "Service not running or unreachable (e.g., in Kubernetes or Docker).",
+          "Network issues or misconfigured service discovery (e.g., Eureka, Consul).",
+          "Incorrect API endpoint or protocol (e.g., HTTP vs. HTTPS)."
+        ],
+        "solutions": [
+          "Verify the target service is running and accessible (e.g., check logs, health checks).",
+          "Configure or troubleshoot service discovery and load balancing.",
+          "Ensure the correct endpoint and protocol are used in the client code."
+        ]
+      },
+      {
+        "id": 68,
+        "title": "Java Performance Bottleneck: CPU Spike",
+        "message": "High CPU usage detected in the Java process",
+        "causes": [
+          "Infinite loops, recursive calls, or inefficient algorithms.",
+          "Excessive thread creation or synchronization overhead.",
+          "Poorly optimized database queries or I/O operations."
+        ],
+        "solutions": [
+          "Profile the application with tools like JVisualVM or YourKit to identify CPU-intensive code.",
+          "Optimize algorithms or reduce thread contention with thread pools.",
+          "Tune database queries or use caching (e.g., Ehcache, Redis)."
+        ]
+      },
+      {
+        "id": 69,
+        "title": "Java Javadoc Generation Failure",
+        "message": "Javadoc failed: Error reading file or malformed HTML",
+        "causes": [
+          "Incorrect or missing Javadoc comments in the code.",
+          "Syntax errors or special characters in Javadoc blocks.",
+          "Misconfigured Maven/Gradle Javadoc plugin."
+        ],
+        "solutions": [
+          "Fix Javadoc comments (e.g., ensure proper `@param`, `@return` tags).",
+          "Escape special characters or validate HTML in comments.",
+          "Update or configure the Javadoc plugin (e.g., `maven-javadoc-plugin`)."
+        ]
+      },
+      {
+        "id": 70,
+        "title": "Java Kubernetes Deployment Error",
+        "message": "Pod failed to start: CrashLoopBackOff or ImagePullBackOff",
+        "causes": [
+          "Docker image not built or pushed correctly to the registry.",
+          "Misconfigured Kubernetes manifests (e.g., `deployment.yaml`).",
+          "Resource limits or port conflicts in the cluster."
+        ],
+        "solutions": [
+          "Build and push the Docker image with `docker build` and `docker push`.",
+          "Validate Kubernetes manifests for correct image, ports, and resources.",
+          "Check cluster logs and resource usage with `kubectl describe pod`."
+        ]
+      },{
+        "id": 71,
+        "title": "Java AssertionError",
+        "message": "java.lang.AssertionError: Expected true but got false",
+        "causes": [
+          "Assertions are enabled but the condition fails in the code (e.g., `assert value > 0`).",
+          "Incorrect logic or test case in assertions.",
+          "Assertions not enabled in production or runtime."
+        ],
+        "solutions": [
+          "Enable assertions with `-ea` or `-enableassertions` when running the JVM.",
+          "Review and fix the assertion condition or logic.",
+          "Use logging or debugging instead of assertions in production code."
+        ]
+      },
+      {
+        "id": 72,
+        "title": "Java UnsupportedEncodingException",
+        "message": "java.io.UnsupportedEncodingException: UTF-8",
+        "causes": [
+          "Attempting to use an unsupported character encoding (e.g., non-standard or misspelled encoding).",
+          "Incorrect encoding specified in I/O operations or string conversions.",
+          "Java version or library doesn’t support the encoding."
+        ],
+        "solutions": [
+          "Use standard encodings like `UTF-8` or `ISO-8859-1` and verify spelling.",
+          "Check the Java version and library support for the encoding.",
+          "Debug the encoding specification in `new String(bytes, encoding)` or `OutputStreamWriter`."
+        ]
+      },
+      {
+        "id": 73,
+        "title": "Spring Boot REST API 500 Internal Server Error",
+        "message": "HTTP Status 500 - Internal Server Error for REST endpoint",
+        "causes": [
+          "Uncaught exception in the controller or service layer.",
+          "Database connectivity issues or query errors.",
+          "Misconfigured exception handling or missing `@ExceptionHandler`."
+        ],
+        "solutions": [
+          "Add try-catch blocks or `@ExceptionHandler` in the controller to handle exceptions.",
+          "Check database connection and queries for errors.",
+          "Enable debug logging to trace the root cause of the 500 error."
+        ]
+      },
+      {
+        "id": 74,
+        "title": "Java HashMap Concurrent Access Issue",
+        "message": "java.util.ConcurrentModificationException in HashMap",
+        "causes": [
+          "Modifying a `HashMap` while iterating over it in a multi-threaded environment.",
+          "No synchronization or thread-safe collection used.",
+          "Improper use of iterators or streams on a shared map."
+        ],
+        "solutions": [
+          "Use `ConcurrentHashMap` for thread-safe operations.",
+          "Synchronize access to the `HashMap` with `Collections.synchronizedMap()` or `synchronized` blocks.",
+          "Avoid modifications during iteration or use a separate copy of the map."
+        ]
+      },
+      {
+        "id": 75,
+        "title": "Maven Surefire Plugin Test Failure",
+        "message": "Tests failed: Error reading / surefire-reports/TEST-*.xml",
+        "causes": [
+          "JUnit or TestNG tests throwing exceptions or failing assertions.",
+          "Misconfigured `maven-surefire-plugin` in `pom.xml`.",
+          "Outdated or incompatible test dependencies (e.g., JUnit 4 vs. 5)."
+        ],
+        "solutions": [
+          "Run `mvn test` to debug failing tests and fix assertions or logic.",
+          "Configure `maven-surefire-plugin` with correct versions and parameters in `pom.xml`.",
+          "Update test dependencies to match your Java and framework versions."
+        ]
+      },
+      {
+        "id": 76,
+        "title": "Java Socket Exception: Connection Reset",
+        "message": "java.net.SocketException: Connection reset",
+        "causes": [
+          "Remote server or client abruptly closes the connection.",
+          "Network issue or firewall interrupting the connection.",
+          "Incorrect socket timeout or buffer handling."
+        ],
+        "solutions": [
+          "Verify the remote server’s status and logs for connection issues.",
+          "Adjust socket timeouts or retry logic to handle intermittent network failures.",
+          "Debug network configuration and firewall rules."
+        ]
+      },
+      {
+        "id": 77,
+        "title": "Spring Data JPA Lazy Loading Issue",
+        "message": "org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role",
+        "causes": [
+          "Accessing lazy-loaded entities outside a transaction or Hibernate session.",
+          "Incorrect `@OneToMany` or `@ManyToOne` fetch strategy.",
+          "Session or transaction not properly managed in the service layer."
+        ],
+        "solutions": [
+          "Use `FetchType.EAGER` if lazy loading isn’t needed, or fetch data within a transaction.",
+          "Add `@Transactional` to the service method or use `EntityManager` to manage sessions.",
+          "Profile and optimize entity relationships to minimize lazy loading issues."
+        ]
+      },
+      {
+        "id": 78,
+        "title": "Java File Lock Contention",
+        "message": "java.nio.channels.OverlappingFileLockException: File lock overlap detected",
+        "causes": [
+          "Multiple threads or processes attempting to lock the same file simultaneously.",
+          "Improper file locking or unlocking in NIO operations.",
+          "File system permissions or OS-level locking conflicts."
+        ],
+        "solutions": [
+          "Use `FileLock` with proper try-finally blocks to ensure unlocking.",
+          "Synchronize file access across threads or processes.",
+          "Check file permissions and OS-level locks to resolve conflicts."
+        ]
+      },
+      {
+        "id": 79,
+        "title": "Java JNDI Lookup Failure",
+        "message": "javax.naming.NameNotFoundException: Name [jdbc/myDataSource] not found",
+        "causes": [
+          "JNDI resource (e.g., data source) not configured in the application server (e.g., Tomcat, WildFly).",
+          "Incorrect JNDI name or context in the code.",
+          "Missing or misconfigured `context.xml` or `server.xml`."
+        ],
+        "solutions": [
+          "Configure the data source in the application server’s configuration (e.g., `context.xml` for Tomcat).",
+          "Verify the JNDI name matches the code (`InitialContext.lookup('java:comp/env/jdbc/myDataSource')`).",
+          "Check server logs for JNDI configuration errors."
+        ]
+      },
+      {
+        "id": 80,
+        "title": "Java Apache POI Excel Error",
+        "message": "org.apache.poi.openxml4j.exceptions.InvalidFormatException: File is corrupt or not a valid Excel file",
+        "causes": [
+          "Corrupted or invalid Excel file (.xlsx, .xls) being processed.",
+          "Incorrect Apache POI version or missing dependency for Excel formats.",
+          "File format mismatch (e.g., trying to read .xls with XSSF instead of HSSF)."
+        ],
+        "solutions": [
+          "Validate the Excel file integrity (e.g., open it manually or use a file checker).",
+          "Ensure the correct Apache POI module is used (e.g., `poi-ooxml` for .xlsx, `poi` for .xls).",
+          "Update POI dependencies and check for compatibility with Java and Excel versions."
+        ]
+      },
+      {
+        "id": 81,
+        "title": "Java Lambda Expression Compilation Error",
+        "message": "Lambda expression is not compatible with functional interface",
+        "causes": [
+          "Incorrect lambda syntax or incompatible return type with the functional interface.",
+          "Missing or mismatching method signature in the functional interface.",
+          "Java version doesn’t support the lambda feature (e.g., pre-Java 8)."
+        ],
+        "solutions": [
+          "Verify the lambda expression matches the functional interface’s abstract method signature.",
+          "Check the functional interface (e.g., `Runnable`, `Supplier`) for correct declaration.",
+          "Ensure Java 8 or higher is used and configured in the IDE/build tool."
+        ]
+      },
+      {
+        "id": 82,
+        "title": "Java JAX-WS Web Service Error",
+        "message": "javax.xml.ws.WebServiceException: Could not find WSDL",
+        "causes": [
+          "WSDL file is missing, inaccessible, or misconfigured.",
+          "Incorrect endpoint or service URL in the client code.",
+          "Network or firewall blocking access to the WSDL."
+        ],
+        "solutions": [
+          "Verify the WSDL file exists and is accessible (e.g., check the server URL).",
+          "Update the endpoint address in the client code or configuration.",
+          "Check network settings and ensure firewalls allow SOAP traffic."
+        ]
+      },
+      {
+        "id": 83,
+        "title": "Java Mockito Mocking Failure",
+        "message": "org.mockito.exceptions.misusing.UnnecessaryStubbingException: Unused stubbing",
+        "causes": [
+          "Mocking methods that are never called in the test.",
+          "Incorrect Mockito configuration or stubbing setup.",
+          "Overuse of `when().thenReturn()` without verification."
+        ],
+        "solutions": [
+          "Remove or verify unused stubbed methods in the test.",
+          "Use `verify()` to ensure mocks are called as expected.",
+          "Review Mockito documentation and ensure proper mocking patterns."
+        ]
+      },
+      {
+        "id": 84,
+        "title": "Java AWS SDK Connection Error",
+        "message": "com.amazonaws.SdkClientException: Unable to execute HTTP request",
+        "causes": [
+          "AWS credentials not configured (e.g., `~/.aws/credentials`).",
+          "Incorrect region or endpoint in the AWS SDK configuration.",
+          "Network issues or firewall blocking AWS API access."
+        ],
+        "solutions": [
+          "Configure AWS credentials using the AWS CLI (`aws configure`) or `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` environment variables.",
+          "Set the correct region and endpoint in the SDK (e.g., `Region.US_EAST_1`).",
+          "Verify network connectivity and firewall rules for AWS endpoints."
+        ]
+      },
+      {
+        "id": 85,
+        "title": "Java JMX Monitoring Failure",
+        "message": "java.lang.Exception: JMX connection refused",
+        "causes": [
+          "JMX remote management not enabled or misconfigured in the JVM.",
+          "Incorrect JMX port or host in the client connection.",
+          "Firewall or security restrictions blocking JMX traffic."
+        ],
+        "solutions": [
+          "Enable JMX with JVM options (e.g., `-Dcom.sun.management.jmxremote.port=9999`).",
+          "Verify the JMX port and host in the client (e.g., `service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi`).",
+          "Adjust firewall settings to allow JMX ports (e.g., 9999)."
+        ]
+      },
+      {
+        "id": 86,
+        "title": "Java Spring Cloud Config Server Issue",
+        "message": "org.springframework.cloud.config.ConfigServerException: Cannot clone or pull repository",
+        "causes": [
+          "Config server repository (e.g., Git) not accessible or misconfigured.",
+          "Incorrect Git URL, credentials, or branch in `application.yml`.",
+          "Network issues or repository access restrictions."
+        ],
+        "solutions": [
+          "Verify the Git repository URL, credentials, and branch in `application.yml`.",
+          "Ensure network connectivity and repository permissions.",
+          "Test the Git repository access manually (e.g., `git clone <URL>`)."
+        ]
+      },
+      {
+        "id": 87,
+        "title": "Java Caching Provider Not Found",
+        "message": "javax.cache.CacheException: No cache provider available",
+        "causes": [
+          "Missing caching implementation (e.g., Ehcache, Hazelcast) in the classpath.",
+          "Incorrect or missing dependency for JSR-107 (JCache).",
+          "Misconfigured caching provider in the application."
+        ],
+        "solutions": [
+          "Add a caching provider dependency (e.g., `ehcache` or `hazelcast`) in `pom.xml` or `build.gradle`.",
+          "Configure the caching provider in your application (e.g., `Caching.getCachingProvider()`).",
+          "Check documentation for JCache setup and compatibility."
+        ]
+      },
+      {
+        "id": 88,
+        "title": "Java WebSocket Connection Error",
+        "message": "javax.websocket.DeploymentException: The HTTP response status code is not OK",
+        "causes": [
+          "WebSocket server not running or misconfigured.",
+          "Incorrect WebSocket URL or protocol (e.g., ws:// vs. wss://).",
+          "Firewall or proxy blocking WebSocket traffic."
+        ],
+        "solutions": [
+          "Verify the WebSocket server is running and accessible (e.g., check logs, port).",
+          "Ensure the correct URL and protocol (e.g., `ws://localhost:8080/websocket`).",
+          "Check network settings and allow WebSocket ports (e.g., 80, 443)."
+        ]
+      },
+      {
+        "id": 89,
+        "title": "Java JMeter Load Test Failure",
+        "message": "JMeter test fails with 'Response code: 500' or 'Timeout exceeded'",
+        "causes": [
+          "Application under test cannot handle the load (e.g., too many concurrent users).",
+          "Incorrect JMeter configuration (e.g., thread count, ramp-up period).",
+          "Database or resource bottleneck during testing."
+        ],
+        "solutions": [
+          "Optimize the application for performance (e.g., tune thread pools, database queries).",
+          "Adjust JMeter settings (e.g., reduce thread count, increase ramp-up time).",
+          "Profile the application during testing to identify bottlenecks."
+        ]
+      },
+      {
+        "id": 90,
+        "title": "Java Native Library Load Failure",
+        "message": "java.lang.UnsatisfiedLinkError: Native Library libname.so not found",
+        "causes": [
+          "Native library (.so, .dll) not in the system library path.",
+          "Incorrect `System.loadLibrary()` or `System.load()` call.",
+          "Incompatible OS or architecture (e.g., 32-bit vs. 64-bit)."
+        ],
+        "solutions": [
+          "Add the native library path to `java.library.path` (e.g., `-Djava.library.path=/path/to/lib`).",
+          "Verify the library file exists and matches the OS/architecture.",
+          "Use `System.load()` with the full path if `loadLibrary()` fails."
+        ]
+      }
+  ]
