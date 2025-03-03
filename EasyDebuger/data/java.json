@@ -1183,6 +1183,7 @@
           "Verify the JNDI name matches the code (`InitialContext.lookup('java:comp/env/jdbc/myDataSource')`).",
           "Check server logs for JNDI configuration errors."
         ]
+        
       },
       {
         "id": 80,
