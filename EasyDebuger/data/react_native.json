@@ -1,0 +1,1502 @@
+[
+    {
+      "id": 1,
+      "title": "Module not found: Can't resolve in React Native",
+      "message": "Module not found: Can't resolve './SomeModule'",
+      "causes": [
+        "Incorrect file path or typo in import statement.",
+        "Module not installed via npm or yarn.",
+        "Case sensitivity mismatch in file names (common on case-sensitive file systems like iOS)."
+      ],
+      "solutions": [
+        "Verify the file path and correct any typos.",
+        "Ensure the module is installed using `npm install` or `yarn add`.",
+        "Restart the Metro Bundler after adding new files or dependencies."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "React Native CLI not found",
+      "message": "Command 'react-native' not found.",
+      "causes": [
+        "React Native CLI not installed globally.",
+        "Running `react-native` commands without changing to the project directory.",
+        "Using an outdated Node.js version incompatible with the CLI."
+      ],
+      "solutions": [
+        "Install React Native CLI globally: `npm install -g @react-native-community/cli`.",
+        "Navigate to the project directory using `cd project-name` before running commands.",
+        "Ensure Node.js version is compatible (e.g., use `nvm` to switch versions)."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Unable to load script from assets 'index.android.bundle'",
+      "message": "Unable to load script. Make sure you're either running Metro or that the file 'index.android.bundle' is correctly bundled.",
+      "causes": [
+        "Metro Bundler not running.",
+        "Bundle file not generated for Android.",
+        "Incorrect configuration in `android/app/build.gradle`."
+      ],
+      "solutions": [
+        "Start the Metro Bundler with `npx react-native start`.",
+        "Generate the bundle manually: `npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle`.",
+        "Ensure `assets` directory exists in `android/app/src/main/`."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Red Screen: Undefined is not an object",
+      "message": "Undefined is not an object (evaluating 'someObject.someProperty').",
+      "causes": [
+        "Accessing a property of a null or undefined object.",
+        "Incorrect destructuring of props or state.",
+        "Component rendering before asynchronous data is available."
+      ],
+      "solutions": [
+        "Use optional chaining: `someObject?.someProperty`.",
+        "Add default values or loading states for asynchronous data.",
+        "Debug with `console.log` to trace the undefined variable."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "React Native app crashes on launch (iOS)",
+      "message": "App crashes immediately on iOS simulator or device with no error log.",
+      "causes": [
+        "Missing or incorrect Info.plist configurations (e.g., permissions).",
+        "Native module linking issues after installing a new library.",
+        "Xcode build settings misconfiguration (e.g., architecture mismatch)."
+      ],
+      "solutions": [
+        "Check `Info.plist` for required keys (e.g., camera or location permissions).",
+        "Run `npx pod-install` to link native modules for iOS.",
+        "Clean and rebuild the project in Xcode: `Product > Clean Build Folder`."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "React Native app crashes on launch (Android)",
+      "message": "App crashes on Android emulator/device with a generic error.",
+      "causes": [
+        "Incorrect permissions in `AndroidManifest.xml`.",
+        "Native module not linked properly.",
+        "Mismatched JDK version or Android SDK issues."
+      ],
+      "solutions": [
+        "Verify `AndroidManifest.xml` for missing permissions (e.g., INTERNET).",
+        "Run `cd android && ./gradlew clean` to clean the build, then rebuild.",
+        "Ensure JDK 11 or compatible is installed and set in environment variables."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Failed to install package due to directory mismatch",
+      "message": "'npm install' or 'yarn add' installs packages in the wrong directory.",
+      "causes": [
+        "Running package installation commands outside the project directory.",
+        "Multiple nested node_modules directories causing confusion.",
+        "Symbolic links disrupting package resolution."
+      ],
+      "solutions": [
+        "Navigate to the project root directory before running commands: `cd project-name`.",
+        "Delete `node_modules` and `package-lock.json` (or `yarn.lock`), then reinstall.",
+        "Avoid using symbolic links in the project structure."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "White Screen on Launch (No Errors)",
+      "message": "App shows a white screen on launch without any error messages.",
+      "causes": [
+        "Syntax error in a component causing a silent failure.",
+        "Metro Bundler not running or failed to connect.",
+        "Incorrect entry file (`index.js`) or root component setup."
+      ],
+      "solutions": [
+        "Check the console for errors using `adb logcat` (Android) or Xcode logs (iOS).",
+        "Ensure Metro Bundler is running: `npx react-native start`.",
+        "Verify `App.js` and `index.js` are correctly set up with `AppRegistry.registerComponent`."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "React Native Navigation not working",
+      "message": "Navigation between screens fails or throws errors.",
+      "causes": [
+        "Improper setup of navigation library (e.g., React Navigation).",
+        "Missing navigation props in components.",
+        "Version mismatch between React Navigation and React Native."
+      ],
+      "solutions": [
+        "Follow the official setup guide for React Navigation (e.g., install `@react-navigation/native`).",
+        "Pass navigation props correctly to child components.",
+        "Ensure library versions are compatible with your React Native version."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Unable to resolve module 'react-native-gesture-handler'",
+      "message": "Unable to resolve module 'react-native-gesture-handler' from file.",
+      "causes": [
+        "Dependency not installed.",
+        "Metro cache not updated after installing a new package.",
+        "Native linking not performed for iOS or Android."
+      ],
+      "solutions": [
+        "Install the package: `npm install react-native-gesture-handler` or `yarn add react-native-gesture-handler`.",
+        "Clear Metro cache: `npx react-native start --reset-cache`.",
+        "Run `npx pod-install` for iOS and rebuild the Android app."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "CORS Error when fetching API in React Native",
+      "message": "CORS error occurs despite working in a browser-based React app.",
+      "causes": [
+        "Backend server not configured to allow mobile app requests.",
+        "Misunderstanding CORS in React Native (mobile apps aren’t subject to browser CORS).",
+        "SSL issues when fetching from HTTPS in development."
+      ],
+      "solutions": [
+        "Ensure the backend allows requests from all origins (or specific mobile origins).",
+        "Use HTTP for local development or add SSL certificates.",
+        "Debug with tools like Postman to verify API accessibility."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Environment variables not loaded",
+      "message": "Environment variables are undefined in React Native app.",
+      "causes": [
+        "Incorrect setup of `react-native-dotenv` or `.env` file.",
+        "Metro Bundler not restarted after adding variables.",
+        "Variables not prefixed appropriately for the library."
+      ],
+      "solutions": [
+        "Install and configure `react-native-dotenv`: `npm install react-native-dotenv`.",
+        "Restart Metro Bundler after updating `.env` file.",
+        "Ensure variables are imported correctly in code."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Failed to build iOS app: CocoaPods error",
+      "message": "'pod install' fails with errors like 'CocoaPods could not find compatible versions'.",
+      "causes": [
+        "Outdated CocoaPods version.",
+        "Conflicting dependencies in `Podfile`.",
+        "Missing Ruby environment setup."
+      ],
+      "solutions": [
+        "Update CocoaPods: `sudo gem install cocoapods`.",
+        "Clear CocoaPods cache: `pod cache clean --all`, then `pod install`.",
+        "Ensure Ruby is correctly installed using `rbenv` or `rvm`."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Android emulator not starting",
+      "message": "Android emulator fails to launch or connect.",
+      "causes": [
+        "Android Emulator not installed or configured in Android Studio.",
+        "Insufficient system resources (e.g., RAM, CPU).",
+        "Hardware acceleration (HAXM or Hypervisor Framework) not enabled."
+      ],
+      "solutions": [
+        "Install an emulator via Android Studio AVD Manager.",
+        "Enable hardware acceleration in BIOS (VT-x for Intel, AMD-V for AMD).",
+        "Use a physical device for testing if emulator issues persist."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Styles not applying correctly",
+      "message": "Styles defined in StyleSheet are not applied or behave unexpectedly.",
+      "causes": [
+        "Incorrect StyleSheet syntax (e.g., using CSS syntax instead of JS objects).",
+        "Styles overridden by parent components.",
+        "Platform-specific styles not handled (e.g., iOS vs Android)."
+      ],
+      "solutions": [
+        "Use JavaScript object syntax in `StyleSheet.create`.",
+        "Debug with `console.log` to check applied styles.",
+        "Apply platform-specific styles using `Platform.OS`."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Permissions Denied Error",
+      "message": "App crashes or fails due to missing permissions (e.g., camera, location).",
+      "causes": [
+        "Permissions not requested before accessing native APIs.",
+        "Missing permissions in `AndroidManifest.xml` or `Info.plist`.",
+        "User denied permissions and app lacks graceful handling."
+      ],
+      "solutions": [
+        "Use `react-native-permissions` to request permissions dynamically.",
+        "Add necessary permissions in `AndroidManifest.xml` and `Info.plist`.",
+        "Handle permission denial cases with fallback UI."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "React Native app stuck on splash screen",
+      "message": "App hangs on the splash screen indefinitely.",
+      "causes": [
+        "Uncaught errors during app initialization.",
+        "Slow network requests blocking the main thread.",
+        "Misconfigured splash screen setup in native code."
+      ],
+      "solutions": [
+        "Debug with `adb logcat` (Android) or Xcode logs (iOS) to find errors.",
+        "Use `setTimeout` or async handling for heavy initialization tasks.",
+        "Verify splash screen setup in `android/app/src/main/res/drawable` and iOS LaunchScreen."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Metro Bundler not refreshing changes",
+      "message": "Code changes are not reflected unless Metro is manually restarted.",
+      "causes": [
+        "Metro cache corruption.",
+        "File watcher issues due to system limits or editor auto-save.",
+        "Large project size slowing down Metro."
+      ],
+      "solutions": [
+        "Clear Metro cache: `npx react-native start --reset-cache`.",
+        "Increase file watcher limits on your OS (e.g., `sysctl` on macOS).",
+        "Split large files or use lazy loading to reduce Metro load."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Third-party library causes crash",
+      "message": "App crashes after adding a new library like 'react-native-firebase'.",
+      "causes": [
+        "Native modules not linked properly.",
+        "Version incompatibility between library and React Native.",
+        "Missing native dependencies (e.g., Google Services for Firebase)."
+      ],
+      "solutions": [
+        "Run `npx react-native link` for older RN versions or manually link for newer ones.",
+        "Check library compatibility with your React Native version.",
+        "Follow library-specific setup guides (e.g., add `google-services.json` for Firebase)."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Gesture conflicts on touch events",
+      "message": "Touch events (e.g., swipe, tap) behave inconsistently.",
+      "causes": [
+        "Multiple gesture handlers overlapping (e.g., ScrollView and PanResponder).",
+        "Incorrect configuration of `react-native-gesture-handler`.",
+        "Platform-specific touch handling differences."
+      ],
+      "solutions": [
+        "Use a single gesture handler for overlapping components.",
+        "Wrap app with `GestureHandlerRootView` for `react-native-gesture-handler`.",
+        "Test and adjust for platform differences using `Platform.OS`."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "App rejected by App Store",
+      "message": "App submission rejected due to missing metadata or crashes.",
+      "causes": [
+        "Missing privacy descriptions in `Info.plist` for permissions.",
+        "App crashes during review due to unhandled edge cases.",
+        "Non-compliance with App Store guidelines (e.g., missing icons)."
+      ],
+      "solutions": [
+        "Add descriptions for permissions (e.g., `NSCameraUsageDescription`).",
+        "Test edge cases thoroughly before submission.",
+        "Ensure all required assets (e.g., app icons, screenshots) are provided."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Slow performance on low-end devices",
+      "message": "App lags or freezes on older or low-end devices.",
+      "causes": [
+        "Heavy animations or large lists without optimization.",
+        "Excessive re-renders in components.",
+        "Large image assets not optimized for mobile."
+      ],
+      "solutions": [
+        "Use `FlatList` with `initialNumToRender` for large lists.",
+        "Optimize re-renders with `React.memo` or `useMemo`.",
+        "Compress images and use smaller resolutions."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Debugging not working in Chrome DevTools",
+      "message": "Cannot connect to Chrome DevTools for debugging.",
+      "causes": [
+        "Incorrect setup of React Native Debugger or Chrome.",
+        "Port conflict blocking debugger connection.",
+        "Using remote debugging on a physical device without USB."
+      ],
+      "solutions": [
+        "Enable remote JS debugging in the app (shake device > Debug).",
+        "Ensure port `8081` is free or change it in `react-native start --port`.",
+        "Use USB debugging for physical devices or Wi-Fi debugging with proper setup."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Hot Reloading not working",
+      "message": "Changes don’t reflect in the app despite hot reloading enabled.",
+      "causes": [
+        "Corrupted Metro cache.",
+        "File watcher not detecting changes due to system limits.",
+        "Syntax errors preventing reload."
+      ],
+      "solutions": [
+        "Clear Metro cache: `npx react-native start --reset-cache`.",
+        "Enable hot reloading in dev menu (shake device > Enable Hot Reloading).",
+        "Check for syntax errors in changed files."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Fonts not loading correctly",
+      "message": "Custom fonts do not appear in the app.",
+      "causes": [
+        "Fonts not linked properly in `react-native.config.js`.",
+        "Missing font files in `android/app/src/main/assets/fonts` or iOS resources.",
+        "Incorrect font family name usage."
+      ],
+      "solutions": [
+        "Run `npx react-native-asset` to link fonts.",
+        "Verify font files are placed in correct directories.",
+        "Ensure the exact font family name matches in `Text` style."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Push notifications not working",
+      "message": "Push notifications fail to appear on iOS or Android.",
+      "causes": [
+        "Missing APNs certificates for iOS or FCM setup for Android.",
+        "Permissions not requested for notifications.",
+        "Incorrect handling of notifications in foreground/background."
+      ],
+      "solutions": [
+        "Set up APNs for iOS and FCM for Android following official guides.",
+        "Request notification permissions using libraries like `react-native-permissions`.",
+        "Handle notifications with `react-native-push-notification` or similar libraries."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Gradle build failure (Android)",
+      "message": "Execution failed for task ':app:mergeDexDebug'.",
+      "causes": [
+        "MultiDex issues due to exceeding method count limit.",
+        "Conflicting dependencies in `build.gradle`.",
+        "Outdated Gradle version."
+      ],
+      "solutions": [
+        "Enable MultiDex in `android/app/build.gradle`: `multiDexEnabled true`.",
+        "Resolve dependency conflicts using `./gradlew app:dependencies`.",
+        "Update Gradle to a compatible version in `android/gradle/wrapper/gradle-wrapper.properties`."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "React Native version mismatch",
+      "message": "App fails with errors indicating React Native version mismatches.",
+      "causes": [
+        "Dependencies requiring a specific React Native version.",
+        "Team members using different React Native versions.",
+        "Incomplete upgrade process during version update."
+      ],
+      "solutions": [
+        "Define a `.nvmrc` file or `engines` field in `package.json`.",
+        "Run `npx react-native upgrade` to resolve version conflicts.",
+        "Standardize React Native version across the team."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Network request failed on physical device",
+      "message": "Fetch requests fail on physical devices but work on emulators.",
+      "causes": [
+        "Localhost used in API URLs (unreachable on physical devices).",
+        "SSL certificate issues with HTTPS requests.",
+        "Missing INTERNET permission in `AndroidManifest.xml`."
+      ],
+      "solutions": [
+        "Use the LAN IP address for API calls on physical devices (e.g., `http://192.168.x.x:port`).",
+        "Disable SSL verification temporarily for debugging (not in production).",
+        "Add `<uses-permission android:name=\"android.permission.INTERNET\" />` in `AndroidManifest.xml`."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Memory leak warning",
+      "message": "Warning: Cannot update during an existing state transition.",
+      "causes": [
+        "State updates in event handlers or `useEffect` without cleanup.",
+        "Async operations completing after component unmounts.",
+        "Excessive use of listeners or subscriptions."
+      ],
+      "solutions": [
+        "Move state updates to proper lifecycle methods or `useEffect`.",
+        "Use cleanup functions in `useEffect` to cancel async tasks.",
+        "Remove unused event listeners or subscriptions on unmount."
+      ]
+    },{
+        "id": 31,
+        "title": "Invariant Violation: ViewPropTypes has been removed",
+        "message": "Invariant Violation: ViewPropTypes has been removed from React Native.",
+        "causes": [
+          "Using deprecated `ViewPropTypes` in a component.",
+          "Third-party library relying on outdated React Native APIs.",
+          "Incomplete upgrade to a newer React Native version."
+        ],
+        "solutions": [
+          "Replace `ViewPropTypes` with `StyleSheet` or direct style props.",
+          "Update the third-party library to a version compatible with React Native 0.62+.",
+          "Follow the React Native upgrade guide for deprecated APIs."
+        ]
+      },
+      {
+        "id": 32,
+        "title": "AsyncStorage not persisting data",
+        "message": "Data stored in AsyncStorage disappears after app restart.",
+        "causes": [
+          "Incorrect usage of AsyncStorage API (e.g., not awaiting promises).",
+          "Storage limit exceeded for AsyncStorage.",
+          "App permissions or iOS simulator issues clearing storage."
+        ],
+        "solutions": [
+          "Ensure proper async/await usage: `await AsyncStorage.setItem('key', value)`.",
+          "Use alternative storage like `react-native-mmkv` for larger data.",
+          "Clear simulator data or reset permissions if needed."
+        ]
+      },
+      {
+        "id": 33,
+        "title": "React Native app stuck on 'Loading dependency graph'",
+        "message": "Metro Bundler hangs on 'Loading dependency graph, done.'",
+        "causes": [
+          "Large project with many dependencies slowing Metro.",
+          "Port conflict (default port 8081 already in use).",
+          "Corrupted Metro cache or node_modules."
+        ],
+        "solutions": [
+          "Run Metro on a different port: `npx react-native start --port 8082`.",
+          "Clear Metro cache: `npx react-native start --reset-cache`.",
+          "Delete `node_modules` and reinstall dependencies."
+        ]
+      },
+      {
+        "id": 34,
+        "title": "Jest tests fail with React Native",
+        "message": "Jest test suite fails with errors like 'Unexpected token' or 'Cannot find module'.",
+        "causes": [
+          "Missing Jest preset for React Native.",
+          "Incorrect setup of Jest mocks for native modules.",
+          "Babel configuration mismatch for React Native."
+        ],
+        "solutions": [
+          "Add `preset: 'react-native'` in `jest.config.js`.",
+          "Mock native modules using `jest.mock('react-native-some-module')`.",
+          "Ensure Babel is configured correctly in `babel.config.js`."
+        ]
+      },
+      {
+        "id": 35,
+        "title": "Unable to connect to React Native Debugger",
+        "message": "React Native Debugger fails to connect, showing 'Waiting for React to connect'.",
+        "causes": [
+          "Incorrect port configuration in React Native Debugger.",
+          "Metro Bundler running on a different port than expected.",
+          "Network issues blocking WebSocket connection."
+        ],
+        "solutions": [
+          "Set the correct port in React Native Debugger (default: 8081).",
+          "Check Metro port: `npx react-native start --port 8081`.",
+          "Disable firewall or VPN temporarily to test connection."
+        ]
+      },
+      {
+        "id": 36,
+        "title": "App freezes during heavy computation",
+        "message": "App becomes unresponsive when performing complex operations.",
+        "causes": [
+          "Blocking the main thread with synchronous computations.",
+          "Large JSON parsing or data processing in JavaScript thread.",
+          "Unoptimized component rendering during state updates."
+        ],
+        "solutions": [
+          "Offload heavy tasks to native modules or Web Workers.",
+          "Use `react-native-background-task` for background processing.",
+          "Optimize rendering with `React.memo` or `useMemo`."
+        ]
+      },
+      {
+        "id": 37,
+        "title": "Incorrect splash screen image size",
+        "message": "Splash screen image appears stretched or pixelated.",
+        "causes": [
+          "Incorrect image dimensions for device resolutions.",
+          "Missing multiple resolution assets (@2x, @3x).",
+          "Improper configuration in `android/app/src/main/res` or iOS."
+        ],
+        "solutions": [
+          "Provide images for all resolutions (e.g., `splash.png`, `splash@2x.png`).",
+          "Configure `launch_screen.xml` (Android) or LaunchScreen.storyboard (iOS).",
+          "Use `react-native-splash-screen` library for easier setup."
+        ]
+      },
+      {
+        "id": 38,
+        "title": "FlatList not rendering items",
+        "message": "FlatList renders an empty list despite having data.",
+        "causes": [
+          "Missing `keyExtractor` or `renderItem` props.",
+          "Data prop not an array or incorrectly formatted.",
+          "Height or width of FlatList not set in styles."
+        ],
+        "solutions": [
+          "Add `keyExtractor={(item) => item.id.toString()}` and `renderItem`.",
+          "Ensure `data` prop is an array: `data={Array.isArray(data) ? data : []}`.",
+          "Set explicit styles: `style={{ flex: 1 }}` on FlatList."
+        ]
+      },
+      {
+        "id": 39,
+        "title": "React Native app fails on TestFlight",
+        "message": "App works fine locally but crashes on TestFlight builds.",
+        "causes": [
+          "Missing bitcode or incorrect build settings in Xcode.",
+          "Environment variables not set for production builds.",
+          "Code signing issues or provisioning profile mismatch."
+        ],
+        "solutions": [
+          "Enable bitcode in Xcode: `Build Settings > Enable Bitcode`.",
+          "Ensure `.env` variables are included in production builds.",
+          "Verify code signing and provisioning profiles in Xcode."
+        ]
+      },
+      {
+        "id": 40,
+        "title": "Images not loading in production",
+        "message": "Images load in development but fail in production builds.",
+        "causes": [
+          "Relative paths used for images instead of imports.",
+          "Images not bundled properly in production.",
+          "Assets missing from `android/app/src/main/res` or iOS bundle."
+        ],
+        "solutions": [
+          "Import images in JS: `import image from './image.png'`.",
+          "Use `react-native-asset` to link assets properly.",
+          "Verify assets are copied during production build."
+        ]
+      },
+      {
+        "id": 41,
+        "title": "State updates not reflecting in UI",
+        "message": "State changes occur but the UI doesn’t update.",
+        "causes": [
+          "Mutating state directly instead of using `setState` or hooks.",
+          "Shallow comparison failing due to nested objects.",
+          "Component not re-rendering due to memoization."
+        ],
+        "solutions": [
+          "Use `setState` or `useState` hooks to update state.",
+          "Deep clone objects with spread operator: `setState({ ...state, updatedField })`.",
+          "Avoid unnecessary `React.memo` blocking updates."
+        ]
+      },
+      {
+        "id": 42,
+        "title": "React Native CLI build fails due to JDK mismatch",
+        "message": "Gradle fails with 'Could not initialize class org.codehaus.groovy'.",
+        "causes": [
+          "Using an incompatible JDK version for Android builds.",
+          "JAVA_HOME environment variable pointing to wrong JDK.",
+          "Outdated Gradle version in project."
+        ],
+        "solutions": [
+          "Install JDK 11 and set `JAVA_HOME` environment variable.",
+          "Update Gradle in `android/gradle/wrapper/gradle-wrapper.properties`.",
+          "Run `./gradlew cleanBuildCache` to clear build issues."
+        ]
+      },
+      {
+        "id": 43,
+        "title": "Accessibility issues in React Native",
+        "message": "Screen readers fail to interpret components correctly.",
+        "causes": [
+          "Missing accessibility labels or roles on interactive elements.",
+          "Improper nesting of touchable components.",
+          "Dynamic content updates not announced to screen readers."
+        ],
+        "solutions": [
+          "Add `accessibilityLabel` and `accessibilityRole` to components.",
+          "Ensure touchables wrap only one child: `<TouchableOpacity><View>...</View></TouchableOpacity>`.",
+          "Use `AccessibilityInfo.announceForAccessibility` for dynamic updates."
+        ]
+      },
+      {
+        "id": 44,
+        "title": "React Native Animated API causing stutter",
+        "message": "Animations lag or stutter during execution.",
+        "causes": [
+          "Using JavaScript-based animations on heavy UI updates.",
+          "Not utilizing `useNativeDriver` for animations.",
+          "Main thread blocked by other operations."
+        ],
+        "solutions": [
+          "Enable `useNativeDriver: true` in Animated API calls.",
+          "Optimize UI updates by reducing re-renders.",
+          "Profile performance with React Native Performance Monitor."
+        ]
+      },
+      {
+        "id": 45,
+        "title": "React Native app rejected by Google Play",
+        "message": "App submission rejected due to policy violations or crashes.",
+        "causes": [
+          "Missing privacy policy for sensitive permissions.",
+          "App crashes due to unhandled edge cases in production.",
+          "APK not optimized for different device architectures."
+        ],
+        "solutions": [
+          "Add a privacy policy link in Play Console and app.",
+          "Test edge cases on various devices before submission.",
+          "Generate App Bundle instead of APK for better compatibility."
+        ]
+      },
+      {
+        "id": 46,
+        "title": "Conflicting native module versions",
+        "message": "App crashes due to duplicate native modules.",
+        "causes": [
+          "Multiple packages including the same native dependency.",
+          "Incorrect linking of native modules.",
+          "Outdated dependency causing conflicts."
+        ],
+        "solutions": [
+          "Resolve conflicts with `resolutions` field in `package.json` ( Yarn ).",
+          "Manually link native modules and check for duplicates.",
+          "Update all dependencies to compatible versions."
+        ]
+      },
+      {
+        "id": 47,
+        "title": "React Native CLI init fails with template error",
+        "message": "'npx react-native init' fails with 'Template not found'.",
+        "causes": [
+          "Network issues preventing template download.",
+          "Using an outdated version of React Native CLI.",
+          "Corrupted npm/Yarn cache."
+        ],
+        "solutions": [
+          "Clear npm/Yarn cache: `npm cache clean --force` or `yarn cache clean`.",
+          "Update React Native CLI: `npm install -g @react-native-community/cli`.",
+          "Retry with a stable internet connection."
+        ]
+      },
+      {
+        "id": 48,
+        "title": "App icon not updating after change",
+        "message": "New app icon doesn’t appear after updating assets.",
+        "causes": [
+          "Old icon cached in device or simulator.",
+          "Incorrect icon sizes or naming in `android/app/src/main/res` or iOS.",
+          "Build not cleaned after updating assets."
+        ],
+        "solutions": [
+          "Clear device/simulator cache or uninstall/reinstall app.",
+          "Verify icon sizes and naming in `mipmap` (Android) or `Images.xcassets` (iOS).",
+          "Clean build: `cd android && ./gradlew clean` or Xcode clean."
+        ]
+      },
+      {
+        "id": 49,
+        "title": "Expo app fails to run on device",
+        "message": "Expo Go app shows 'Something went wrong' when scanning QR code.",
+        "causes": [
+          "Expo CLI not running locally.",
+          "Device and computer not on the same network.",
+          "Outdated Expo app on device."
+        ],
+        "solutions": [
+          "Start Expo CLI: `npx expo start --tunnel`.",
+          "Ensure device and computer are on the same Wi-Fi network.",
+          "Update Expo Go app to the latest version."
+        ]
+      },
+      {
+        "id": 50,
+        "title": "React Native WebView not rendering",
+        "message": "WebView component displays a blank screen.",
+        "causes": [
+          "Missing `react-native-webview` package.",
+          "Invalid URL or HTTPS enforcement blocking content.",
+          "Content blocked by device security settings."
+        ],
+        "solutions": [
+          "Install package: `npm install react-native-webview`.",
+          "Verify URL and use HTTPS (or bypass for development).",
+          "Check device logs for content security errors."
+        ]
+      },
+      {
+        "id": 51,
+        "title": "Hermes engine causing crashes",
+        "message": "App crashes with Hermes engine enabled.",
+        "causes": [
+          "Incompatible JavaScript syntax with Hermes.",
+          "Third-party library not Hermes-compatible.",
+          "Misconfigured Hermes in `android/app/build.gradle`."
+        ],
+        "solutions": [
+          "Disable Hermes temporarily: `enableHermes: false` in `build.gradle`.",
+          "Update libraries to Hermes-compatible versions.",
+          "Polyfill unsupported syntax (e.g., `Proxy`, `Symbol`) with `react-native-get-random-values`."
+        ]
+      },
+      {
+        "id": 52,
+        "title": "Localization not working",
+        "message": "App displays default language despite locale settings.",
+        "causes": [
+          "Missing `react-native-localize` or `i18n-js` setup.",
+          "Device locale not detected correctly.",
+          "Translation files not formatted or loaded properly."
+        ],
+        "solutions": [
+          "Set up localization with `react-native-localize` and `i18n-js`.",
+          "Detect locale: `import * as RNLocalize from 'react-native-localize'`.",
+          "Verify translation JSON files and loading logic."
+        ]
+      },
+      {
+        "id": 53,
+        "title": "React Native CLI outdated warning",
+        "message": "Warning: You are using an outdated version of React Native CLI.",
+        "causes": [
+          "Global CLI version not updated after Node upgrade.",
+          "Project using older CLI version in `package.json`.",
+          "Deprecated CLI commands causing warnings."
+        ],
+        "solutions": [
+          "Update global CLI: `npm install -g @react-native-community/cli`.",
+          "Update CLI in project: `npm install @react-native-community/cli`.",
+          "Check for deprecated commands in scripts and replace."
+        ]
+      },
+      {
+        "id": 54,
+        "title": "Memory usage spikes on navigation",
+        "message": "App slows down or crashes after navigating between screens.",
+        "causes": [
+          "Large component trees not unmounted.",
+          "Images or assets not released from memory.",
+          "Navigation stack growing without cleanup."
+        ],
+        "solutions": [
+          "Use navigation.replace() to avoid stacking screens.",
+          "Clear image caches: `Image.prefetch('url', () => {})`.",
+          "Unmount heavy components with lifecycle cleanup."
+        ]
+      },
+      {
+        "id": 55,
+        "title": "React Native Maps crashing on Android",
+        "message": "App crashes when rendering MapView on Android.",
+        "causes": [
+          "Missing Google Play Services API key.",
+          "Incorrect setup of `react-native-maps`.",
+          "Device lacking Play Services or emulator misconfiguration."
+        ],
+        "solutions": [
+          "Add API key in `android/app/src/main/AndroidManifest.xml`.",
+          "Follow `react-native-maps` setup guide for Android.",
+          "Test on a device with Play Services or configure emulator."
+        ]
+      },
+      {
+        "id": 56,
+        "title": "Fast Refresh breaking state",
+        "message": "State resets unexpectedly during Fast Refresh.",
+        "causes": [
+          "Fast Refresh re-rendering components incorrectly.",
+          "Module exports changing during development.",
+          "Hot module replacement bugs in React Native."
+        ],
+        "solutions": [
+          "Disable Fast Refresh temporarily: Shake device > Disable Fast Refresh.",
+          "Restart Metro Bundler after significant code changes.",
+          "Avoid exporting anonymous functions or components."
+        ]
+      },
+      {
+        "id": 57,
+        "title": "App size too large for submission",
+        "message": "APK or IPA exceeds store size limits (e.g., Google Play 150MB).",
+        "causes": [
+          "Large assets (images, videos) not optimized.",
+          "Unnecessary dependencies bloating the bundle.",
+          "Not using App Bundle format for Android."
+        ],
+        "solutions": [
+          "Compress assets or use dynamic delivery for large files.",
+          "Audit dependencies with `react-native-bundle-visualizer`.",
+          "Generate App Bundle (AAB) for Android: `./gradlew bundleRelease`."
+        ]
+      },
+      {
+        "id": 58,
+        "title": "React Native Background Task not executing",
+        "message": "Background tasks fail to run as expected.",
+        "causes": [
+          "Missing native setup for background tasks.",
+          "Device battery optimizations killing background processes.",
+          "Improper usage of `react-native-background-fetch`."
+        ],
+        "solutions": [
+          "Follow setup for `react-native-background-fetch` or similar libraries.",
+          "Prompt users to disable battery optimizations for the app.",
+          "Test background tasks in real device environments."
+        ]
+      },
+      {
+        "id": 59,
+        "title": "Deep linking not working",
+        "message": "Deep links fail to open specific app screens.",
+        "causes": [
+          "Missing URL scheme setup in `AndroidManifest.xml` or `Info.plist`.",
+          "Incorrect configuration of linking library (e.g., React Navigation).",
+          "App not handling incoming links properly."
+        ],
+        "solutions": [
+          "Add URL scheme in `AndroidManifest.xml` and `Info.plist`.",
+          "Set up deep linking with React Navigation: `linking` prop in `NavigationContainer`.",
+          "Handle links using `Linking` API: `Linking.addEventListener('url', handleUrl)`.",
+          "Test deep links using `adb shell am start -W -a android.intent.action.VIEW -d 'your_deep_link_url' your.package.name` for Android or `xcrun simctl openurl booted 'your_deep_link_url'` for iOS."
+        ]
+      },
+      {
+        "id": 60,
+        "title": "React Native app fails on specific Android versions",
+        "message": "App works on newer Android versions but crashes on older ones.",
+        "causes": [
+          "Using APIs not available in older Android versions.",
+          "Missing polyfills for older JavaScript features.",
+          "Dependency not compatible with target Android SDK."
+        ],
+        "solutions": [
+          "Check API usage and add fallbacks with `Platform.OS` and `Platform.Version`.",
+          "Add polyfills for older JS features (e.g., `core-js`).",
+          "Set minimum SDK version in `android/app/build.gradle` and test compatibility."
+        ]
+      },
+      {
+        "id": 61,
+        "title": "TypeScript type errors with React Native components",
+        "message": "Property 'someProp' does not exist on type 'IntrinsicAttributes & IntrinsicClassAttributes'.",
+        "causes": [
+          "Missing type definitions for React Native components.",
+          "Incorrect prop typing in functional or class components.",
+          "TypeScript configuration not set up for React Native."
+        ],
+        "solutions": [
+          "Install React Native TypeScript types: `npm install --save-dev @types/react-native`.",
+          "Define prop types with an interface: `interface Props { someProp: string }`.",
+          "Ensure `tsconfig.json` includes `jsx: 'react-native'` and proper module resolution."
+        ]
+      },
+      {
+        "id": 62,
+        "title": "React Native app fails in CI/CD pipeline",
+        "message": "Build fails in CI with 'Command failed: gradlew app:assembleRelease'.",
+        "causes": [
+          "Missing environment variables in CI (e.g., API keys, keystore).",
+          "Different Node or JDK versions between local and CI.",
+          "Outdated or missing native dependencies in CI."
+        ],
+        "solutions": [
+          "Add environment variables in CI settings (e.g., GitHub Secrets).",
+          "Use `.nvmrc` or specify Node/JDK version in CI config (e.g., `.github/workflows/build.yml`).",
+          "Cache `node_modules` and Gradle dependencies in CI for faster builds."
+        ]
+      },
+      {
+        "id": 63,
+        "title": "CameraRoll permission denied on iOS",
+        "message": "Access to photos denied, causing CameraRoll API to fail.",
+        "causes": [
+          "Missing `NSPhotoLibraryUsageDescription` in `Info.plist`.",
+          "Not requesting runtime permissions before accessing CameraRoll.",
+          "User denied permission without fallback handling."
+        ],
+        "solutions": [
+          "Add `NSPhotoLibraryUsageDescription` to `Info.plist` with a description.",
+          "Request permission using `PermissionsAndroid` or `react-native-permissions`.",
+          "Handle denial gracefully with a fallback UI or message."
+        ]
+      },
+      {
+        "id": 64,
+        "title": "React Native app crashes on rotation",
+        "message": "App crashes when device orientation changes.",
+        "causes": [
+          "Component state not handling orientation change properly.",
+          "Native modules not supporting rotation.",
+          "Missing orientation lock configuration in `AndroidManifest.xml` or `Info.plist`."
+        ],
+        "solutions": [
+          "Use `useWindowDimensions` hook to adapt UI to orientation changes.",
+          "Test and update native modules for rotation support.",
+          "Lock orientation if not needed: Add `android:screenOrientation=\"portrait\"` or `UIInterfaceOrientation` in `Info.plist`."
+        ]
+      },
+      {
+        "id": 65,
+        "title": "Metro Bundler fails with 'Cannot find entry file'",
+        "message": "Metro fails to start with 'Cannot find entry file index.js'.",
+        "causes": [
+          "Missing or renamed `index.js` entry file.",
+          "Incorrect `main` field in `package.json`.",
+          "File moved or deleted during Metro runtime."
+        ],
+        "solutions": [
+          "Ensure `index.js` exists in the project root.",
+          "Verify `main` field in `package.json` points to the correct entry file.",
+          "Restart Metro Bundler after restoring or renaming entry file."
+        ]
+      },
+      {
+        "id": 66,
+        "title": "SSL handshake failure in fetch requests",
+        "message": "Network error: SSL handshake failed on HTTPS requests.",
+        "causes": [
+          "Self-signed certificate used in development API.",
+          "Outdated TLS version on server not supported by device.",
+          "Device security settings rejecting insecure connections."
+        ],
+        "solutions": [
+          "Use a valid SSL certificate on the server for production.",
+          "Disable SSL verification for development only: Use `fetch` with `rejectUnauthorized: false` (not recommended for production).",
+          "Ensure server supports TLS 1.2 or higher."
+        ]
+      },
+      {
+        "id": 67,
+        "title": "React Native app fails on specific iOS versions",
+        "message": "App works on newer iOS versions but crashes on older ones.",
+        "causes": [
+          "Using APIs not available in older iOS versions.",
+          "Missing minimum iOS version in Xcode settings.",
+          "Dependencies requiring higher iOS SDK."
+        ],
+        "solutions": [
+          "Check API usage and add fallbacks for older iOS versions.",
+          "Set minimum iOS version in Xcode: `iOS Deployment Target` in `Build Settings`.",
+          "Update dependencies to versions compatible with target iOS."
+        ]
+      },
+      {
+        "id": 68,
+        "title": "React Native app vulnerable to code injection",
+        "message": "Dynamic code execution exposes app to injection attacks.",
+        "causes": [
+          "Using `eval` or `Function` constructor with user input.",
+          "Third-party libraries executing unsafe code.",
+          "Insecure WebView allowing JavaScript injection."
+        ],
+        "solutions": [
+          "Avoid `eval` and dynamic code execution; use safer alternatives.",
+          "Audit third-party libraries for security practices.",
+          "Set `injectedJavaScript` cautiously and disable `javaScriptEnabled` in WebView if not needed."
+        ]
+      },
+      {
+        "id": 69,
+        "title": "React Native CLI generates outdated template",
+        "message": "New project generated with outdated React Native version.",
+        "causes": [
+          "Using an old version of React Native CLI.",
+          "Local template cache not updated.",
+          "Specifying an outdated version in `npx react-native init`."
+        ],
+        "solutions": [
+          "Update React Native CLI: `npm install -g @react-native-community/cli`.",
+          "Clear template cache: `npx react-native init MyApp --npm --skip-install`.",
+          "Specify desired version: `npx react-native init MyApp --version 0.72.0`."
+        ]
+      },
+      {
+        "id": 70,
+        "title": "React Native app fails to bundle for release",
+        "message": "Release build fails with 'Unable to resolve module' errors.",
+        "causes": [
+          "Development-only dependencies not excluded in release.",
+          "Metro Bundler not including all required modules.",
+          "Incorrect bundle configuration in `react-native.config.js`."
+        ],
+        "solutions": [
+          "Move dev-only dependencies to `devDependencies` in `package.json`.",
+          "Manually bundle: `npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle`.",
+          "Verify `react-native.config.js` for asset/module exclusions."
+        ]
+      },
+      {
+        "id": 71,
+        "title": "React Native app ignores dark mode",
+        "message": "App UI doesn’t adapt to device dark mode settings.",
+        "causes": [
+          "Not using `Appearance` API or `useColorScheme` hook.",
+          "Hard-coded colors ignoring system theme.",
+          "Third-party components not supporting dark mode."
+        ],
+        "solutions": [
+          "Use `useColorScheme` to detect theme: `import { useColorScheme } from 'react-native'`.",
+          "Define theme-based styles: `backgroundColor: scheme === 'dark' ? '#000' : '#fff'`.",
+          "Update third-party components to dark mode-compatible versions."
+        ]
+      },
+      {
+        "id": 72,
+        "title": "React Native app fails on notched devices",
+        "message": "UI elements overlap with notches or status bars.",
+        "causes": [
+          "Not using `SafeAreaView` for layout.",
+          "Ignoring safe area insets in custom layouts.",
+          "Third-party navigation not respecting safe areas."
+        ],
+        "solutions": [
+          "Wrap root layout with `SafeAreaView`: `import { SafeAreaView } from 'react-native'`.",
+          "Use `react-native-safe-area-context` for custom insets.",
+          "Ensure navigation libraries like React Navigation use safe area insets."
+        ]
+      },
+      {
+        "id": 73,
+        "title": "React Native app fails to handle large files",
+        "message": "App crashes when uploading/downloading large files.",
+        "causes": [
+          "Memory overload from loading large files into memory.",
+          "No streaming or chunking for file operations.",
+          "Timeout issues with large file transfers."
+        ],
+        "solutions": [
+          "Use `react-native-fs` for streaming file operations.",
+          "Break files into chunks for upload/download.",
+          "Increase timeout settings in fetch or use libraries like `axios` with progress tracking."
+        ]
+      },
+      {
+        "id": 74,
+        "title": "React Native app fails during OTA updates",
+        "message": "Over-the-air updates (e.g., CodePush) fail to apply.",
+        "causes": [
+          "Mismatched CodePush deployment key.",
+          "Network issues during update download.",
+          "Incorrect CodePush configuration in native code."
+        ],
+        "solutions": [
+          "Verify deployment key in `MainApplication.java` (Android) and `Info.plist` (iOS).",
+          "Ensure network connectivity during updates.",
+          "Reinstall CodePush: `npm install --save react-native-code-push` and re-link."
+        ]
+      },
+      {
+        "id": 75,
+        "title": "React Native app fails to render custom fonts on Android",
+        "message": "Custom fonts load on iOS but fail on Android.",
+        "causes": [
+          "Font files not placed in `android/app/src/main/assets/fonts`.",
+          "Incorrect font family name in `Text` style.",
+          "Missing `react-native.config.js` for font linking."
+        ],
+        "solutions": [
+          "Place font files in `android/app/src/main/assets/fonts` with lowercase names.",
+          "Verify font family name matches file name in `style` prop.",
+          "Add fonts to `react-native.config.js` and run `npx react-native-asset`."
+        ]
+      },
+      {
+        "id": 76,
+        "title": "React Native app fails to handle push notification clicks",
+        "message": "Clicking push notifications doesn’t navigate to intended screen.",
+        "causes": [
+          "Not handling initial notification in foreground/background state.",
+          "Missing deep linking setup for notifications.",
+          "Navigation library not initialized when notification received."
+        ],
+        "solutions": [
+          "Handle notifications with `onNotification` and `onNotificationOpened` in `react-native-push-notification`.",
+          "Set up deep linking for notifications with React Navigation.",
+          "Ensure navigation ref is accessible outside components for handling."
+        ]
+      },
+      {
+        "id": 77,
+        "title": "React Native app fails on low-memory devices",
+        "message": "App crashes on devices with limited RAM.",
+        "causes": [
+          "Large images or videos not optimized.",
+          "Excessive state management causing memory leaks.",
+          "Too many components rendering simultaneously."
+        ],
+        "solutions": [
+          "Compress images and use lower resolutions.",
+          "Use `react-native-keep-awake` or similar to manage memory-intensive tasks.",
+          "Optimize renders with `FlatList` and `shouldComponentUpdate`."
+        ]
+      },
+      {
+        "id": 78,
+        "title": "React Native app fails to integrate with Firebase Analytics",
+        "message": "Firebase Analytics events not logging in console.",
+        "causes": [
+          "Missing `google-services.json` (Android) or `GoogleService-Info.plist` (iOS).",
+          "Not initializing Firebase Analytics in app.",
+          "Analytics disabled in Firebase console."
+        ],
+        "solutions": [
+          "Add `google-services.json` to `android/app` and `GoogleService-Info.plist` to iOS.",
+          "Initialize Analytics: `import analytics from '@react-native-firebase/analytics'`.",
+          "Enable Analytics in Firebase console and check logs."
+        ]
+      },
+      {
+        "id": 79,
+        "title": "React Native app fails to handle network interruptions",
+        "message": "App crashes or hangs during network loss.",
+        "causes": [
+          "No network state monitoring.",
+          "Uncaught errors in fetch requests during disconnection.",
+          "State updates assuming network availability."
+        ],
+        "solutions": [
+          "Use `NetInfo` to monitor network state: `import NetInfo from '@react-native-community/netinfo'`.",
+          "Add error handling for fetch: `fetch().catch(err => console.error(err))`.",
+          "Show offline UI or retry logic when network is unavailable."
+        ]
+      },
+      {
+        "id": 80,
+        "title": "React Native app fails to render on foldable devices",
+        "message": "UI breaks or crashes on foldable Android devices.",
+        "causes": [
+          "Not handling dynamic screen size changes.",
+          "Hard-coded dimensions not adapting to foldable layouts.",
+          "Native modules not supporting foldable screens."
+        ],
+        "solutions": [
+          "Use `useWindowDimensions` to adapt to screen size changes.",
+          "Avoid hard-coded dimensions; use percentages or `flex`.",
+          "Test on foldable device emulators and update native modules."
+        ]
+      },
+      {
+        "id": 81,
+        "title": "React Native app fails to handle back button on Android",
+        "message": "Pressing back button closes app instead of navigating.",
+        "causes": [
+          "Not handling hardware back press events.",
+          "Navigation library not overriding default back behavior.",
+          "Nested navigation stacks causing unexpected behavior."
+        ],
+        "solutions": [
+          "Override back press: `BackHandler.addEventListener('hardwareBackPress', handleBackPress)`.",
+          "Configure React Navigation for back handling: `useBackHandler` hook.",
+          "Ensure single navigation stack for predictable behavior."
+        ]
+      },
+      {
+        "id": 82,
+        "title": "React Native app fails to sync with Redux store",
+        "message": "State updates in Redux don’t reflect in UI.",
+        "causes": [
+          "Incorrectly mapping state to props.",
+          "Not using `useSelector` or `connect` properly.",
+          "State mutations breaking immutability."
+        ],
+        "solutions": [
+          "Use `useSelector` or `connect` to map state: `const data = useSelector(state => state.data)`.",
+          "Ensure immutability in reducers: `return { ...state, newData }`.",
+          "Debug with Redux DevTools for state changes."
+        ]
+      },
+      {
+        "id": 83,
+        "title": "React Native app fails to handle large JSON parsing",
+        "message": "App freezes or crashes when parsing large JSON responses.",
+        "causes": [
+          "Blocking main thread with synchronous JSON parsing.",
+          "Large response size exceeding memory limits.",
+          "No pagination or streaming for API data."
+        ],
+        "solutions": [
+          "Parse JSON in chunks or use streaming with `fetch` and `ReadableStream`.",
+          "Implement pagination in API calls to fetch smaller chunks.",
+          "Offload parsing to native module for better performance."
+        ]
+      },
+      {
+        "id": 84,
+        "title": "React Native app fails to run detox E2E tests",
+        "message": "Detox tests fail with 'Cannot find device' or 'Build failed'.",
+        "causes": [
+          "Missing Detox CLI or incorrect configuration.",
+          "Simulator/emulator not running or not configured.",
+          "Xcode or Android build tools mismatch."
+        ],
+        "solutions": [
+          "Install Detox CLI: `npm install -g detox-cli`.",
+          "Ensure simulator/emulator is running: `adb devices` or `xcrun simctl list`.",
+          "Verify `detox` config in `package.json` and build scripts."
+        ]
+      },
+      {
+        "id": 85,
+        "title": "React Native app fails to handle timezone differences",
+        "message": "Dates and times display inconsistently across devices.",
+        "causes": [
+          "Not normalizing dates to UTC.",
+          "Device timezone affecting local date rendering.",
+          "No timezone handling library used."
+        ],
+        "solutions": [
+          "Normalize dates to UTC on backend and frontend.",
+          "Use `moment-timezone` or `date-fns-tz` for timezone handling.",
+          "Test date rendering on devices with different timezones."
+        ]
+      },
+      {
+        "id": 86,
+        "title": "React Native app fails to run on M1/M2 Mac",
+        "message": "Build fails with 'architecture not supported' errors on Apple Silicon.",
+        "causes": [
+          "Dependencies not compiled for ARM64 (Apple Silicon).",
+          "Xcode or Android emulator not configured for M1/M2.",
+          "Outdated React Native version."
+        ],
+        "solutions": [
+          "Run Xcode and terminal in Rosetta mode if needed.",
+          "Use ARM64 emulator for Android: Configure in Android Studio.",
+          "Update React Native and dependencies to M1-compatible versions."
+        ]
+      },
+      {
+        "id": 87,
+        "title": "React Native app fails to handle RTL languages",
+        "message": "UI layout breaks for right-to-left languages like Arabic.",
+        "causes": [
+          "Not enabling RTL support in `I18nManager`.",
+          "Hard-coded layouts ignoring text direction.",
+          "Third-party components not RTL-compatible."
+        ],
+        "solutions": [
+          "Enable RTL: `import { I18nManager } from 'react-native'; I18nManager.forceRTL(true)`.",
+          "Use `flexDirection` and `textAlign` dynamically based on RTL.",
+          "Test and update third-party components for RTL support."
+        ]
+      },
+      {
+        "id": 88,
+        "title": "React Native app fails to load native modules in release",
+        "message": "Native modules work in debug but fail in release builds.",
+        "causes": [
+          "ProGuard stripping necessary native code.",
+          "Native module not linked properly in release.",
+          "Debug-only code causing failures in release."
+        ],
+        "solutions": [
+          "Add ProGuard rules for native modules in `android/app/proguard-rules.pro`.",
+          "Verify linking: Run `react-native link` or manually link.",
+          "Test release builds thoroughly before deployment."
+        ]
+      },
+      {
+        "id": 89,
+        "title": "React Native app fails to handle app suspension",
+        "message": "App state resets or crashes when resuming from background.",
+        "causes": [
+          "Not saving state before app suspension.",
+          "Uncaught errors during app resume.",
+          "Native modules not handling lifecycle properly."
+        ],
+        "solutions": [
+          "Save state with AsyncStorage or Redux Persist before suspension.",
+          "Use `AppState` to handle background/foreground: `AppState.addEventListener('change', handleStateChange)`.",
+          "Debug native module behavior in background states."
+        ]
+      },
+      {
+        "id": 90,
+        "title": "React Native app fails to build with Flipper",
+        "message": "iOS build fails with 'Flipper not found' error.",
+        "causes": [
+          "Flipper not properly integrated or disabled.",
+          "Outdated Flipper version in `Podfile`.",
+          "Pod install not run after Flipper setup."
+        ],
+        "solutions": [
+          "Disable Flipper in `Podfile` if not needed: Comment out `use_flipper!()`.",
+          "Update Flipper to compatible version: `use_flipper!({ 'Flipper' => '0.125.0' })`.",
+          "Run `pod install` after modifying `Podfile`."
+        ]
+      },
+      {
+        "id": 91,
+        "title": "React Native  app fails to handle biometric authentication",
+        "message": "Biometric authentication (Face ID, Touch ID) not working.",     
+        "causes": [
+          "Missing permissions in `Info.plist` or `AndroidManifest.xml`.",
+          "Incorrect setup of biometric library (e.g., `react-native-biometrics`).",
+          "Device lacking biometric hardware or support."
+        ],      
+        "solutions": [
+          "Add permissions in `Info.plist` and `AndroidManifest.xml` for Face ID/Touch ID.",
+          "Follow library setup guide for `react-native-biometrics` or similar.",
+          "Test on devices with biometric hardware for compatibility."
+        ]   
+        },
+        {
+          "id": 92,
+          "title": "React Native app fails to handle app suspension",
+            "message": "App state resets or crashes when resuming from background.",
+            "causes": [
+              "Not saving state before app suspension.",
+              "Uncaught errors during app resume.",
+              "Native modules not handling lifecycle properly."
+            ],
+            "solutions": [
+              "Save state with AsyncStorage or Redux Persist before suspension.",
+              "Use `AppState` to handle background/foreground: `AppState.addEventListener('change', handleStateChange)`.",
+              "Debug native module behavior in background states."
+            ]
+            },
+            {
+              "id": 93,
+              "title": "React Native app fails to build with Flipper",
+              "message": "iOS build fails with 'Flipper not found' error.",
+                "causes": [
+                    "Flipper not properly integrated or disabled.",
+                    "Outdated Flipper version in `Podfile`.",
+                    "Pod install not run after Flipper setup."
+                ],
+                "solutions": [
+                    "Disable Flipper in `Podfile` if not needed: Comment out `use_flipper!()`.",
+                    "Update Flipper to compatible version: `use_flipper!({ 'Flipper' => '0.125.0' })`.",
+                    "Run `pod install` after modifying `Podfile`."
+                ]
+            },
+            {
+              "id": 94,
+              "title": "React Native app fails to handle biometric authentication",
+              "message": "Biometric authentication (Face ID, Touch ID) not working.",
+              "causes": [
+                  "Missing permissions in `Info.plist` or `AndroidManifest.xml`.",
+                  "Incorrect setup of biometric library (e.g., `react-native-biometrics`).",
+                  "Device lacking biometric hardware or support."
+              ],
+              "solutions": [
+                  "Add permissions in `Info.plist` and `AndroidManifest.xml` for Face ID/Touch ID.",
+                  "Follow library setup guide for `react-native-biometrics` or similar.",
+                  "Test on devices with biometric hardware for compatibility."
+              ]
+            },
+            {
+              "id": 95,
+              "title": "React Native app fails to handle app suspension",
+              "message": "App state resets or crashes when resuming from background.",
+              "causes": [
+                  "Not saving state before app suspension.",
+                  "Uncaught errors during app resume.",
+                  "Native modules not handling lifecycle properly."
+              ],
+              "solutions": [
+                  "Save state with AsyncStorage or Redux Persist before suspension.",
+                  "Use `AppState` to handle background/foreground: `AppState.addEventListener('change', handleStateChange)`.",
+                  "Debug native module behavior in background states."
+              ]
+            },
+            {
+              "id": 96,
+              "title": "React Native app fails to build with Flipper",
+              "message": "iOS build fails with 'Flipper not found' error.",
+              "causes": [
+                  "Flipper not properly integrated or disabled.",
+                  "Outdated Flipper version in `Podfile`.",
+                  "Pod install not run after Flipper setup."
+              ],
+              "solutions": [
+                  "Disable Flipper in `Podfile` if not needed: Comment out `use_flipper!()`.",
+                  "Update Flipper to compatible version: `use_flipper!({ 'Flipper' => '0.125.0' })`.",
+                  "Run `pod install` after modifying `Podfile`."
+              ]
+            },
+            {
+              "id": 97,
+              "title": "React Native app fails to handle biometric authentication",
+              "message": "Biometric authentication (Face ID, Touch ID) not working.",
+              "causes": [
+                  "Missing permissions in `Info.plist` or `AndroidManifest.xml`.",
+                  "Incorrect setup of biometric library (e.g., `react-native-biometrics`).",    
+                    "Device lacking biometric hardware or support."
+                ],
+                "solutions": [
+                    "Add permissions in `Info.plist` and `AndroidManifest.xml` for Face ID/Touch ID.",
+                    "Follow library setup guide for `react-native-biometrics` or similar.",
+                    "Test on devices with biometric hardware for compatibility."
+                ]
+            },
+            {
+              "id": 98,
+              "title": "React Native app fails to handle app suspension",
+              "message": "App state resets or crashes when resuming from background.",
+              "causes": [
+                  "Not saving state before app suspension.",
+                  "Uncaught errors during app resume.",
+                  "Native modules not handling lifecycle properly."
+              ],
+              "solutions": [
+                  "Save state with AsyncStorage or Redux Persist before suspension.",
+                  "Use `AppState` to handle background/foreground: `AppState.addEventListener('change', handleStateChange)`.",
+                  "Debug native module behavior in background states."
+              ]
+            },
+            {
+              "id": 99,
+              "title": "React Native app fails to build with Flipper",
+              "message": "iOS build fails with 'Flipper not found' error.",
+              "causes": [
+                  "Flipper not properly integrated or disabled.",
+                  "Outdated Flipper version in `Podfile`.",
+                  "Pod install not run after Flipper setup."
+              ],
+              "solutions": [
+                  "Disable Flipper in `Podfile` if not needed: Comment out `use_flipper!()`.",
+                  "Update Flipper to compatible version: `use_flipper!({ 'Flipper' => '0.125.0' })`.",
+                  "Run `pod install` after modifying `Podfile`."
+              ]
+            },
+            {
+              "id": 100,
+              "title": "React Native app fails to handle biometric authentication",
+              "message": "Biometric authentication (Face ID, Touch ID) not working.",
+              "causes": [
+                  "Missing permissions in `Info.plist` or `AndroidManifest.xml`.",
+                  "Incorrect setup of biometric library (e.g., `react-native-biometrics`).",
+                  "Device lacking biometric hardware or support."
+              ],
+              "solutions": [
+                  "Add permissions in `Info.plist` and `AndroidManifest.xml` for Face ID/Touch ID.",
+                  "Follow library setup guide for `react-native-biometrics` or similar.",
+                  "Test on devices with biometric hardware for compatibility."
+              ]
+            }
+  ]
