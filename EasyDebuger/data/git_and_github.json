@@ -2068,6 +2068,8 @@
                                 "Initialize Git LFS: `git lfs install` before cloning or fetching.",
                                 "Fetch LFS objects: `git lfs fetch --all` to download missing objects.",
                                 "Re-upload objects: If admin, locate missing objects locally and push with `git lfs push --all origin`."
-                              ]}
+                              ]
+                            
+                            }
     
   ]

@@ -1,0 +1,1502 @@
+[
+    {
+      "id": 1,
+      "title": "SyntaxError: Unexpected Token",
+      "message": "SyntaxError: unexpected EOF while parsing",
+      "causes": [
+        "Missing parentheses, brackets, or quotes in code.",
+        "Incomplete code block (e.g., missing colon or indentation).",
+        "Using Python 2 syntax in Python 3 or vice versa."
+      ],
+      "solutions": [
+        "Check for missing syntax: Ensure all parentheses, brackets, and quotes are paired.",
+        "Verify indentation and colons: Ensure proper block structure (e.g., after `if`, `for`).",
+        "Confirm Python version: Use `python --version` and ensure code matches (e.g., `print()` for Python 3)."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ModuleNotFoundError: No Module Named",
+      "message": "ModuleNotFoundError: No module named 'some_module'",
+      "causes": [
+        "Module not installed in the current environment.",
+        "Incorrect module name or typo in import statement.",
+        "Running script from a directory where module isn’t accessible."
+      ],
+      "solutions": [
+        "Install the module: `pip install some_module`.",
+        "Verify module name: Check PyPI or documentation for correct name.",
+        "Set PYTHONPATH: `export PYTHONPATH=$PYTHONPATH:/path/to/module` or run script from correct directory."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "AttributeError: Object Has No Attribute",
+      "message": "AttributeError: 'SomeObject' object has no attribute 'some_method'",
+      "causes": [
+        "Accessing a non-existent attribute or method on an object.",
+        "Typo in attribute/method name.",
+        "Object not initialized correctly (e.g., missing `__init__` setup)."
+      ],
+      "solutions": [
+        "Check attribute/method: Use `dir(SomeObject)` to list available attributes.",
+        "Fix typos: Ensure correct spelling of `some_method`.",
+        "Verify initialization: Ensure `__init__` sets up necessary attributes."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "TypeError: Unsupported Operand Type",
+      "message": "TypeError: unsupported operand type(s) for +: 'int' and 'str'",
+      "causes": [
+        "Attempting to perform operations on incompatible types (e.g., `int` + `str`).",
+        "Incorrect data type passed to a function.",
+        "Not converting types before operation (e.g., string input not converted to int)."
+      ],
+      "solutions": [
+        "Convert types: `str_number = str(5)` or `number = int('5')` before operation.",
+        "Check types: Use `type(variable)` to debug variable types.",
+        "Validate inputs: Ensure function arguments match expected types."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "IndentationError: Unexpected Indent",
+      "message": "IndentationError: unexpected indent",
+      "causes": [
+        "Mixing spaces and tabs in indentation.",
+        "Inconsistent indentation levels within a block.",
+        "Copy-pasting code with incorrect formatting."
+      ],
+      "solutions": [
+        "Use consistent indentation: Stick to spaces (recommended) or tabs, set editor to replace tabs with spaces.",
+        "Fix indentation: Ensure blocks align (e.g., 4 spaces per level).",
+        "Enable whitespace visibility: Use editor settings to show spaces/tabs and fix mismatches."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "NameError: Name Not Defined",
+      "message": "NameError: name 'variable_name' is not defined",
+      "causes": [
+        "Using a variable before defining it.",
+        "Typo in variable name.",
+        "Variable out of scope (e.g., defined in another function)."
+      ],
+      "solutions": [
+        "Define the variable: Ensure `variable_name` is defined before use.",
+        "Check for typos: Verify spelling matches declaration.",
+        "Adjust scope: Move variable definition to appropriate scope or pass as argument."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "IndexError: List Index Out of Range",
+      "message": "IndexError: list index out of range",
+      "causes": [
+        "Accessing an index beyond the list’s length.",
+        "Looping beyond list bounds.",
+        "Empty list or incorrect index calculation."
+      ],
+      "solutions": [
+        "Check list length: `len(my_list)` to ensure index is valid.",
+        "Validate indexes: Use conditional checks (e.g., `if i < len(my_list)`).",
+        "Debug loops: Print indices to trace out-of-bounds access."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "KeyError: Key Not Found",
+      "message": "KeyError: 'some_key'",
+      "causes": [
+        "Accessing a dictionary key that doesn’t exist.",
+        "Typo in key name.",
+        "Not checking if key exists before access."
+      ],
+      "solutions": [
+        "Check key existence: `if 'some_key' in my_dict:` or use `my_dict.get('some_key', default_value)`.",
+        "Fix typos: Verify key spelling matches initialization.",
+        "List keys: `print(my_dict.keys())` to debug available keys."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "ImportError: Cannot Import Name",
+      "message": "ImportError: cannot import name 'SomeClass' from 'some_module'",
+      "causes": [
+        "Incorrect import statement (e.g., wrong class/function name).",
+        "Circular imports between modules.",
+        "Module structure changed or dependency mismatch."
+      ],
+      "solutions": [
+        "Verify import: Check `some_module` for `SomeClass` (e.g., `dir(some_module)`).",
+        "Resolve circular imports: Refactor code to avoid mutual imports (e.g., move shared code to a third module).",
+        "Update dependencies: Ensure `some_module` version matches expected API."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "FileNotFoundError: No Such File or Directory",
+      "message": "FileNotFoundError: [Errno 2] No such file or directory: 'some_file.txt'",
+      "causes": [
+        "File does not exist at the specified path.",
+        "Incorrect file path or typo in path.",
+        "Running script from a directory without the file."
+      ],
+      "solutions": [
+        "Verify file exists: `ls some_file.txt` or `dir some_file.txt` to check.",
+        "Correct path: Use absolute path or `os.path.join()` for portability.",
+        "Check working directory: `import os; print(os.getcwd())` and adjust path or `os.chdir()`."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Virtual Environment Not Activated",
+      "message": "ModuleNotFoundError despite installing dependencies.",
+      "causes": [
+        "Virtual environment not activated before running script.",
+        "Installing dependencies in global environment instead of virtual.",
+        "Running script with wrong Python interpreter."
+      ],
+      "solutions": [
+        "Activate virtual environment: `source venv/bin/activate` (Unix) or `venv\\Scripts\\activate` (Windows).",
+        "Install dependencies in virtual env: Ensure `pip install` runs after activation.",
+        "Specify interpreter: Run with `venv/bin/python script.py` or set interpreter in IDE."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Pip Install Fails: Could Not Find a Version",
+      "message": "ERROR: Could not find a version that satisfies the requirement some_package",
+      "causes": [
+        "Package name misspelled or doesn’t exist on PyPI.",
+        "Version not compatible with current Python or OS.",
+        "Network issues or PyPI temporarily unavailable."
+      ],
+      "solutions": [
+        "Verify package name: Search PyPI (`pip search some_package`) for correct name.",
+        "Check compatibility: Ensure package supports your Python version (`python --version`).",
+        "Retry with mirror: `pip install some_package --index-url https://pypi.python.org/simple/`."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "ZeroDivisionError: Division By Zero",
+      "message": "ZeroDivisionError: division by zero",
+      "causes": [
+        "Dividing a number by zero.",
+        "Variable unexpectedly evaluates to zero.",
+        "Not validating denominator before division."
+      ],
+      "solutions": [
+        "Check for zero: `if denominator != 0: result = numerator / denominator` else handle error.",
+        "Use try-except: `try: result = numerator / denominator except ZeroDivisionError: print('Cannot divide by zero')`.",
+        "Debug variables: Print `denominator` to trace its value."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "UnicodeDecodeError: Invalid Character",
+      "message": "UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte",
+      "causes": [
+        "Reading a file with encoding other than UTF-8 using default UTF-8 decoding.",
+        "Binary file being read as text.",
+        "Corrupted file or incorrect encoding specified."
+      ],
+      "solutions": [
+        "Specify correct encoding: `with open('file.txt', encoding='latin-1') as f:` or try others.",
+        "Read as binary: `with open('file.bin', 'rb') as f:` if binary file.",
+        "Handle errors: `with open('file.txt', encoding='utf-8', errors='ignore') as f:`."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "MemoryError: Unable to Allocate Memory",
+      "message": "MemoryError: Unable to allocate X bytes of memory",
+      "causes": [
+        "Processing large datasets exhausting available RAM.",
+        "Inefficient memory usage (e.g., loading entire file into memory).",
+        "Memory leaks in long-running scripts."
+      ],
+      "solutions": [
+        "Optimize memory: Process data in chunks (e.g., use generators, `pandas.read_csv(chunksize=1000)`).",
+        "Increase swap memory: Add swap space on your system (e.g., `sudo fallocate -l 2G /swapfile`).",
+        "Debug leaks: Use `tracemalloc` to trace memory usage (`import tracemalloc; tracemalloc.start()`)."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "BrokenPipeError: Pipe Closed",
+      "message": "BrokenPipeError: [Errno 32] Broken pipe",
+      "causes": [
+        "Writing to a pipe or socket that has been closed by the other end.",
+        "Network connection dropped during I/O operation.",
+        "Child process terminated unexpectedly during piped communication."
+      ],
+      "solutions": [
+        "Handle exceptions: `try: pipe.write(data) except BrokenPipeError: print('Pipe closed')`.",
+        "Check connection: Ensure network or process is active before writing.",
+        "Use signals: Ignore SIGPIPE (`import signal; signal.signal(signal.SIGPIPE, signal.SIG_IGN)`)."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "ValueError: Invalid Literal for Type",
+      "message": "ValueError: invalid literal for int() with base 10: 'abc'",
+      "causes": [
+        "Trying to convert a non-numeric string to an integer.",
+        "Parsing malformed data (e.g., empty string, letters).",
+        "Not validating input before conversion."
+      ],
+      "solutions": [
+        "Validate input: `if str_value.isdigit(): number = int(str_value) else: handle_error()`.",
+        "Use try-except: `try: number = int(str_value) except ValueError: print('Invalid number')`.",
+        "Clean data: Ensure data is numeric before conversion (`str_value.strip()`)."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Django: TemplateDoesNotExist",
+      "message": "TemplateDoesNotExist: some_template.html",
+      "causes": [
+        "Template file missing in specified directory.",
+        "Incorrect path in `render()` or template settings.",
+        "Not adding template directory to `TEMPLATES` in `settings.py`."
+      ],
+      "solutions": [
+        "Verify file exists: Check `templates/some_template.html` is in the correct directory.",
+        "Update settings: Add directory to `TEMPLATES['DIRS']` in `settings.py` (e.g., `os.path.join(BASE_DIR, 'templates')`).",
+        "Correct path: Ensure `render(request, 'some_template.html')` matches file location."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Flask: 500 Internal Server Error",
+      "message": "500 Internal Server Error: The server encountered an internal error.",
+      "causes": [
+        "Unhandled exception in Flask route or middleware.",
+        "Misconfigured Flask app (e.g., missing templates, incorrect configs).",
+        "Dependency issues or runtime errors in code."
+      ],
+      "solutions": [
+        "Enable debug mode: `app.run(debug=True)` to see detailed error messages.",
+        "Check logs: Use `app.logger.error()` or `print()` to trace errors.",
+        "Handle exceptions: `try: ... except Exception as e: app.logger.error(e)` in routes."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "NumPy: ValueError: Shapes Not Aligned",
+      "message": "ValueError: shapes (X,Y) and (A,B) not aligned: Y (dim 1) != A (dim 0)",
+      "causes": [
+        "Matrix dimensions incompatible for operations (e.g., dot product).",
+        "Not transposing arrays before operation.",
+        "Incorrect reshaping of arrays."
+      ],
+      "solutions": [
+        "Check shapes: `print(array1.shape, array2.shape)` to verify dimensions.",
+        "Transpose or reshape: `array2 = array2.T` or `array2.reshape(Y, A)`.",
+        "Use broadcasting: Ensure arrays align or use NumPy’s broadcasting rules."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Pandas: KeyError in DataFrame",
+      "message": "KeyError: 'column_name'",
+      "causes": [
+        "Accessing a non-existent column in DataFrame.",
+        "Typo in column name.",
+        "Column not created or dropped unexpectedly."
+      ],
+      "solutions": [
+        "List columns: `print(df.columns)` to verify available columns.",
+        "Fix typos: Ensure `df['column_name']` matches exact column name.",
+        "Check data: Ensure column exists (`if 'column_name' in df:`) before access."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "RuntimeError: Threads Cannot Be Started Multiple Times",
+      "message": "RuntimeError: threads can only be started once",
+      "causes": [
+        "Attempting to start the same thread object multiple times.",
+        "Reusing a thread without creating a new instance.",
+        "Improper thread lifecycle management."
+      ],
+      "solutions": [
+        "Create new thread: `thread = threading.Thread(target=my_function)` for each run.",
+        "Ensure single start: Check logic to avoid restarting (`if not thread.is_alive():`).",
+        "Use thread pools: `concurrent.futures.ThreadPoolExecutor` for better thread management."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "AttributeError: 'NoneType' Object Has No Attribute",
+      "message": "AttributeError: 'NoneType' object has no attribute 'some_method'",
+      "causes": [
+        "Calling a method on a variable that unexpectedly is `None`.",
+        "Function returning `None` instead of expected object.",
+        "Not checking return value before accessing attributes."
+      ],
+      "solutions": [
+        "Check for None: `if variable is not None: variable.some_method()`.",
+        "Debug function: Ensure function returns expected object (`print(return_value)`).",
+        "Handle defaults: Assign default value if None (`variable = variable or default`)."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "PermissionError: Permission Denied",
+      "message": "PermissionError: [Errno 13] Permission denied: 'some_file.txt'",
+      "causes": [
+        "Attempting to read/write a file without sufficient permissions.",
+        "File in use by another process.",
+        "Running script without elevated privileges."
+      ],
+      "solutions": [
+        "Check permissions: `ls -l some_file.txt` (Unix) or `icacls some_file.txt` (Windows).",
+        "Change permissions: `chmod 644 some_file.txt` (Unix) or adjust via File Explorer (Windows).",
+        "Run with privileges: `sudo python script.py` (Unix) or run as Administrator (Windows)."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "ModuleNotFoundError: No Module Named '_ctypes'",
+      "message": "ModuleNotFoundError: No module named '_ctypes'",
+      "causes": [
+        "Missing `libffi-dev` dependency for Python’s `ctypes` module.",
+        "Python installation corrupted or incomplete.",
+        "Building Python from source without required libraries."
+      ],
+      "solutions": [
+        "Install dependencies: `sudo apt-get install libffi-dev` (Ubuntu) or equivalent for your OS.",
+        "Reinstall Python: Use official installer or package manager (`brew install python` on macOS).",
+        "Verify installation: `python -c 'import ctypes'` to test."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "TypeError: Expected Iterable",
+      "message": "TypeError: 'int' object is not iterable",
+      "causes": [
+        "Passing a non-iterable (e.g., `int`) to a function expecting an iterable (e.g., `list`).",
+        "Not converting single values to iterable (e.g., `[value]`).",
+        "Incorrect unpacking syntax."
+      ],
+      "solutions": [
+        "Convert to iterable: `for item in [value]:` or `list(value)`.",
+        "Avoid unpacking non-iterables: `a, b = value` should be `a = value` if single value.",
+        "Check type: `type(value)` to ensure it’s iterable before operation."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "ConnectionError: Failed to Connect",
+      "message": "requests.exceptions.ConnectionError: HTTPConnectionPool(host='example.com', port=80): Max retries exceeded",
+      "causes": [
+        "Target server down or unreachable.",
+        "Network issues or firewall blocking connection.",
+        "Exceeding retry limit in `requests` library."
+      ],
+      "solutions": [
+        "Check connectivity: `ping example.com` or `curl example.com` to verify server.",
+        "Increase retries: `requests.get(url, timeout=10, retries=5)` with `urllib3.util.retry`.",
+        "Handle exceptions: `try: requests.get(url) except requests.ConnectionError: print('Failed to connect')`."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "OverflowError: Integer Too Large",
+      "message": "OverflowError: int too large to convert to float",
+      "causes": [
+        "Performing operations with extremely large integers.",
+        "Converting large integers to float beyond float’s range.",
+        "Recursive calculations causing exponential growth."
+      ],
+      "solutions": [
+        "Use Decimal: `from decimal import Decimal; number = Decimal('large_number')`.",
+        "Limit range: Check values and constrain inputs to avoid overflow.",
+        "Debug recursion: Add base cases to recursive functions to prevent overflow."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "asyncio: Event Loop Already Running",
+      "message": "RuntimeError: This event loop is already running",
+      "causes": [
+        "Trying to run multiple asyncio event loops concurrently.",
+        "Using `asyncio.run()` inside a running loop (e.g., Jupyter notebooks).",
+        "Mixing synchronous and asynchronous code improperly."
+      ],
+      "solutions": [
+        "Use `await`: Replace `asyncio.run()` with `await coroutine` inside a running loop.",
+        "Get running loop: `loop = asyncio.get_event_loop()` and use `loop.run_until_complete()`.",
+        "Use `nest_asyncio`: `import nest_asyncio; nest_asyncio.apply()` in Jupyter notebooks."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Django: Migration Fails Due to Conflicting Changes",
+      "message": "django.db.migrations.exceptions.InconsistentMigrationHistory: Migration X is applied before its dependency Y",
+      "causes": [
+        "Applying migrations in the wrong order.",
+        "Conflicting changes in database schema between branches.",
+        "Manually altering database schema without updating migrations."
+      ],
+      "solutions": [
+        "Revert migrations: `python manage.py migrate app_name zero` to rollback, then reapply.",
+        "Fix dependencies: Check `dependencies` in migration files and resolve conflicts.",
+        "Recreate migrations: Delete migration files and database, then `makemigrations` and `migrate` again."
+      ]
+    },
+    {
+        "id": 31,
+        "title": "Silent Data Corruption in File Write",
+        "message": "No error raised, but file content is incomplete or corrupted.",
+        "causes": [
+          "File not properly closed after writing (e.g., not using `with` statement).",
+          "Buffering issues causing partial writes during crashes.",
+          "Concurrent writes to the same file without proper locking."
+        ],
+        "solutions": [
+          "Use `with` statement: `with open('file.txt', 'w') as f: f.write(data)` to ensure flush and close.",
+          "Force flush: `f.flush()` after writing critical data.",
+          "Implement file locking: Use `fcntl` or `filelock` library for concurrent writes (`from filelock import FileLock`)."
+        ]
+      },
+      {
+        "id": 32,
+        "title": "Unexpected Behavior Due to Implicit Global Variable",
+        "message": "No error raised, but variable behaves unexpectedly across functions.",
+        "causes": [
+          "Accidentally modifying a global variable in a function without `global` keyword.",
+          "Not specifying scope, leading to implicit global usage.",
+          "Shadowing a global variable with a local one."
+        ],
+        "solutions": [
+          "Explicitly declare globals: `global my_var` inside functions to avoid confusion.",
+          "Avoid globals: Pass variables as arguments (`def func(my_var):`).",
+          "Debug scope: Use `locals()` and `globals()` to inspect variable scope."
+        ]
+      },
+      {
+        "id": 33,
+        "title": "UnicodeEncodeError: Encoding Mismatch",
+        "message": "UnicodeEncodeError: 'ascii' codec can't encode character '\\u2019' in position 0: ordinal not in range(128)",
+        "causes": [
+          "Writing Unicode characters to a file/console with default ASCII encoding.",
+          "Environment variable `LANG` or `LC_ALL` not set for UTF-8.",
+          "Mixing different encodings between input and output."
+        ],
+        "solutions": [
+          "Specify encoding: `with open('file.txt', 'w', encoding='utf-8') as f: f.write(data)`.",
+          "Set environment: `export LANG=en_US.UTF-8` or `export PYTHONUTF8=1` in terminal.",
+          "Handle encoding errors: `data.encode('utf-8', errors='ignore')` or `'replace'`."
+        ]
+      },
+      {
+        "id": 34,
+        "title": "Race Condition in Multithreaded Code",
+        "message": "No error raised, but data is corrupted or results are inconsistent.",
+        "causes": [
+          "Multiple threads accessing shared resources without synchronization.",
+          "Not using locks for critical sections.",
+          "Incorrect assumption of thread safety in libraries."
+        ],
+        "solutions": [
+          "Use locks: `from threading import Lock; lock = Lock(); with lock: shared_resource += 1`.",
+          "Use thread-safe structures: `from queue import Queue` for safe data sharing.",
+          "Debug with logging: Add `threading.current_thread().name` to logs to traceability."
+        ]
+      },
+      {
+        "id": 35,
+        "title": "Pip Install Fails: Dependency Conflict",
+        "message": "ERROR: Cannot install package==X.Y.Z because these package versions have conflicting dependencies.",
+        "causes": [
+          "Conflicting version requirements between dependencies.",
+          "Outdated `pip` unable to resolve dependencies.",
+          "Mixing incompatible versions of libraries (e.g., `pandas` and `numpy`)."
+        ],
+        "solutions": [
+          "Upgrade pip: `pip install --upgrade pip`.",
+          "Use dependency resolver: `pip install package --use-feature=2020-resolver` (older pip versions).",
+          "Resolve manually: Check `requirements.txt` or use `pipdeptree` to identify conflicts, then pin compatible versions."
+        ]
+      },
+      {
+        "id": 36,
+        "title": "ResourceWarning: Unclosed File",
+        "message": "ResourceWarning: unclosed file <_io.TextIOWrapper name='file.txt' mode='r' encoding='UTF-8'>",
+        "causes": [
+          "Not closing files explicitly (e.g., `f.close()` or using `with`).",
+          "File object going out of scope without proper cleanup.",
+          "Running with `-W` flag or `warnings` enabled showing resource warnings."
+        ],
+        "solutions": [
+          "Use `with` statement: `with open('file.txt') as f: data = f.read()`.",
+          "Close explicitly: Ensure `f.close()` in `try-finally` if `with` not used.",
+          "Ignore warnings (not recommended): `import warnings; warnings.filterwarnings('ignore', category=ResourceWarning)`."
+        ]
+      },
+      {
+        "id": 37,
+        "title": "Deadlock in Multiprocessing",
+        "message": "No error raised, but program hangs indefinitely.",
+        "causes": [
+          "Multiple processes waiting for each other to release resources.",
+          "Not releasing locks or semaphores properly.",
+          "Improper use of `multiprocessing.Queue` or `Pipe` causing blocking."
+        ],
+        "solutions": [
+          "Use timeouts: `lock.acquire(timeout=10)` to avoid indefinite waits.",
+          "Ensure cleanup: Release locks in `finally` blocks (`lock.release()`).",
+          "Debug with logging: Add logs to trace lock acquisition/release (`import logging`)."
+        ]
+      },
+      {
+        "id": 38,
+        "title": "Unexpected Behavior Due to Mutable Default Arguments",
+        "message": "No error raised, but function accumulates unexpected state across calls.",
+        "causes": [
+          "Using mutable default arguments (e.g., `def func(lst=[]):`).",
+          "Default mutable object shared across function calls.",
+          "Not initializing mutable objects inside function."
+        ],
+        "solutions": [
+          "Use None as default: `def func(lst=None): lst = [] if lst is None else lst`.",
+          "Avoid mutable defaults: Pass mutable objects explicitly (`func([1, 2])`).",
+          "Debug state: Print default argument to trace changes (`print(lst)`)."
+        ]
+      },
+      {
+        "id": 39,
+        "title": "asyncio: Task Was Destroyed But It Is Pending",
+        "message": "Task was destroyed but it is pending! task: <Task pending coro=<some_coroutine()>>",
+        "causes": [
+          "Not awaiting or cancelling asyncio tasks before program exit.",
+          "Shutting down event loop with pending tasks.",
+          "Improper cleanup of async resources."
+        ],
+        "solutions": [
+          "Await tasks: `await some_task` or `asyncio.gather(*tasks)`.",
+          "Cancel tasks: `task.cancel()` and handle `CancelledError` if needed.",
+          "Ensure cleanup: Use `loop.run_until_complete(loop.shutdown_asyncgens())` before closing loop."
+        ]
+      },
+      {
+        "id": 40,
+        "title": "ImportError: DLL Load Failed",
+        "message": "ImportError: DLL load failed while importing some_module: The specified module could not be found.",
+        "causes": [
+          "Missing system dependencies for a native module (e.g., `numpy`, `scipy`).",
+          "Corrupted Python installation or dependency.",
+          "Path issues on Windows (e.g., missing Visual C++ Redistributable)."
+        ],
+        "solutions": [
+          "Install dependencies: For Windows, install Visual C++ Redistributable or required DLLs.",
+          "Reinstall module: `pip uninstall some_module && pip install some_module`.",
+          "Fix PATH: Ensure system PATH includes necessary DLL paths (e.g., `C:\\Windows\\System32`)."
+        ]
+      },
+      {
+        "id": 41,
+        "title": "Memory Leak in Long-Running Script",
+        "message": "No error raised, but memory usage grows indefinitely.",
+        "causes": [
+          "Not releasing references to objects (e.g., lists, dictionaries growing).",
+          "Global variables accumulating data in loops.",
+          "Improper use of external libraries with hidden memory leaks."
+        ],
+        "solutions": [
+          "Use `tracemalloc`: `import tracemalloc; tracemalloc.start()` to trace memory usage.",
+          "Clear references: Use `del` or set to `None` for large objects after use.",
+          "Profile memory: Use `memory_profiler` (`pip install memory_profiler`) to identify leaks."
+        ]
+      },
+      {
+        "id": 42,
+        "title": "Logging Output Missing",
+        "message": "No error raised, but logs not appearing in console/file.",
+        "causes": [
+          "Logging not configured or default handler missing.",
+          "Log level set too high (e.g., `logging.WARNING` but logging `INFO`).",
+          "File handler misconfigured (e.g., wrong path, permissions)."
+        ],
+        "solutions": [
+          "Configure logging: `import logging; logging.basicConfig(level=logging.INFO)`.",
+          "Set correct level: `logging.getLogger().setLevel(logging.DEBUG)`.",
+          "Check file handler: Ensure path exists (`logging.FileHandler('logfile.log')`)."
+        ]
+      },
+      {
+        "id": 43,
+        "title": "FastAPI: 422 Unprocessable Entity",
+        "message": "422 Unprocessable Entity: Invalid request body.",
+        "causes": [
+          "Sending malformed JSON or missing required fields.",
+          "Pydantic validation failing due to incorrect data types.",
+          "Not matching endpoint schema (e.g., missing required parameter)."
+        ],
+        "solutions": [
+          "Check request body: Ensure JSON matches endpoint model (e.g., `curl -d '{\"key\": \"value\"}'`).",
+          "Validate with Pydantic: Review model definitions for required fields and types.",
+          "Debug with logs: Add `print(request.json())` or logging in endpoint."
+        ]
+      },
+      {
+        "id": 44,
+        "title": "pytest: AssertionError in Test",
+        "message": "AssertionError: assert X == Y",
+        "causes": [
+          "Test assertion failing due to incorrect expected value.",
+          "Test data not set up correctly (e.g., mocked data).",
+          "Logic error in the code being tested."
+        ],
+        "solutions": [
+          "Debug test: `pytest --pdb` to drop into debugger on failure.",
+          "Check assertions: Ensure `X` matches `Y` using `print(X, Y)`.",
+          "Fix setup: Ensure fixtures/mocks (`pytest.fixture`) provide correct data."
+        ]
+      },
+      {
+        "id": 45,
+        "title": "DeprecationWarning: Function Deprecated",
+        "message": "DeprecationWarning: Function some_function slated for removal in version X.",
+        "causes": [
+          "Using a deprecated function or method in a library.",
+          "Not updating code after library upgrade.",
+          "Warnings enabled with `-W` flag showing deprecations."
+        ],
+        "solutions": [
+          "Check docs: Look up replacement in library documentation (e.g., `some_lib.__version__`).",
+          "Update code: Replace deprecated function with new API.",
+          "Suppress temporarily: `import warnings; warnings.filterwarnings('ignore', category=DeprecationWarning)`."
+        ]
+      },
+      {
+        "id": 46,
+        "title": "KeyboardInterrupt Not Caught",
+        "message": "No error raised, but program exits abruptly on Ctrl+C.",
+        "causes": [
+          "Not catching `KeyboardInterrupt` in long-running scripts.",
+          "Running in an environment where SIGINT isn’t handled.",
+          "Nested loops or async code masking interrupt."
+        ],
+        "solutions": [
+          "Catch interrupt: `try: while True: pass except KeyboardInterrupt: print('Exiting')`.",
+          "Handle signals: `import signal; signal.signal(signal.SIGINT, handler)`.",
+          "Ensure cleanup: Use `finally` to release resources on interrupt."
+        ]
+      },
+      {
+        "id": 47,
+        "title": "Pickle: PicklingError",
+        "message": "PicklingError: Can't pickle <type 'function'>: it's not found as module.function",
+        "causes": [
+          "Trying to pickle an unpicklable object (e.g., lambda, nested function).",
+          "Dynamic objects or closures not supported by `pickle`.",
+          "Dependency changes breaking pickled data."
+        ],
+        "solutions": [
+          "Avoid unpicklable objects: Use `dill` (`pip install dill`) for complex objects.",
+          "Convert to picklable: Replace lambdas with named functions.",
+          "Use alternative: Save data as JSON (`json.dump()`) if possible."
+        ]
+      },
+      {
+        "id": 48,
+        "title": "PyInstaller: Executable Fails to Run",
+        "message": "No error raised, but executable fails with 'ImportError' or crashes.",
+        "causes": [
+          "Missing hidden imports not included by PyInstaller.",
+          "Dynamic imports not detected during build.",
+          "File paths incorrect in bundled executable."
+        ],
+        "solutions": [
+          "Specify hidden imports: `pyinstaller --hidden-import some_module script.py`.",
+          "Add paths: `pyinstaller --add-data 'path/to/resource;.' script.py`.",
+          "Debug executable: Run with `--log-level DEBUG` to trace errors."
+        ]
+      },
+      {
+        "id": 49,
+        "title": "Celery: Task Not Executed",
+        "message": "No error raised, but Celery task does not run.",
+        "causes": [
+          "Worker not running or not connected to broker (e.g., RabbitMQ, Redis).",
+          "Task not registered due to incorrect import or app setup.",
+          "Broker connection issues (e.g., Redis down)."
+        ],
+        "solutions": [
+          "Start worker: `celery -A proj worker --loglevel=info`.",
+          "Verify imports: Ensure task is imported in `tasks.py` (`@app.task`).",
+          "Check broker: Ensure broker is running (`redis-cli ping` or RabbitMQ status)."
+        ]
+      },
+      {
+        "id": 50,
+        "title": "SQLAlchemy: OperationalError",
+        "message": "OperationalError: (psycopg2.OperationalError) could not connect to server",
+        "causes": [
+          "Database server not running or unreachable.",
+          "Incorrect database URI in configuration.",
+          "Network issues or firewall blocking database port."
+        ],
+        "solutions": [
+          "Check server: Ensure database is running (`systemctl status postgresql`).",
+          "Verify URI: Check `SQLALCHEMY_DATABASE_URI` (e.g., `postgresql://user:pass@localhost/db`).",
+          "Test connection: `psql -U user -d db` or equivalent for MySQL."
+        ]
+      },
+      {
+        "id": 51,
+        "title": "OverflowError: Python Int Too Large for C Function",
+        "message": "OverflowError: Python int too large to convert to C long",
+        "causes": [
+          "Passing a large Python integer to a C-based function (e.g., `ctypes`).",
+          "Not clamping integer within C type limits.",
+          "Using libraries with strict C-type constraints."
+        ],
+        "solutions": [
+          "Clamp value: Ensure value fits C type (e.g., `value % (2**31)` for 32-bit int).",
+          "Use `ctypes` types: `ctypes.c_int(value)` to convert explicitly.",
+          "Check library limits: Review library docs for integer constraints."
+        ]
+      },
+      {
+        "id": 52,
+        "title": "Subprocess: CalledProcessError",
+        "message": "subprocess.CalledProcessError: Command '['cmd']' returned non-zero exit status 1",
+        "causes": [
+          "External command failed with non-zero exit code.",
+          "Incorrect command syntax or missing dependencies.",
+          "Permissions or environment issues on system."
+        ],
+        "solutions": [
+          "Check command: Run `cmd` manually to debug (`cmd` in shell).",
+          "Capture output: `result = subprocess.run(['cmd'], capture_output=True, text=True)`.",
+          "Handle exits: `try: subprocess.run(['cmd'], check=True) except subprocess.CalledProcessError as e: print(e)`."
+        ]
+      },
+      {
+        "id": 53,
+        "title": "Unexpected Behavior in Dictionary During Iteration",
+        "message": "No error raised, but dictionary size changes during iteration.",
+        "causes": [
+          "Modifying a dictionary while iterating over it.",
+          "Adding/removing keys in a loop causing runtime errors.",
+          "Not creating a copy of keys/items before iteration."
+        ],
+        "solutions": [
+          "Iterate over copy: `for key in list(my_dict.keys()): del my_dict[key]`.",
+          "Collect changes: Store keys to modify in a list, then apply after loop.",
+          "Use comprehension: `new_dict = {k: v for k, v in my_dict.items() if condition}`."
+        ]
+      },
+      {
+        "id": 54,
+        "title": "aiohttp: ClientSession Not Closed",
+        "message": "ResourceWarning: unclosed <aiohttp.client.ClientSession object>",
+        "causes": [
+          "Not closing `aiohttp.ClientSession` after use.",
+          "Not using context manager for async HTTP sessions.",
+          "Exceptions interrupting session cleanup."
+        ],
+        "solutions": [
+          "Use context manager: `async with aiohttp.ClientSession() as session:`.",
+          "Close explicitly: `await session.close()` in `try-finally` if not using `with`.",
+          "Suppress warning: `warnings.filterwarnings('ignore', category=ResourceWarning)` (not recommended)."
+        ]
+      },
+      {
+        "id": 55,
+        "title": "Gunicorn: Worker Timeout",
+        "message": "ERROR: Worker timeout exceeded (pid: X)",
+        "causes": [
+          "Worker process taking too long to respond (default timeout 30s).",
+          "Long-running synchronous tasks blocking workers.",
+          "Insufficient workers or threads for load."
+        ],
+        "solutions": [
+          "Increase timeout: `gunicorn --timeout 60 app:app`.",
+          "Optimize tasks: Offload long tasks to Celery or async workers.",
+          "Add workers: `gunicorn --workers 4 app:app` (adjust based on CPU)."
+        ]
+      },
+      {
+        "id": 56,
+        "title": "TensorFlow: GPU Memory Allocation Failure",
+        "message": "tensorflow.python.framework.errors_impl.ResourceExhaustedError: OOM when allocating tensor",
+        "causes": [
+          "GPU memory exhausted due to large model or batch size.",
+          "Multiple processes sharing GPU without proper management.",
+          "Not clearing previous sessions or tensors."
+        ],
+        "solutions": [
+          "Reduce batch size: Lower `batch_size` in training loop.",
+          "Clear sessions: `tf.keras.backend.clear_session()` between runs.",
+          "Limit GPU usage: `tf.config.experimental.set_memory_growth(gpu, True)` for dynamic allocation."
+        ]
+      },
+      {
+        "id": 57,
+        "title": "Frozen Executable Missing Dependencies",
+        "message": "No error raised, but frozen executable fails with missing module.",
+        "causes": [
+          "PyInstaller/CXFREEZE missing dynamically loaded modules.",
+          "Environment-specific dependencies not bundled.",
+          "Incorrect paths in frozen app."
+        ],
+        "solutions": [
+          "Add hidden imports: `pyinstaller --hidden-import some_module script.py`.",
+          "Include files: `pyinstaller --add-data 'path/to/file;.' script.py`.",
+          "Test on target: Build on similar OS as target and test."
+        ]
+      },
+      {
+        "id": 58,
+        "title": "matplotlib: Backend Not Found",
+        "message": "RuntimeError: No usable backend found for plotting.",
+        "causes": [
+          "Missing GUI backend (e.g., Tkinter, Qt) for `matplotlib`.",
+          "Running in non-GUI environment (e.g., SSH, Docker).",
+          "Backend misconfigured in `matplotlibrc`."
+        ],
+        "solutions": [
+          "Switch backend: `import matplotlib; matplotlib.use('Agg')` for non-GUI plotting.",
+          "Install backend: `pip install PyQt5` or `tkinter` (`sudo apt-get install python3-tk`).",
+          "Check environment: Ensure GUI support if interactive plotting needed (e.g., X11 forwarding)."
+        ]
+      },
+      {
+        "id": 59,
+        "title": "Logging Overwrites File Unexpectedly",
+        "message": "No error raised, but log file overwritten instead of appended.",
+        "causes": [
+          "Using `FileHandler` with mode `'w'` instead of `'a'`.",
+          "Multiple loggers writing to same file without coordination.",
+          "Restarting script without checking file mode."
+        ],
+        "solutions": [
+          "Set append mode: `logging.FileHandler('logfile.log', mode='a')`.",
+          "Use RotatingFileHandler: `logging.handlers.RotatingFileHandler('logfile.log', maxBytes=1000000, backupCount=5)`.",
+          "Centralize logging: Configure a single logger for all modules."
+        ]
+      },
+      {
+        "id": 60,
+        "title": "Timed Out on External API Call",
+        "message": "requests.exceptions.Timeout: HTTPConnectionPool(host='api.example.com', port=80): Request timed out.",
+        "causes": [
+          "External API slow or unresponsive.",
+          "Network latency or firewall blocking request.",
+          "No timeout set, leading to default timeout."
+        ],
+        "solutions": [
+          "Set timeout: `requests.get('url', timeout=5)`.",
+          "Retry mechanism: `from requests.adapters import HTTPAdapter; s = requests.Session(); s.mount('http://', HTTPAdapter(max_retries=3))`.",
+          "Handle timeout: `try: requests.get(url, timeout=5) except requests.Timeout: print('Timed out')`."
+        ]
+      },
+      {
+        "id": 61,
+        "title": "Silent Overwrite Due to File Path Case Sensitivity",
+        "message": "No error raised, but files are overwritten or not found on case-sensitive systems.",
+        "causes": [
+          "Case mismatch in file paths (e.g., 'data.txt' vs 'Data.txt') on case-sensitive file systems like Linux.",
+          "Assuming case-insensitive behavior when deploying to different OS.",
+          "Not normalizing paths before file operations."
+        ],
+        "solutions": [
+          "Normalize paths: Use `os.path.normcase(path)` or `path.lower()` when comparing paths.",
+          "Test cross-platform: Run tests on both case-sensitive (Linux) and insensitive (Windows) systems.",
+          "Explicit naming: Stick to consistent case in file naming (e.g., always lowercase)."
+        ]
+      },
+      {
+        "id": 62,
+        "title": "Unexpected Behavior Due to `__getattr__` Misuse",
+        "message": "No error raised, but attributes behave inconsistently.",
+        "causes": [
+          "Incorrect implementation of `__getattr__` causing infinite recursion.",
+          "Not distinguishing between `__getattr__` and `__getattribute__`.",
+          "Returning unexpected values for undefined attributes."
+        ],
+        "solutions": [
+          "Avoid recursion: Ensure `__getattr__` doesn’t call itself (`def __getattr__(self, name): return getattr(self, name)`).",
+          "Use `__getattribute__` carefully: Override `__getattribute__` only for specific needs.",
+          "Debug access: Add `print(name)` in `__getattr__` to trace attribute lookups."
+        ]
+      },
+      {
+        "id": 63,
+        "title": "RuntimeError: Dictionary Changed Size During Iteration",
+        "message": "RuntimeError: dictionary changed size during iteration",
+        "causes": [
+          "Adding or removing keys from a dictionary while iterating over it.",
+          "Dynamic dictionary modifications in loops.",
+          "Not creating a copy of keys/items before iteration."
+        ],
+        "solutions": [
+          "Iterate over a copy: `for key in list(my_dict.keys()): del my_dict[key]`.",
+          "Collect changes: Store additions/removals in a list, apply after loop.",
+          "Use comprehension: `new_dict = {k: v for k, v in my_dict.items() if condition}`."
+        ]
+      },
+      {
+        "id": 64,
+        "title": "SQLite Database Locked",
+        "message": "sqlite3.OperationalError: database is locked",
+        "causes": [
+          "Multiple connections trying to write to SQLite database concurrently.",
+          "Long-running transactions not committed.",
+          "Not closing database connections properly."
+        ],
+        "solutions": [
+          "Increase timeout: `conn = sqlite3.connect('file.db', timeout=10)`.",
+          "Use `with` for transactions: `with conn: conn.execute('INSERT ...')` to auto-commit.",
+          "Close connections: Ensure `conn.close()` after use or use context managers."
+        ]
+      },
+      {
+        "id": 65,
+        "title": "Unexpected Behavior Due to `__slots__` Misuse",
+        "message": "No error raised, but attributes cannot be added dynamically.",
+        "causes": [
+          "Using `__slots__` to restrict attributes but trying to add new ones dynamically.",
+          "Not understanding `__slots__` memory optimization.",
+          "Inheritance issues with `__slots__` in subclasses."
+        ],
+        "solutions": [
+          "Define all attributes in `__slots__`: `class MyClass: __slots__ = ['attr1', 'attr2']`.",
+          "Avoid dynamic attributes: Use `__slots__` only when memory optimization is critical.",
+          "Debug inheritance: Ensure subclasses also define `__slots__` or use `__dict__`."
+        ]
+      },
+      {
+        "id": 66,
+        "title": "boto3: S3 ClientError Timeout",
+        "message": "botocore.exceptions.ClientError: An error occurred (RequestTimeout): Request timeout",
+        "causes": [
+          "AWS S3 request timed out due to network issues or large file operations.",
+          "Low timeout setting in boto3 configuration.",
+          "Server-side throttling or latency on AWS."
+        ],
+        "solutions": [
+          "Increase timeout: `boto3.client('s3', config=Config(connect_timeout=50, read_timeout=50))`.",
+          "Retry mechanism: `from botocore.retries import standard; client.meta.config.retries = {'max_attempts': 5}`.",
+          "Optimize payload: Use multipart uploads for large files (`client.upload_fileobj()`)."
+        ]
+      },
+      {
+        "id": 67,
+        "title": "ImportError: Version Mismatch in CI Pipeline",
+        "message": "ImportError: requires package==X but version Y is installed",
+        "causes": [
+          "CI pipeline installing different package versions than local.",
+          "Not pinning dependencies in `requirements.txt` or `pyproject.toml`.",
+          "Outdated dependency cache in CI environment."
+        ],
+        "solutions": [
+          "Pin versions: Specify exact versions (`package==X.Y.Z`) in `requirements.txt`.",
+          "Clear CI cache: Add step to clear dependency cache (`pip cache purge`) in CI.",
+          "Use lockfile: Generate `requirements.lock` with `pip freeze` or `poetry` and use in CI."
+        ]
+      },
+      {
+        "id": 68,
+        "title": "Uncaught Exception in Thread Causes Silent Failure",
+        "message": "No error raised in main thread, but worker thread fails silently.",
+        "causes": [
+          "Exceptions in threads not propagated to main thread.",
+          "Not handling exceptions within thread logic.",
+          "Thread daemonized, exiting silently on failure."
+        ],
+        "solutions": [
+          "Handle in thread: `def worker(): try: ... except Exception as e: print(e)`.",
+          "Use ThreadPoolExecutor: `from concurrent.futures import ThreadPoolExecutor` to catch exceptions.",
+          "Set exception hook: `threading.excepthook = lambda args: print(f'Thread failed: {args.exc_value}')` (Python 3.8+)."
+        ]
+      },
+      {
+        "id": 69,
+        "title": "asyncio: Future Object Not Awaited",
+        "message": "RuntimeWarning: coroutine 'some_coroutine' was never awaited",
+        "causes": [
+          "Creating an async coroutine but not awaiting it.",
+          "Not using `await` or `asyncio.run()` for async functions.",
+          "Returning a coroutine object without handling."
+        ],
+        "solutions": [
+          "Await coroutine: `await some_coroutine()` in async function.",
+          "Run in sync context: `asyncio.run(some_coroutine())` in synchronous code.",
+          "Gather multiple: `await asyncio.gather(*coroutines)` for multiple coroutines."
+        ]
+      },
+      {
+        "id": 70,
+        "title": "MemoryError in Large CSV Processing",
+        "message": "MemoryError during pandas.read_csv()",
+        "causes": [
+          "Loading large CSV into memory all at once with `pandas.read_csv()`.",
+          "Insufficient RAM for dataset size.",
+          "Not using memory-efficient techniques."
+        ],
+        "solutions": [
+          "Use chunks: `for chunk in pd.read_csv('file.csv', chunksize=10000): process(chunk)`.",
+          "Optimize dtypes: `df = pd.read_csv('file.csv', dtype={'col1': 'int32'})` to reduce memory.",
+          "Use alternative: `dask.dataframe.read_csv('file.csv')` for out-of-core processing."
+        ]
+      },
+      {
+        "id": 71,
+        "title": "DeprecationWarning: Python Version Unsupported",
+        "message": "DeprecationWarning: Support for Python X.Y will be removed in future versions.",
+        "causes": [
+          " Running code on an older Python version near end-of-life.",
+          "Library warning about future incompatibility.",
+          "Not upgrading to a supported Python version."
+        ],
+        "solutions": [
+          "Upgrade Python: Install a supported version (`python3.9` or later via `pyenv` or package manager).",
+          "Check library docs: Ensure library supports current Python version.",
+          "Suppress warnings: `warnings.filterwarnings('ignore', category=DeprecationWarning)` (temporary)."
+        ]
+      },
+      {
+        "id": 72,
+        "title": "Django: CSRF Verification Failed",
+        "message": "CSRF verification failed. Request aborted.",
+        "causes": [
+          "Missing CSRF token in POST form submission.",
+          "CSRF cookie not set or sent due to browser settings.",
+          "Misconfigured `CSRF_TRUSTED_ORIGINS` for cross-origin requests."
+        ],
+        "solutions": [
+          "Add CSRF token: Ensure `<form>` includes `{% csrf_token %}` in template.",
+          "Check cookies: Verify browser sends CSRF cookie (disable strict cookie settings).",
+          "Update settings: Add domain to `CSRF_TRUSTED_ORIGINS` in `settings.py` for cross-origin."
+        ]
+      },
+      {
+        "id": 73,
+        "title": "Flask: Session Data Lost",
+        "message": "No error raised, but session data disappears between requests.",
+        "causes": [
+          "Not setting `app.secret_key` for session encryption.",
+          "Session cookie not saved due to browser or domain mismatch.",
+          "Restarting Flask app, clearing in-memory sessions."
+        ],
+        "solutions": [
+          "Set secret key: `app.secret_key = 'your-secret-key'` before using sessions.",
+          "Use permanent sessions: `session.permanent = True` to persist longer.",
+          "Store externally: Use `Flask-Session` with Redis (`pip install Flask-Session`) for persistence."
+        ]
+      },
+      {
+        "id": 74,
+        "title": "Unexpected Behavior in Metaclass",
+        "message": "No error raised, but class behaves unexpectedly.",
+        "causes": [
+          "Incorrect implementation of `__new__` or `__init__` in metaclass.",
+          "Not calling parent metaclass methods.",
+          "Misunderstanding metaclass lifecycle."
+        ],
+        "solutions": [
+          "Call parent: `class MyMeta(type): def __new__(cls, name, bases, attrs): return super().__new__(cls, name, bases, attrs)`.",
+          "Debug lifecycle: Add `print()` in `__new__` and `__init__` to trace execution.",
+          "Simplify: Avoid metaclasses unless necessary; use decorators or class methods instead."
+        ]
+      },
+      {
+        "id": 75,
+        "title": "PyTest: Fixture Not Found",
+        "message": "fixture 'some_fixture' not found",
+        "causes": [
+          "Fixture not defined in test file or `conftest.py`.",
+          "Typo in fixture name during test declaration.",
+          "Fixture scope mismatch (e.g., session vs function)."
+        ],
+        "solutions": [
+          "Define fixture: Add `@pytest.fixture def some_fixture(): return value` in test or `conftest.py`.",
+          "Check name: Ensure fixture name in test matches definition (`def test_func(some_fixture):`).",
+          "Adjust scope: Use `@pytest.fixture(scope='session')` if needed."
+        ]
+      },
+      {
+        "id": 76,
+        "title": "Hidden Encoding Issue in String Concatenation",
+        "message": "No error raised, but output contains mojibake or incorrect characters.",
+        "causes": [
+          "Mixing strings with different encodings (e.g., UTF-8 and Latin-1).",
+          "Not decoding/encoding properly during I/O operations.",
+          "Assuming default encoding matches source data."
+        ],
+        "solutions": [
+          "Explicitly encode/decode: `str.encode('utf-8')` or `bytes.decode('utf-8')`.",
+          "Check source encoding: Use `chardet` (`pip install chardet`) to detect encoding.",
+          "Normalize strings: `import unicodedata; unicodedata.normalize('NFC', string)`."
+        ]
+      },
+      {
+        "id": 77,
+        "title": "SQLAlchemy: Stale Data in Session",
+        "message": "No error raised, but query returns outdated data.",
+        "causes": [
+          "Session caching stale objects without refresh.",
+          "Not committing or rolling back transactions properly.",
+          "Concurrency issues leading to outdated reads."
+        ],
+        "solutions": [
+          "Refresh objects: `session.refresh(obj)` to fetch latest data.",
+          "Commit or rollback: `session.commit()` or `session.rollback()` after operations.",
+          "Use isolation levels: Set `engine = create_engine('sqlite://', isolation_level='SERIALIZABLE')`."
+        ]
+      },
+      {
+        "id": 78,
+        "title": "Gunicorn: Worker Killed by OS",
+        "message": "Worker with pid X was terminated due to signal 9",
+        "causes": [
+          "OS killing worker due to memory or resource exhaustion.",
+          "Too many workers for available system resources.",
+          "Long-running tasks causing OOM (Out of Memory) kills."
+        ],
+        "solutions": [
+          "Reduce workers: `gunicorn --workers 2 app:app` based on CPU/memory.",
+          "Increase memory: Add swap space (`sudo fallocate -l 2G /swapfile`) or upgrade server.",
+          "Profile app: Use `gunicorn --preload` and profiling tools to find memory hogs."
+        ]
+      },
+      {
+        "id": 79,
+        "title": "unittest: AssertionError Not Caught",
+        "message": "No error raised, but test fails silently without proper reporting.",
+        "causes": [
+          "Not using proper `unittest` assertions (e.g., `assert` instead of `self.assertEqual`).",
+          "Exceptions in setup/teardown masking test failures.",
+          "Incorrect test discovery or setup skipping tests."
+        ],
+        "solutions": [
+          "Use assertions: `self.assertEqual(a, b)` instead of `assert a == b`.",
+          "Handle setup errors: `def setUp(self): try: ... except Exception as e: self.fail(f'Setup failed: {e}')`.",
+          "Run with verbosity: `python -m unittest -v` to see detailed test output."
+        ]
+      },
+      {
+        "id": 80,
+        "title": "Unexpected Behavior Due to Monkey Patching",
+        "message": "No error raised, but library behavior changes unexpectedly.",
+        "causes": [
+          "Monkey patching a library method/class at runtime.",
+          "Not restoring original implementation after patch.",
+          "Third-party libraries also monkey patching same objects."
+        ],
+        "solutions": [
+          "Patch safely: Use `unittest.mock.patch` (`with patch('module.func', new_func): ...`).",
+          "Restore state: Ensure patches are temporary and reverted (`mock.patch.stop()`).",
+          "Avoid conflicts: Check docs for library patches (`gevent`, `eventlet`) and isolate changes."
+        ]
+      },
+      {
+        "id": 81,
+        "title": "PyPI Package Upload Fails",
+        "message": "twine upload fails: HTTPError: 403 Forbidden",
+        "causes": [
+          "Invalid PyPI credentials or insufficient permissions.",
+          "Package name already taken or reserved.",
+          "Not using correct PyPI repository URL."
+        ],
+        "solutions": [
+          "Check credentials: Ensure `~/.pypirc` has valid API token (`[pypi] username = __token__`).",
+          "Verify name: Search PyPI for package name; use unique name if taken.",
+          "Specify repo: `twine upload dist/* --repository-url https://upload.pypi.org/legacy/ --verbose`."
+        ]
+      },
+      {
+        "id": 82,
+        "title": "aiohttp: Too Many Open Files",
+        "message": "OSError: [Errno 24] Too many open files",
+        "causes": [
+          "Opening too many connections without closing in async code.",
+          "System file descriptor limit reached.",
+          "Not limiting concurrent connections in `aiohttp`."
+        ],
+        "solutions": [
+          "Close sessions: `async with aiohttp.ClientSession() as session:` for proper cleanup.",
+          "Increase limit: `ulimit -n 4096` (Unix) or adjust in `/etc/security/limits.conf`.",
+          "Limit concurrency: Use `aiohttp.TCPConnector(limit=100)`."
+        ]
+      },
+      {
+        "id": 83,
+        "title": "Unexpected Behavior Due to Integer Division",
+        "message": "No error raised, but division returns unexpected integer result.",
+        "causes": [
+          "Using `/` in Python 2 or `//` in Python 3 expecting float division.",
+          "Not converting to float before division.",
+          "Assuming division behavior matches other languages."
+        ],
+        "solutions": [
+          "Use float division: `result = a / b` (Python 3) or `float(a) / b` (Python 2).",
+          "Explicit floor division: `result = a // b` if integer division intended.",
+          "Force float: `from __future__ import division` (Python 2) to use Python 3 division."
+        ]
+      },
+      {
+        "id": 84,
+        "title": "Celery: Task Retries Indefinitely",
+        "message": "No error raised, but task keeps retrying without success.",
+        "causes": [
+          "Task raising exception and retrying without max_retries limit.",
+          "Misconfigured retry policy in Celery.",
+          "Underlying issue (e.g., network) causing repeated failures."
+        ],
+        "solutions": [
+          "Set retry limit: `@app.task(max_retries=3) def my_task(): ...`.",
+          "Handle exceptions: `try: ... except Exception as e: my_task.retry(exc=e, countdown=60)`.",
+          "Debug cause: Add `logger.error(f'Failed: {e}')` to trace root cause."
+        ]
+      },
+      {
+        "id": 85,
+        "title": "PyCharm Debugger Fails to Connect",
+        "message": "Connection to Python debugger failed: Socket closed",
+        "causes": [
+          "Port conflict or firewall blocking debugger port.",
+          "Incorrect debugger configuration in PyCharm.",
+          "Running script in environment not matching PyCharm’s interpreter."
+        ],
+        "solutions": [
+          "Check port: Ensure PyCharm debugger port (default 5678) isn’t blocked (`lsof -i :5678`).",
+          "Configure interpreter: Set correct Python interpreter in PyCharm (File > Settings > Project > Python Interpreter).",
+          "Retry connection: Restart PyCharm and reattach debugger."
+        ]
+      },
+      {
+        "id": 86,
+        "title": "Silent Failure in External Command Execution",
+        "message": "No error raised, but external command does not execute as expected.",
+        "causes": [
+          "Using `os.system()` without checking return code.",
+          "Not capturing output/errors from `subprocess.run()`.",
+          "Command failing silently due to incorrect args."
+        ],
+        "solutions": [
+          "Use `subprocess.run()`: `result = subprocess.run(['cmd'], capture_output=True, text=True)` and check `result.returncode`.",
+          "Log output: `print(result.stdout, result.stderr)` to debug.",
+          "Test command: Run manually in shell to verify (`cmd`)."
+        ]
+      },
+      {
+        "id": 87,
+        "title": "Unexpected Behavior Due to Shared Class Variables",
+        "message": "No error raised, but class variable state shared across instances.",
+        "causes": [
+          "Using mutable class variables (e.g., `list`, `dict`) shared by all instances.",
+          "Not initializing instance-specific variables in `__init__`.",
+          "Assuming class variables are instance-specific."
+        ],
+        "solutions": [
+          "Initialize in `__init__`: `def __init__(self): self.my_list = []`.",
+          "Use instance vars: Avoid mutable class variables (`class MyClass: my_list = []`).",
+          "Debug state: Print instance vars (`print(self.__dict__)`) to trace."
+        ]
+      },
+      {
+        "id": 88,
+        "title": "Jupyter Notebook Kernel Dies",
+        "message": "The kernel appears to have died. It will restart automatically.",
+        "causes": [
+          "Memory exhaustion from large operations (e.g., loading huge data).",
+          "Segmentation fault in native extensions (e.g., `numpy`, `pandas`).",
+          "Infinite loops or unhandled exceptions crashing kernel."
+        ],
+        "solutions": [
+          "Optimize memory: Process data in chunks (`pd.read_csv(chunksize=1000)`).",
+          "Debug extension: Reinstall problematic libraries (`pip install --force-reinstall numpy`).",
+          "Trace crash: Run script outside Jupyter (`python script.py`) to see detailed error."
+        ]
+      },
+      {
+        "id": 89,
+        "title": "Dockerized App Fails Due to Missing Dependency",
+        "message": "ImportError: No module named 'some_module' in Docker container.",
+        "causes": [
+          "Not installing dependencies in Dockerfile.",
+          "Mismatch between local and container Python environments.",
+          "Not syncing `requirements.txt` with Dockerfile."
+        ],
+        "solutions": [
+          "Add to Dockerfile: `COPY requirements.txt .; RUN pip install -r requirements.txt`.",
+          "Verify environment: Use same Python version (`FROM python:3.9`) as local.",
+          "Test locally: Build and run Docker locally (`docker build -t app . && docker run app`)."
+        ]
+      },
+      {
+        "id": 90,
+        "title": "Infinite Recursion Due to Property Getter",
+        "message": "RecursionError: maximum recursion depth exceeded",
+        "causes": [
+          "Property getter/setter accessing itself (`@property def x(self): return self.x`).",
+          "Not using backing variable for property.",
+          "Circular dependency in descriptors."
+        ],
+        "solutions": [
+          "Use backing variable: `@property def x(self): return self._x; @x.setter def x(self, value): self._x = value`.",
+          "Increase depth (temp): `import sys; sys.setrecursionlimit(2000)` (not recommended).",
+          "Debug recursion: Add `print()` in getter/setter to trace calls."
+        ]
+      },
+      {
+        "id": 91,
+        "title": "Pandas: SettingWithCopyWarning",
+        "message": "SettingWithCopyWarning: A value is trying to be set on a copy of a slice from a DataFrame.",
+        "causes": [
+          "Chained indexing (`df[...][...]`) causing view/copy ambiguity.",
+          "Not using `.loc` or `.iloc` for assignment.",
+          "Pandas warning triggered by assignment."
+        ],
+        "solutions": [
+          "Use `.loc` for assignment: `df.loc[rows, cols] = value` instead of chained indexing.",
+          "Suppress warning: `pd.options.mode.chained_assignment = None` (not recommended).",
+          "Check view: Use `df.is_copy()` to verify if it’s a view or copy."
+        ]
+        },
+        {
+          "id": 92,
+          "title": "PyInstaller: Failed to Execute Script",
+          "message": "Failed to execute script 'script' due to missing dependencies.",
+          "causes": [
+            "Missing hidden imports not included by PyInstaller.",
+            "Dynamic imports not detected during build.",
+            "File paths incorrect in bundled executable."
+          ],
+          "solutions": [
+            "Specify hidden imports: `pyinstaller --hidden-import some_module script.py`.",
+            "Add paths: `pyinstaller --add-data 'path/to/resource;.' script.py`.",
+            "Debug executable: Run with `--log-level DEBUG` to trace errors."
+          ]
+        },
+        {
+          "id": 93,
+          "title": "PyQt: Application Freezes on Startup",
+          "message": "No error raised, but PyQt application unresponsive on launch.",
+          "causes": [
+            "Blocking main thread with long-running tasks.",
+            "Infinite loop or deadlock in GUI code.",
+            "Not starting Qt event loop (`app.exec_()`) after setup."
+          ],
+          "solutions": [
+            "Use threads: Move long tasks to background threads (`QThread`).",
+            "Check loops: Ensure no infinite loops or blocking calls in main thread.",
+            "Start event loop: Add `app.exec_()` at the end of setup code."
+          ]
+        },
+        {
+          "id": 94,
+          "title": "PyQt: Signals Not Received by Slot",
+          "message": "No error raised, but PyQt signal not triggering connected slot.",
+          "causes": [
+            "Incorrect signal-slot connection syntax.",
+            "Signals emitted before slot connected.",
+            "Not using `pyqtSlot` decorator for slot methods."
+          ],
+          "solutions": [
+            "Check connection: Use `signal.connect(slot)` to ensure proper connection.",
+            "Emit after connect: Ensure signals emitted after slot connected.",
+            "Use `pyqtSlot`: Decorate slot methods with `@pyqtSlot` for compatibility."
+          ]
+        },
+        {
+          "id": 95,
+          "title": "PyQt: Widgets Not Updating in UI",
+          "message": "No error raised, but PyQt widgets not reflecting changes in UI.",
+          "causes": [
+            "Not calling `widget.update()` or `widget.repaint()` after changes.",
+            "Blocking UI thread with long operations.",
+            "Incorrect layout or widget visibility settings."
+            ],
+            "solutions": [
+              "Update widget: Call `widget.update()` or `widget.repaint()` after modifying.",
+              "Use threads: Move long tasks to background threads (`QThread`).",
+              "Check layout: Ensure widgets are added to layout and layout applied to main window."
+            ]
+            },
+            {
+              "id": 96,
+              "title": "PyQt: Application Crashes on Exit",
+              "message": "No error raised, but PyQt application crashes when closing window.",
+              "causes": [
+                "Deleting objects before application exit.",
+                "Memory leaks or dangling references.",
+                "Signals/slots not disconnected properly."
+              ],
+              "solutions": [
+                "Disconnect signals: Use `signal.disconnect(slot)` before object deletion.",
+                "Clear references: Set objects to `None` or clear lists/dicts.",
+                "Check cleanup: Use `app.aboutToQuit.connect(cleanup_func)` to run cleanup on exit."
+              ]
+            },
+            {
+              "id": 97,
+              "title": "PyQt: Custom Widget Not Displayed",
+              "message": "No error raised, but custom PyQt widget not visible in UI.",
+              "causes": [
+                "Missing `paintEvent` or `resizeEvent` in custom widget.",
+                "Not adding custom widget to layout.",
+                "Overlapping widgets or incorrect z-order."
+              ],
+              "solutions": [
+                "Implement paintEvent: Override `paintEvent` to draw custom content.",
+                "Add to layout: Use `layout.addWidget(custom_widget)` to place in main window.",
+                "Check z-order: Use `widget.lower()` or `widget.raise_()` to adjust stacking."
+              ]
+            },
+            {
+              "id": 98,
+              "title": "PyQt: Application Hangs on Long Operation",
+              "message": "No error raised, but PyQt application freezes during long task.",
+              "causes": [
+                "Blocking UI thread with synchronous operations.",
+                "Infinite loop or deadlock in long task.",
+                "Not using threads or async for background tasks."
+              ],
+              "solutions": [
+                "Use threads: Move long tasks to background threads (`QThread`).",
+                "Check loops: Ensure no infinite loops or blocking calls in main thread.",
+                "Use async: Use `asyncio` or `QEventLoop` for async operations."
+              ]
+            },
+            {
+              "id": 99,
+              "title": "PyQt: Dialog Not Closing on Button Click",
+              "message": "No error raised, but PyQt dialog does not close when button clicked.",
+              "causes": [
+                "Not connecting button click signal to dialog close slot.",
+                "Dialog not set to close on button click.",
+                "Blocking UI thread with long operations."
+                ],
+                "solutions": [
+                  "Connect signals: Use `button.clicked.connect(dialog.close)` to close dialog.",
+                  "Set close policy: Use `dialog.setModal(False)` for non-blocking dialogs.",
+                  "Use threads: Move long tasks to background threads (`QThread`)."
+                ]
+                },
+                {
+                  "id": 100,
+                  "title": "PyQt: Application Crashes on macOS",
+                  "message": "No error raised, but PyQt application crashes on macOS.",
+                  "causes": [
+                    "macOS specific PyQt/Qt compatibility issues.",
+                    "Missing macOS deployment settings.",
+                    "Not using `macdeployqt` for PyQt deployment."
+                  ],
+                  "solutions": [
+                    "Check macOS compatibility: Ensure PyQt/Qt version supports macOS.",
+                    "Set deployment target: Use `QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15` in `.pro` file.",
+                    "Use `macdeployqt`: Run `macdeployqt app.app` to bundle PyQt dependencies."
+                  ]
+                }
+  ]

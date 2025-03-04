@@ -1,0 +1,1368 @@
+[
+    {
+      "id": 1,
+      "title": "Parse Error: Syntax Error, Unexpected Token",
+      "message": "Parse error: syntax error, unexpected 'some_token' (T_SOME_TOKEN) in file.php on line X",
+      "causes": [
+        "Missing semicolon, curly brace, or parenthesis in PHP code.",
+        "Using reserved keywords or invalid syntax.",
+        "Copy-pasted code with hidden characters or mismatched quotes."
+      ],
+      "solutions": [
+        "Check syntax: Look for missing `;`, `)`, or `}` near line X.",
+        "Validate code: Use `php -l file.php` to lint the file for syntax errors.",
+        "Enable error display: Set `display_errors = On` in `php.ini` or `ini_set('display_errors', 1);` for detailed messages."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Notice: Undefined Variable",
+      "message": "Notice: Undefined variable: someVar in file.php on line X",
+      "causes": [
+        "Using a variable before defining it.",
+        "Typo in variable name.",
+        "Variable out of scope (e.g., not passed to a function)."
+      ],
+      "solutions": [
+        "Define variable: Ensure `$someVar` is defined before use (`$someVar = null;`).",
+        "Check scope: Pass variable to functions (`function myFunc($someVar)`) or use globals cautiously (`global $someVar;`).",
+        "Use error suppression (not recommended): `isset($someVar) ? $someVar : null` or `@$someVar`."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Fatal Error: Undefined Function",
+      "message": "Fatal error: Uncaught Error: Call to undefined function someFunction() in file.php on line X",
+      "causes": [
+        "Function not defined or not included.",
+        "Missing PHP extension required for the function.",
+        "Typo in function name or incorrect namespace."
+      ],
+      "solutions": [
+        "Define function: Ensure `someFunction()` is defined in the script or included file.",
+        "Check extensions: Install missing extensions (`sudo apt-get install php-mbstring` for `mb_`* functions).",
+        "Verify namespace: Use correct namespace (`use Namespace\\someFunction;`) or fully qualified name."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Fatal Error: Maximum Execution Time Exceeded",
+      "message": "Fatal error: Maximum execution time of 30 seconds exceeded in file.php on line X",
+      "causes": [
+        "Script execution taking too long (e.g., infinite loop, heavy processing).",
+        "Default PHP timeout (`max_execution_time`) reached.",
+        "Slow external calls (e.g., database queries, API requests)."
+      ],
+      "solutions": [
+        "Increase timeout: `set_time_limit(60);` or `ini_set('max_execution_time', 60);` for 60 seconds.",
+        "Optimize code: Check for infinite loops (`while(true)`) or optimize database queries.",
+        "Use asynchronous processing: Offload heavy tasks to a queue (e.g., with `gearman` or Laravel Queues)."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Warning: Cannot Modify Header Information",
+      "message": "Warning: Cannot modify header information - headers already sent by (output started at file.php:X)",
+      "causes": [
+        "Output (e.g., `echo`, whitespace) sent before `header()` or `session_start()`.",
+        "Including files that output content before headers.",
+        "UTF-8 BOM (Byte Order Mark) in script causing output."
+      ],
+      "solutions": [
+        "Avoid output before headers: Move `header()` or `session_start()` before any output.",
+        "Check for BOM: Save file without BOM in editor (e.g., VS Code: 'Save without BOM').",
+        "Enable output buffering: `ob_start();` at the start of script, `ob_end_flush();` at the end."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Notice: Undefined Index",
+      "message": "Notice: Undefined index: someKey in file.php on line X",
+      "causes": [
+        "Accessing an array key that doesn’t exist (e.g., `$_POST['someKey']`).",
+        "Not checking existence of key before access.",
+        "Typo in array key name."
+      ],
+      "solutions": [
+        "Check existence: `isset($_POST['someKey']) ? $_POST['someKey'] : null`.",
+        "Use array_key_exists: `array_key_exists('someKey', $_POST)`.",
+        "Set default: Use null coalescing operator (`$_POST['someKey'] ?? 'default'` in PHP 7+)."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Fatal Error: Class Not Found",
+      "message": "Fatal error: Uncaught Error: Class 'SomeClass' not found in file.php on line X",
+      "causes": [
+        "Class file not included or autoloaded.",
+        "Typo in class name or namespace.",
+        "Missing Composer autoload setup."
+      ],
+      "solutions": [
+        "Include file: `require_once 'path/to/SomeClass.php';`.",
+        "Use autoloading: Set up Composer autoload (`require 'vendor/autoload.php';`) or PSR-4.",
+        "Check namespace: Ensure correct `use Namespace\\SomeClass;` or fully qualified name."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "MySQLi Connection Failed",
+      "message": "Warning: mysqli_connect(): (HY000/2002): No such file or directory in file.php on line X",
+      "causes": [
+        "MySQL server not running or unreachable.",
+        "Incorrect database credentials or host in `mysqli_connect()`.",
+        "Socket path or port misconfigured."
+      ],
+      "solutions": [
+        "Start MySQL: `sudo systemctl start mysql` or `mysqld`.",
+        "Verify credentials: Check `mysqli_connect('host', 'user', 'pass', 'db')` parameters.",
+        "Specify socket/port: Use `mysqli_connect('localhost:3306', ..., ['/path/to/socket'])`."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Session Start Fails Silently",
+      "message": "No error raised, but session data not persisted.",
+      "causes": [
+        "Not calling `session_start()` before accessing `$_SESSION`.",
+        "Session directory not writable (`session.save_path`).",
+        "Cookies disabled in browser affecting session ID."
+      ],
+      "solutions": [
+        "Start session: `session_start();` at the top of script.",
+        "Check permissions: Ensure `session.save_path` directory is writable (`chmod 777 /path`).",
+        "Enable cookies: Warn users to enable cookies or use URL-based sessions (`session.use_only_cookies = 0`)."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Composer Autoload Not Working",
+      "message": "Fatal error: Uncaught Error: Class 'Vendor\\Namespace\\Class' not found",
+      "causes": [
+        "Composer autoload not generated (`vendor/autoload.php` missing).",
+        "Namespace or directory structure not matching PSR-4/PSR-0.",
+        "Not running `composer dump-autoload` after changes."
+      ],
+      "solutions": [
+        "Generate autoload: `composer dump-autoload` after adding new classes.",
+        "Check PSR-4 mapping: Ensure `composer.json` maps namespaces (`\"Vendor\\\\Namespace\\\\\": \"src/\"`).",
+        "Require autoload: `require_once 'vendor/autoload.php';` at script start."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Fatal Error: Allowed Memory Size Exhausted",
+      "message": "Fatal error: Allowed memory size of 134217728 bytes exhausted (tried to allocate X bytes) in file.php on line Y",
+      "causes": [
+        "Script consuming more memory than `memory_limit` allows.",
+        "Large arrays, recursion, or image processing overloading memory.",
+        "Memory leaks from unoptimized loops."
+      ],
+      "solutions": [
+        "Increase memory limit: `ini_set('memory_limit', '256M');` or edit `php.ini`.",
+        "Optimize code: Process data in chunks, unset variables (`unset($largeArray);`).",
+        "Profile memory: Use `memory_get_usage()` to trace memory spikes."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Unexpected Behavior Due to Implicit Type Casting",
+      "message": "No error raised, but comparison or arithmetic yields unexpected results.",
+      "causes": [
+        "PHP implicitly casting types (e.g., `'123'` to `123` in comparisons).",
+        "Using loose comparison (`==`) instead of strict (`===`).",
+        "Not validating input types before operations."
+      ],
+      "solutions": [
+        "Use strict comparison: `$a === $b` instead of `$a == $b`.",
+        "Explicit casting: `(int)$value` or `(string)$value` before operations.",
+        "Validate types: `is_int($value)` or `is_string($value)` before use."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Notice: Array to String Conversion",
+      "message": "Notice: Array to string conversion in file.php on line X",
+      "causes": [
+        "Trying to echo or concatenate an array directly.",
+        "Passing an array where a string is expected.",
+        "Not accessing specific array element."
+      ],
+      "solutions": [
+        "Access element: `echo $array['key'];` instead of `echo $array;`.",
+        "Convert array: `implode(',', $array)` to join array into string.",
+        "Debug array: `var_dump($array);` or `print_r($array);` to inspect."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Silent Failure of File Write",
+      "message": "No error raised, but file content not written.",
+      "causes": [
+        "Not checking return value of `file_put_contents()` or `fwrite()`.",
+        "Insufficient write permissions for file or directory.",
+        "Disk full or file system issues."
+      ],
+      "solutions": [
+        "Check return: `$result = file_put_contents('file.txt', $data); if ($result === false) { die('Write failed'); }`.",
+        "Verify permissions: `chmod 666 file.txt` or ensure directory writable (`chmod 777 dir`).",
+        "Monitor disk: `df -h` to check available space."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Unexpected Behavior Due to Magic Quotes",
+      "message": "No error raised, but user input contains unexpected backslashes.",
+      "causes": [
+        "Using deprecated `magic_quotes_gpc` setting in old PHP versions.",
+        "Input data being automatically escaped (`get_magic_quotes_gpc()`).",
+        "Not normalizing input before processing."
+      ],
+      "solutions": [
+        "Disable magic quotes: `magic_quotes_gpc = Off` in `php.ini` (PHP < 5.4).",
+        "Strip slashes: `if (get_magic_quotes_gpc()) { $data = stripslashes($data); }`.",
+        "Upgrade PHP: Use modern PHP versions (magic quotes removed since PHP 5.4)."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Laravel: TokenMismatchException",
+      "message": "TokenMismatchException in VerifyCsrfToken.php line X",
+      "causes": [
+        "CSRF token missing or invalid in form submission.",
+        "Session expired or CSRF cookie not sent.",
+        "Cross-origin requests not including CSRF token."
+      ],
+      "solutions": [
+        "Add CSRF token: Include `@csrf` directive in forms (`<form method='POST'>@csrf</form>`).",
+        "Pass via header: For AJAX, include token (`X-CSRF-TOKEN: {{ csrf_token() }}`).",
+        "Exclude route: Add URI to `$except` in `VerifyCsrfToken` middleware (not recommended for POST)."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Symfony: 500 Internal Server Error",
+      "message": "500 Internal Server Error - An error occurred.",
+      "causes": [
+        "Unhandled exception in Symfony controller or service.",
+        "Misconfigured environment (e.g., `.env` file).",
+        "Database connection failure or dependency issue."
+      ],
+      "solutions": [
+        "Check logs: View `var/log/dev.log` or `prod.log` for detailed errors.",
+        "Enable debug mode: Run `APP_ENV=dev php bin/console cache:clear` for detailed output.",
+        "Verify config: Ensure `.env` has correct DB credentials (`DATABASE_URL`)."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Unexpected Behavior Due to Variable Scope in Closures",
+      "message": "No error raised, but closure uses unexpected variable values.",
+      "causes": [
+        "Not using `use` keyword to bind variables in closures.",
+        "Variable modified outside closure after binding.",
+        "Assuming pass-by-value when pass-by-reference is needed."
+      ],
+      "solutions": [
+        "Bind with `use`: `$fn = function() use ($var) { echo $var; };`.",
+        "Pass by reference: `use (&$var)` if variable needs to reflect changes.",
+        "Debug value: `var_dump($var)` inside closure to trace."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Warning: PDO Connection Failed",
+      "message": "Warning: PDO::__construct(): SQLSTATE[HY000] [2002] Connection refused",
+      "causes": [
+        "Database server not running or unreachable.",
+        "Incorrect PDO DSN or credentials.",
+        "Firewall or network issues blocking connection."
+      ],
+      "solutions": [
+        "Start database: `sudo systemctl start mysql` or equivalent.",
+        "Verify DSN: `$pdo = new PDO('mysql:host=localhost;dbname=db', 'user', 'pass');`.",
+        "Test connection: `telnet localhost 3306` to check port accessibility."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Composer Dependency Conflict",
+      "message": "Your requirements could not be resolved to an installable set of packages.",
+      "causes": [
+        "Conflicting version constraints in `composer.json`.",
+        "Dependency requiring incompatible PHP version.",
+        "Outdated `composer.lock` file causing mismatch."
+      ],
+      "solutions": [
+        "Update Composer: `composer self-update`.",
+        "Resolve conflicts: Adjust versions in `composer.json` or use `composer why-not package:version`.",
+        "Clear lock file: `rm composer.lock && composer install` to regenerate."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Silent Failure in Session Storage",
+      "message": "No error raised, but session data not saved.",
+      "causes": [
+        "Session storage directory (`session.save_path`) not writable.",
+        "Session handler misconfigured (e.g., Redis, Memcached down).",
+        "Not calling `session_write_close()` before script ends."
+      ],
+      "solutions": [
+        "Set save path: `ini_set('session.save_path', '/writable/path');` and `chmod 777 /writable/path`.",
+        "Verify handler: If using Redis, ensure `redis-server` is running (`redis-cli ping`).",
+        "Close session: `session_write_close();` after modifying `$_SESSION`."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Unexpected Behavior Due to Magic Methods",
+      "message": "No error raised, but object behavior inconsistent.",
+      "causes": [
+        "Incorrect implementation of `__get`, `__set`, or `__call`.",
+        "Infinite recursion in magic methods.",
+        "Not handling edge cases in magic method logic."
+      ],
+      "solutions": [
+        "Avoid recursion: `public function __get($name) { return $this->data[$name]; }`.",
+        "Debug access: Add `error_log('Accessing $name');` to trace calls.",
+        "Validate input: Check `$name` in `__get`/`__set` to avoid undefined behavior."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "PHP Warning: Division By Zero",
+      "message": "Warning: Division by zero in file.php on line X",
+      "causes": [
+        "Dividing a number by zero.",
+        "Variable unexpectedly evaluates to zero.",
+        "Not validating denominator before division."
+      ],
+      "solutions": [
+        "Check for zero: `if ($denominator != 0) { $result = $numerator / $denominator; } else { $result = 0; }`.",
+        "Use error handling: `try { $result = $numerator / $denominator; } catch (DivisionByZeroError $e) { $result = 0; }` (PHP 7+).",
+        "Debug variable: `var_dump($denominator);` before division."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Unexpected Behavior Due to Superglobals Modification",
+      "message": "No error raised, but `$_GET`, `$_POST`, etc., behave unexpectedly.",
+      "causes": [
+        "Directly modifying superglobals (`$_GET['key'] = 'value';`) affecting logic.",
+        "Assuming superglobals are immutable.",
+        "Not sanitizing superglobals before use."
+      ],
+      "solutions": [
+        "Avoid modification: Use local variables (`$input = $_GET['key'];`).",
+        "Sanitize input: `filter_input(INPUT_GET, 'key', FILTER_SANITIZE_STRING)`.",
+        "Debug usage: `var_dump($_GET);` before and after suspected changes."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Laravel: Migration Fails Due to Foreign Key Constraint",
+      "message": "SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint",
+      "causes": [
+        "Referenced table or column does not exist during migration.",
+        "Mismatch in column types between tables (e.g., unsigned vs not).",
+        "Running migrations out of order."
+      ],
+      "solutions": [
+        "Ensure table exists: Create referenced table first (`Schema::create('parent_table', ...)`).",
+        "Match column types: `$table->unsignedBigInteger('user_id'); $table->foreign('user_id')->references('id')->on('users');`.",
+        "Run migrations in order: `php artisan migrate --pretend` to check SQL, then `php artisan migrate`."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "PHP Warning: Failed to Open Stream",
+      "message": "Warning: include(file.php): failed to open stream: No such file or directory in file.php on line X",
+      "causes": [
+        "File path incorrect or file missing.",
+        "Incorrect permissions preventing file access.",
+        "Relative path failing due to script execution directory."
+      ],
+      "solutions": [
+        "Verify path: Ensure `file.php` exists (`ls file.php` or `dir file.php`).",
+        "Use absolute path: `include __DIR__ . '/file.php';`.",
+        "Check permissions: `chmod 644 file.php` and ensure directory readable."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Unexpected Behavior Due to Output Buffering",
+      "message": "No error raised, but output appears in wrong order or not at all.",
+      "causes": [
+        "Output buffering enabled (`ob_start()`) but not flushed.",
+        "Nested output buffers causing delayed output.",
+        "Not clearing buffer before sending headers."
+      ],
+      "solutions": [
+        "Flush buffer: `ob_start(); echo 'content'; ob_end_flush();`.",
+        "Clear buffer: `ob_clean();` before new output if needed.",
+        "Disable buffering: Avoid `ob_start()` unless necessary."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Silent Logging Failure",
+      "message": "No error raised, but logs not written to file.",
+      "causes": [
+        "Log file or directory not writable.",
+        "Error logging disabled (`error_log` not set in `php.ini`).",
+        "Custom logger misconfigured (e.g., Monolog in Laravel)."
+      ],
+      "solutions": [
+        "Set log file: `ini_set('error_log', '/path/to/logfile.log');` and `chmod 666 logfile.log`.",
+        "Enable logging: `log_errors = On` in `php.ini`.",
+        "Check logger: For Monolog, ensure handler set (`$log->pushHandler(new StreamHandler('path/to/log'))`)."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Unexpected Behavior Due to Timezone Misconfiguration",
+      "message": "No error raised, but dates/times incorrect.",
+      "causes": [
+        "PHP default timezone not set (`date.timezone`).",
+        "Server timezone differing from application logic.",
+        "Not specifying timezone in date functions."
+      ],
+      "solutions": [
+        "Set timezone: `date_default_timezone_set('UTC');` or `date.timezone = 'UTC'` in `php.ini`.",
+        "Use DateTime: `$dt = new DateTime('now', new DateTimeZone('UTC'));`.",
+        "Verify server: `date` command to check server timezone."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Apache 500 Internal Server Error",
+      "message": "500 Internal Server Error: The server encountered an internal error.",
+      "causes": [
+        "PHP fatal error not displayed due to `display_errors = Off`.",
+        "`.htaccess` misconfiguration causing rewrite errors.",
+        "Permissions or ownership issues on PHP files."
+      ],
+      "solutions": [
+        "Check logs: View Apache error log (`/var/log/apache2/error.log` or `/var/log/httpd/error_log`).",
+        "Enable errors: `ini_set('display_errors', 1); error_reporting(E_ALL);` in script.",
+        "Fix permissions: `chmod 644 file.php && chown www-data:www-data file.php` (assuming `www-data` user)."
+      ]
+    },
+
+    {
+        "id": 31,
+        "title": "Invariant Violation: ViewPropTypes has been removed",
+        "message": "Invariant Violation: ViewPropTypes has been removed from React Native.",
+        "causes": [
+          "Using deprecated `ViewPropTypes` in a component.",
+          "Third-party library relying on outdated React Native APIs.",
+          "Incomplete upgrade to a newer React Native version."
+        ],
+        "solutions": [
+          "Replace `ViewPropTypes` with `StyleSheet` or direct style props.",
+          "Update the third-party library to a version compatible with React Native 0.62+.",
+          "Follow the React Native upgrade guide for deprecated APIs."
+        ]
+      },
+      {
+        "id": 32,
+        "title": "AsyncStorage not persisting data",
+        "message": "Data stored in AsyncStorage disappears after app restart.",
+        "causes": [
+          "Incorrect usage of AsyncStorage API (e.g., not awaiting promises).",
+          "Storage limit exceeded for AsyncStorage.",
+          "App permissions or iOS simulator issues clearing storage."
+        ],
+        "solutions": [
+          "Ensure proper async/await usage: `await AsyncStorage.setItem('key', value)`.",
+          "Use alternative storage like `react-native-mmkv` for larger data.",
+          "Clear simulator data or reset permissions if needed."
+        ]
+      },
+      {
+        "id": 33,
+        "title": "React Native app stuck on 'Loading dependency graph'",
+        "message": "Metro Bundler hangs on 'Loading dependency graph, done.'",
+        "causes": [
+          "Large project with many dependencies slowing Metro.",
+          "Port conflict (default port 8081 already in use).",
+          "Corrupted Metro cache or node_modules."
+        ],
+        "solutions": [
+          "Run Metro on a different port: `npx react-native start --port 8082`.",
+          "Clear Metro cache: `npx react-native start --reset-cache`.",
+          "Delete `node_modules` and reinstall dependencies."
+        ]
+      },
+      {
+        "id": 34,
+        "title": "Jest tests fail with React Native",
+        "message": "Jest test suite fails with errors like 'Unexpected token' or 'Cannot find module'.",
+        "causes": [
+          "Missing Jest preset for React Native.",
+          "Incorrect setup of Jest mocks for native modules.",
+          "Babel configuration mismatch for React Native."
+        ],
+        "solutions": [
+          "Add `preset: 'react-native'` in `jest.config.js`.",
+          "Mock native modules using `jest.mock('react-native-some-module')`.",
+          "Ensure Babel is configured correctly in `babel.config.js`."
+        ]
+      },
+      {
+        "id": 35,
+        "title": "Unable to connect to React Native Debugger",
+        "message": "React Native Debugger fails to connect, showing 'Waiting for React to connect'.",
+        "causes": [
+          "Incorrect port configuration in React Native Debugger.",
+          "Metro Bundler running on a different port than expected.",
+          "Network issues blocking WebSocket connection."
+        ],
+        "solutions": [
+          "Set the correct port in React Native Debugger (default: 8081).",
+          "Check Metro port: `npx react-native start --port 8081`.",
+          "Disable firewall or VPN temporarily to test connection."
+        ]
+      },
+      {
+        "id": 36,
+        "title": "App freezes during heavy computation",
+        "message": "App becomes unresponsive when performing complex operations.",
+        "causes": [
+          "Blocking the main thread with synchronous computations.",
+          "Large JSON parsing or data processing in JavaScript thread.",
+          "Unoptimized component rendering during state updates."
+        ],
+        "solutions": [
+          "Offload heavy tasks to native modules or Web Workers.",
+          "Use `react-native-background-task` for background processing.",
+          "Optimize rendering with `React.memo` or `useMemo`."
+        ]
+      },
+      {
+        "id": 37,
+        "title": "Incorrect splash screen image size",
+        "message": "Splash screen image appears stretched or pixelated.",
+        "causes": [
+          "Incorrect image dimensions for device resolutions.",
+          "Missing multiple resolution assets (@2x, @3x).",
+          "Improper configuration in `android/app/src/main/res` or iOS."
+        ],
+        "solutions": [
+          "Provide images for all resolutions (e.g., `splash.png`, `splash@2x.png`).",
+          "Configure `launch_screen.xml` (Android) or LaunchScreen.storyboard (iOS).",
+          "Use `react-native-splash-screen` library for easier setup."
+        ]
+      },
+      {
+        "id": 38,
+        "title": "FlatList not rendering items",
+        "message": "FlatList renders an empty list despite having data.",
+        "causes": [
+          "Missing `keyExtractor` or `renderItem` props.",
+          "Data prop not an array or incorrectly formatted.",
+          "Height or width of FlatList not set in styles."
+        ],
+        "solutions": [
+          "Add `keyExtractor={(item) => item.id.toString()}` and `renderItem`.",
+          "Ensure `data` prop is an array: `data={Array.isArray(data) ? data : []}`.",
+          "Set explicit styles: `style={{ flex: 1 }}` on FlatList."
+        ]
+      },
+      {
+        "id": 39,
+        "title": "React Native app fails on TestFlight",
+        "message": "App works fine locally but crashes on TestFlight builds.",
+        "causes": [
+          "Missing bitcode or incorrect build settings in Xcode.",
+          "Environment variables not set for production builds.",
+          "Code signing issues or provisioning profile mismatch."
+        ],
+        "solutions": [
+          "Enable bitcode in Xcode: `Build Settings > Enable Bitcode`.",
+          "Ensure `.env` variables are included in production builds.",
+          "Verify code signing and provisioning profiles in Xcode."
+        ]
+      },
+      {
+        "id": 40,
+        "title": "Images not loading in production",
+        "message": "Images load in development but fail in production builds.",
+        "causes": [
+          "Relative paths used for images instead of imports.",
+          "Images not bundled properly in production.",
+          "Assets missing from `android/app/src/main/res` or iOS bundle."
+        ],
+        "solutions": [
+          "Import images in JS: `import image from './image.png'`.",
+          "Use `react-native-asset` to link assets properly.",
+          "Verify assets are copied during production build."
+        ]
+      },
+      {
+        "id": 41,
+        "title": "State updates not reflecting in UI",
+        "message": "State changes occur but the UI doesn’t update.",
+        "causes": [
+          "Mutating state directly instead of using `setState` or hooks.",
+          "Shallow comparison failing due to nested objects.",
+          "Component not re-rendering due to memoization."
+        ],
+        "solutions": [
+          "Use `setState` or `useState` hooks to update state.",
+          "Deep clone objects with spread operator: `setState({ ...state, updatedField })`.",
+          "Avoid unnecessary `React.memo` blocking updates."
+        ]
+      },
+      {
+        "id": 42,
+        "title": "React Native CLI build fails due to JDK mismatch",
+        "message": "Gradle fails with 'Could not initialize class org.codehaus.groovy'.",
+        "causes": [
+          "Using an incompatible JDK version for Android builds.",
+          "JAVA_HOME environment variable pointing to wrong JDK.",
+          "Outdated Gradle version in project."
+        ],
+        "solutions": [
+          "Install JDK 11 and set `JAVA_HOME` environment variable.",
+          "Update Gradle in `android/gradle/wrapper/gradle-wrapper.properties`.",
+          "Run `./gradlew cleanBuildCache` to clear build issues."
+        ]
+      },
+      {
+        "id": 43,
+        "title": "Accessibility issues in React Native",
+        "message": "Screen readers fail to interpret components correctly.",
+        "causes": [
+          "Missing accessibility labels or roles on interactive elements.",
+          "Improper nesting of touchable components.",
+          "Dynamic content updates not announced to screen readers."
+        ],
+        "solutions": [
+          "Add `accessibilityLabel` and `accessibilityRole` to components.",
+          "Ensure touchables wrap only one child: `<TouchableOpacity><View>...</View></TouchableOpacity>`.",
+          "Use `AccessibilityInfo.announceForAccessibility` for dynamic updates."
+        ]
+      },
+      {
+        "id": 44,
+        "title": "React Native Animated API causing stutter",
+        "message": "Animations lag or stutter during execution.",
+        "causes": [
+          "Using JavaScript-based animations on heavy UI updates.",
+          "Not utilizing `useNativeDriver` for animations.",
+          "Main thread blocked by other operations."
+        ],
+        "solutions": [
+          "Enable `useNativeDriver: true` in Animated API calls.",
+          "Optimize UI updates by reducing re-renders.",
+          "Profile performance with React Native Performance Monitor."
+        ]
+      },
+      {
+        "id": 45,
+        "title": "React Native app rejected by Google Play",
+        "message": "App submission rejected due to policy violations or crashes.",
+        "causes": [
+          "Missing privacy policy for sensitive permissions.",
+          "App crashes due to unhandled edge cases in production.",
+          "APK not optimized for different device architectures."
+        ],
+        "solutions": [
+          "Add a privacy policy link in Play Console and app.",
+          "Test edge cases on various devices before submission.",
+          "Generate App Bundle instead of APK for better compatibility."
+        ]
+      },
+      {
+        "id": 46,
+        "title": "Conflicting native module versions",
+        "message": "App crashes due to duplicate native modules.",
+        "causes": [
+          "Multiple packages including the same native dependency.",
+          "Incorrect linking of native modules.",
+          "Outdated dependency causing conflicts."
+        ],
+        "solutions": [
+          "Resolve conflicts with `resolutions` field in `package.json` ( Yarn ).",
+          "Manually link native modules and check for duplicates.",
+          "Update all dependencies to compatible versions."
+        ]
+      },
+      {
+        "id": 47,
+        "title": "React Native CLI init fails with template error",
+        "message": "'npx react-native init' fails with 'Template not found'.",
+        "causes": [
+          "Network issues preventing template download.",
+          "Using an outdated version of React Native CLI.",
+          "Corrupted npm/Yarn cache."
+        ],
+        "solutions": [
+          "Clear npm/Yarn cache: `npm cache clean --force` or `yarn cache clean`.",
+          "Update React Native CLI: `npm install -g @react-native-community/cli`.",
+          "Retry with a stable internet connection."
+        ]
+      },
+      {
+        "id": 48,
+        "title": "App icon not updating after change",
+        "message": "New app icon doesn’t appear after updating assets.",
+        "causes": [
+          "Old icon cached in device or simulator.",
+          "Incorrect icon sizes or naming in `android/app/src/main/res` or iOS.",
+          "Build not cleaned after updating assets."
+        ],
+        "solutions": [
+          "Clear device/simulator cache or uninstall/reinstall app.",
+          "Verify icon sizes and naming in `mipmap` (Android) or `Images.xcassets` (iOS).",
+          "Clean build: `cd android && ./gradlew clean` or Xcode clean."
+        ]
+      },
+      {
+        "id": 49,
+        "title": "Expo app fails to run on device",
+        "message": "Expo Go app shows 'Something went wrong' when scanning QR code.",
+        "causes": [
+          "Expo CLI not running locally.",
+          "Device and computer not on the same network.",
+          "Outdated Expo app on device."
+        ],
+        "solutions": [
+          "Start Expo CLI: `npx expo start --tunnel`.",
+          "Ensure device and computer are on the same Wi-Fi network.",
+          "Update Expo Go app to the latest version."
+        ]
+      },
+      {
+        "id": 50,
+        "title": "React Native WebView not rendering",
+        "message": "WebView component displays a blank screen.",
+        "causes": [
+          "Missing `react-native-webview` package.",
+          "Invalid URL or HTTPS enforcement blocking content.",
+          "Content blocked by device security settings."
+        ],
+        "solutions": [
+          "Install package: `npm install react-native-webview`.",
+          "Verify URL and use HTTPS (or bypass for development).",
+          "Check device logs for content security errors."
+        ]
+      },
+      {
+        "id": 51,
+        "title": "Hermes engine causing crashes",
+        "message": "App crashes with Hermes engine enabled.",
+        "causes": [
+          "Incompatible JavaScript syntax with Hermes.",
+          "Third-party library not Hermes-compatible.",
+          "Misconfigured Hermes in `android/app/build.gradle`."
+        ],
+        "solutions": [
+          "Disable Hermes temporarily: `enableHermes: false` in `build.gradle`.",
+          "Update libraries to Hermes-compatible versions.",
+          "Polyfill unsupported syntax (e.g., `Proxy`, `Symbol`) with `react-native-get-random-values`."
+        ]
+      },
+      {
+        "id": 52,
+        "title": "Localization not working",
+        "message": "App displays default language despite locale settings.",
+        "causes": [
+          "Missing `react-native-localize` or `i18n-js` setup.",
+          "Device locale not detected correctly.",
+          "Translation files not formatted or loaded properly."
+        ],
+        "solutions": [
+          "Set up localization with `react-native-localize` and `i18n-js`.",
+          "Detect locale: `import * as RNLocalize from 'react-native-localize'`.",
+          "Verify translation JSON files and loading logic."
+        ]
+      },
+      {
+        "id": 53,
+        "title": "React Native CLI outdated warning",
+        "message": "Warning: You are using an outdated version of React Native CLI.",
+        "causes": [
+          "Global CLI version not updated after Node upgrade.",
+          "Project using older CLI version in `package.json`.",
+          "Deprecated CLI commands causing warnings."
+        ],
+        "solutions": [
+          "Update global CLI: `npm install -g @react-native-community/cli`.",
+          "Update CLI in project: `npm install @react-native-community/cli`.",
+          "Check for deprecated commands in scripts and replace."
+        ]
+      },
+      {
+        "id": 54,
+        "title": "Memory usage spikes on navigation",
+        "message": "App slows down or crashes after navigating between screens.",
+        "causes": [
+          "Large component trees not unmounted.",
+          "Images or assets not released from memory.",
+          "Navigation stack growing without cleanup."
+        ],
+        "solutions": [
+          "Use navigation.replace() to avoid stacking screens.",
+          "Clear image caches: `Image.prefetch('url', () => {})`.",
+          "Unmount heavy components with lifecycle cleanup."
+        ]
+      },
+      {
+        "id": 55,
+        "title": "React Native Maps crashing on Android",
+        "message": "App crashes when rendering MapView on Android.",
+        "causes": [
+          "Missing Google Play Services API key.",
+          "Incorrect setup of `react-native-maps`.",
+          "Device lacking Play Services or emulator misconfiguration."
+        ],
+        "solutions": [
+          "Add API key in `android/app/src/main/AndroidManifest.xml`.",
+          "Follow `react-native-maps` setup guide for Android.",
+          "Test on a device with Play Services or configure emulator."
+        ]
+      },
+      {
+        "id": 56,
+        "title": "Fast Refresh breaking state",
+        "message": "State resets unexpectedly during Fast Refresh.",
+        "causes": [
+          "Fast Refresh re-rendering components incorrectly.",
+          "Module exports changing during development.",
+          "Hot module replacement bugs in React Native."
+        ],
+        "solutions": [
+          "Disable Fast Refresh temporarily: Shake device > Disable Fast Refresh.",
+          "Restart Metro Bundler after significant code changes.",
+          "Avoid exporting anonymous functions or components."
+        ]
+      },
+      {
+        "id": 57,
+        "title": "App size too large for submission",
+        "message": "APK or IPA exceeds store size limits (e.g., Google Play 150MB).",
+        "causes": [
+          "Large assets (images, videos) not optimized.",
+          "Unnecessary dependencies bloating the bundle.",
+          "Not using App Bundle format for Android."
+        ],
+        "solutions": [
+          "Compress assets or use dynamic delivery for large files.",
+          "Audit dependencies with `react-native-bundle-visualizer`.",
+          "Generate App Bundle (AAB) for Android: `./gradlew bundleRelease`."
+        ]
+      },
+      {
+        "id": 58,
+        "title": "React Native Background Task not executing",
+        "message": "Background tasks fail to run as expected.",
+        "causes": [
+          "Missing native setup for background tasks.",
+          "Device battery optimizations killing background processes.",
+          "Improper usage of `react-native-background-fetch`."
+        ],
+        "solutions": [
+          "Follow setup for `react-native-background-fetch` or similar libraries.",
+          "Prompt users to disable battery optimizations for the app.",
+          "Test background tasks in real device environments."
+        ]
+      },
+      {
+        "id": 59,
+        "title": "Deep linking not working",
+        "message": "Deep links fail to open specific app screens.",
+        "causes": [
+          "Missing URL scheme setup in `AndroidManifest.xml` or `Info.plist`.",
+          "Incorrect configuration of linking library (e.g., React Navigation).",
+          "App not handling incoming links properly."
+        ],
+        "solutions": [
+          "Add URL scheme in `AndroidManifest.xml` and `Info.plist`.",
+          "Set up deep linking with React Navigation: `linking` prop in `NavigationContainer`.",
+          "Handle links using `Linking` API: `Linking.addEventListener('url', handleUrl)`.",
+          "Test deep links using `adb shell am start -W -a android.intent.action.VIEW -d 'your_deep_link_url' your.package.name` for Android or `xcrun simctl openurl booted 'your_deep_link_url'` for iOS."
+        ]
+      },
+      {
+        "id": 60,
+        "title": "React Native app fails on specific Android versions",
+        "message": "App works on newer Android versions but crashes on older ones.",
+        "causes": [
+          "Using APIs not available in older Android versions.",
+          "Missing polyfills for older JavaScript features.",
+          "Dependency not compatible with target Android SDK."
+        ],
+        "solutions": [
+          "Check API usage and add fallbacks with `Platform.OS` and `Platform.Version`.",
+          "Add polyfills for older JS features (e.g., `core-js`).",
+          "Set minimum SDK version in `android/app/build.gradle` and test compatibility."
+        ]
+      },
+      {
+        "id": 61,
+        "title": "React Native app not connecting to Metro",
+        "message": "App fails to connect to Metro Bundler during development.",
+        "causes": [
+          "Network issues preventing device from reaching Metro server.",
+          "Firewall or security software blocking Metro connections.",
+          "Incorrect IP address or port in app configuration."
+        ],
+        "solutions": [
+          "Check Metro address: Shake device > Dev settings > Debug server host & port for correct IP.",
+          "Disable firewall or VPN temporarily to test connection.",
+          "Restart Metro server with `npx react-native start`."
+        ]},
+        {
+            "id": 61,
+            "title": "React Native TypeScript Errors After Setup",
+            "message": "TS errors like 'Cannot find module' or 'Property does not exist on type'.",
+            "causes": [
+              "Incorrect TypeScript configuration in `tsconfig.json`.",
+              "Missing type definitions for React Native libraries.",
+              "Incorrect file extensions (`ts`/`tsx`) for React Native components."
+            ],
+            "solutions": [
+              "Ensure `tsconfig.json` includes `'jsx': 'react-native'` and proper paths.",
+              "Install type definitions: `npm install --save-dev @types/react-native`.",
+              "Use `.tsx` for files with JSX and `.ts` for pure TypeScript files."
+            ]
+          },
+          {
+            "id": 62,
+            "title": "React Native App Crashes on iOS 14+ Due to Privacy Changes",
+            "message": "App crashes or fails due to new iOS privacy restrictions.",
+            "causes": [
+              "Missing App Tracking Transparency (ATT) permission prompt.",
+              "Accessing device identifiers (e.g., IDFA) without user consent.",
+              "Third-party libraries not updated for iOS 14+ privacy rules."
+            ],
+            "solutions": [
+              "Add `NSUserTrackingUsageDescription` to `Info.plist` and request permission with `react-native-permissions`.",
+              "Avoid accessing IDFA without consent or update libraries to comply.",
+              "Test on iOS 14+ simulators/devices to identify privacy violations."
+            ]
+          },
+          {
+            "id": 63,
+            "title": "React Native Reanimated Animations Not Working",
+            "message": "Reanimated animations fail to execute or throw errors.",
+            "causes": [
+              "Missing `@react-native-reanimated/babel-plugin` in `babel.config.js`.",
+              "Incorrect version of `react-native-reanimated` for React Native version.",
+              "Native dependencies not linked properly after installation."
+            ],
+            "solutions": [
+              "Add `plugins: ['@react-native-reanimated/babel-plugin']` to `babel.config.js`.",
+              "Ensure version compatibility (e.g., Reanimated 2.x for RN 0.62+).",
+              "Run `npx pod-install` for iOS and rebuild Android app."
+            ]
+          },
+          {
+            "id": 64,
+            "title": "React Native Detox E2E Tests Failing",
+            "message": "Detox tests fail with errors like 'Cannot find device' or 'Timed out waiting for app'.",
+            "causes": [
+              "Incorrect Detox configuration in `package.json` or `.detoxrc.json`.",
+              "Simulator/emulator not running or not matching Detox config.",
+              "App binary not built for testing environment."
+            ],
+            "solutions": [
+              "Verify Detox setup: `detox init -r react-native` and configure `.detoxrc.json`.",
+              "Start the correct simulator/emulator before running tests.",
+              "Build app for testing: `detox build --configuration ios.sim.debug`."
+            ]
+          },
+          {
+            "id": 65,
+            "title": "React Native App Fails to Build in CI Pipeline",
+            "message": "Build fails in CI/CD (e.g., GitHub Actions, CircleCI) but works locally.",
+            "causes": [
+              "Missing environment variables in CI pipeline.",
+              "Different Node.js or Ruby versions causing dependency issues.",
+              "Cached dependencies or build artifacts causing conflicts."
+            ],
+            "solutions": [
+              "Set environment variables in CI (e.g., `NODE_ENV`, `JAVA_HOME`).",
+              "Pin Node.js and Ruby versions using `.nvmrc` and `.ruby-version`.",
+              "Clear cache in CI: `rm -rf node_modules && npm install`."
+            ]
+          },
+          {
+            "id": 66,
+            "title": "React Native Camera Not Working on Android",
+            "message": "Camera fails to open or throws permission errors on Android.",
+            "causes": [
+              "Missing camera permissions in `AndroidManifest.xml`.",
+              "Runtime permissions not requested for Android 6.0+.",
+              "Conflicting camera libraries causing crashes."
+            ],
+            "solutions": [
+              "Add `<uses-permission android:name=\"android.permission.CAMERA\" />` in `AndroidManifest.xml`.",
+              "Request runtime permissions with `react-native-permissions`.",
+              "Ensure only one camera library (e.g., `react-native-camera`) is used."
+            ]
+          },
+          {
+            "id": 67,
+            "title": "React Native App Crashes After RN Version Upgrade",
+            "message": "App crashes or throws errors after upgrading React Native version.",
+            "causes": [
+              "Deprecated APIs used in older code.",
+              "Third-party libraries not compatible with new RN version.",
+              "Incomplete upgrade process (e.g., missing native module updates)."
+            ],
+            "solutions": [
+              "Use `npx react-native upgrade` to update configs and files.",
+              "Check breaking changes in RN changelog and update code.",
+              "Update all dependencies to compatible versions."
+            ]
+          },
+          {
+            "id": 68,
+            "title": "React Native App Freezes on Splash Screen in Release Mode",
+            "message": "App works in debug but freezes on splash screen in release builds.",
+            "causes": [
+              "Uncaught JavaScript errors in release mode.",
+              "Proguard rules stripping necessary code in Android.",
+              "Missing Hermes or other optimizations causing crashes."
+            ],
+            "solutions": [
+              "Debug release build with `npx react-native run-android --variant=release`.",
+              "Add Proguard exceptions in `android/app/proguard-rules.pro`.",
+              "Enable Hermes and verify setup in `android/app/build.gradle`."
+            ]
+          },
+          {
+            "id": 69,
+            "title": "React Native Push Notifications Not Delivered",
+            "message": "Push notifications fail to reach devices in production.",
+            "causes": [
+              "Incorrect FCM/APNs setup for production environment.",
+              "Invalid device token or registration with notification service.",
+              "App killed by OS before notification delivery."
+            ],
+            "solutions": [
+              "Verify FCM setup (Android) and APNs certificates (iOS) in production.",
+              "Ensure device tokens are correctly registered with backend.",
+              "Use `react-native-push-notification` to handle foreground/background states."
+            ]
+          },
+          {
+            "id": 70,
+            "title": "React Native CodePush Updates Failing",
+            "message": "OTA updates via CodePush fail to apply or download.",
+            "causes": [
+              "Incorrect CodePush keys in `Info.plist` or `MainApplication.java`.",
+              "Mismatch between app version and CodePush deployment.",
+              "Network issues preventing bundle download."
+            ],
+            "solutions": [
+              "Verify CodePush keys in `Info.plist` (iOS) and `MainApplication.java` (Android).",
+              "Ensure deployment keys match the app version in CodePush.",
+              "Test updates in staging environment and check network logs."
+            ]
+          },
+          {
+            "id": 71,
+            "title": "React Native Debugger Showing Stale State",
+            "message": "Redux or React state in debugger shows outdated values.",
+            "causes": [
+              "Debugger not refreshing state after Fast Refresh.",
+              "Redux middleware (e.g., `redux-thunk`) causing async delays.",
+              "State updates happening outside React lifecycle."
+            ],
+            "solutions": [
+              "Disable Fast Refresh temporarily to stabilize debugger.",
+              "Add `redux-logger` to debug state changes in real-time.",
+              "Ensure state updates use React lifecycle methods or hooks."
+            ]
+          },
+          {
+            "id": 72,
+            "title": "React Native App Not Building on M1 Mac",
+            "message": "iOS or Android build fails on Apple Silicon (M1) with architecture errors.",
+            "causes": [
+              "Dependencies not compiled for arm64 architecture.",
+              "CocoaPods or Ruby tools not running natively on M1.",
+              "Xcode Rosetta emulation causing conflicts."
+            ],
+            "solutions": [
+              "Run terminal in Rosetta mode or install native arm64 dependencies.",
+              "Update CocoaPods and Ruby: `sudo arch -x86_64 gem install cocoapods`.",
+              "Add `arm64` to excluded architectures in Xcode if needed."
+            ]
+          },
+          {
+            "id": 73,
+            "title": "React Native App Crashes on Specific iOS Devices",
+            "message": "App works on simulator but crashes on certain iOS devices.",
+            "causes": [
+              "Memory constraints on older devices causing crashes.",
+              "32-bit compatibility issues on newer iOS versions.",
+              "Device-specific bugs in native modules."
+            ],
+            "solutions": [
+              "Optimize memory usage (e.g., reduce large image loads).",
+              "Build for 64-bit only in Xcode: `Build Settings > Architectures`.",
+              "Test on physical devices and debug with Xcode logs."
+            ]
+          },
+          {
+            "id": 74,
+            "title": "React Native App Not Respecting Dark Mode",
+            "message": "App UI does not adapt to system dark/light mode.",
+            "causes": [
+              "Missing `Appearance` API integration.",
+              "Hardcoded colors not adapting to theme changes.",
+              "Third-party UI libraries not supporting dark mode."
+            ],
+            "solutions": [
+              "Use `Appearance` API: `import { Appearance } from 'react-native'`.",
+              "Define theme-based styles: `color: Appearance.getColorScheme() === 'dark' ? '#fff' : '#000'`.",
+              "Update libraries to versions with dark mode support."
+            ]
+          },
+          {
+            "id": 75,
+            "title": "React Native Metro Slow on Large Projects",
+            "message": "Metro Bundler takes too long to start or refresh.",
+            "causes": [
+              "Large dependency tree slowing Metro.",
+              "Too many files watched by Metro causing delays.",
+              "Insufficient system resources (e.g., CPU, RAM)."
+            ],
+            "solutions": [
+              "Optimize Metro config in `metro.config.js`: increase `maxWorkers`.",
+              "Exclude unused folders in Metro watcher: `watchFolders`.",
+              "Upgrade hardware or use a cloud-based dev environment."
+            ]
+          },
+          {
+            "id": 76,
+            "title": "React Native App Fails on Android 12 Due to Splash Screen API",
+            "message": "App crashes or shows black screen on Android 12+.",
+            "causes": [
+              "Android 12 Splash Screen API changes not handled.",
+              "Custom splash screen implementation conflicting with new API.",
+              "Missing migration to `react-native-splash-screen` updates."
+            ],
+            "solutions": [
+              "Update `android/app/src/main/res/values/styles.xml` for Android 12.",
+              "Migrate to Android 12 SplashScreen API or disable it.",
+              "Use `react-native-splash-screen` and follow Android 12 guide."
+            ]
+          },
+          {
+            "id": 77,
+            "title": "React Native App Fails During Hot Module Replacement",
+            "message": "HMR fails with 'Unable to resolve module' during development.",
+            "causes": [
+              "Dynamic imports or file changes confusing Metro.",
+              "Corrupted Metro cache after rapid file changes.",
+              "Syntax errors preventing HMR from completing."
+            ],
+            "solutions": [
+              "Clear Metro cache: `npx react-native start --reset-cache`.",
+              "Disable HMR temporarily: Shake device > Disable Hot Reloading.",
+              "Fix syntax errors and restart Metro."
+            ]
+          },
+          {
+            "id": 78,
+            "title": "React Native Gesture Handler Conflicts with ScrollView",
+            "message": "ScrollView fails to scroll when using gesture handlers.",
+            "causes": [
+              "Gesture handler intercepting ScrollView events.",
+              "Improper nesting of `PanGestureHandler` and `ScrollView`.",
+              "Missing `simultaneousHandlers` prop in gesture setup."
+            ],
+            "solutions": [
+              "Wrap `ScrollView` with `GestureHandlerRootView`.",
+              "Use `simultaneousHandlers` to allow gesture coexistence.",
+              "Debug gesture priorities with `onGestureEvent` logs."
+            ]
+          },
+          {
+            "id": 79,
+            "title": "React Native App Not Building After Adding Native Module",
+            "message": "Build fails after adding a custom native module.",
+            "causes": [
+              "Missing native code linking in `android/settings.gradle` or iOS.",
+              "Incorrect module registration in native code.",
+              "Gradle or CocoaPods dependency conflicts introduced."
+            ],
+            "solutions": [
+              "Link native module in `android/settings.gradle` and iOS `Podfile`.",
+              "Register module in `MainApplication.java` and `AppDelegate.m`.",
+              "Resolve conflicts: `cd android && ./gradlew dependencies`."
+            ]
+          },
+          {
+            "id": 80,
+            "title": "React Native App Fails to Connect to Backend in Emulator",
+            "message": "API requests fail in emulator but work on real devices.",
+            "causes": [
+              "Using `localhost` which emulator cannot resolve.",
+              "Emulator network settings blocking requests.",
+              "Firewall or antivirus interfering with emulator networking."
+            ],
+            "solutions": [
+              "Use `10.0.2.2` (Android) or `127.0.0.1` (iOS) instead of `localhost`.",
+              "Set emulator to use host network: `emulator -avd <name> -dns-server 8.8.8.8`.",
+              "Disable firewall or allow emulator network access."
+            ]
+          },
+          {
+            "id": 81,
+            "title": "React Native App Shows Red Screen During Testing",
+            "message": "Red screen appears during manual or automated testing.",
+            "causes": [
+              "Uncaught runtime errors in test environment.",
+              "Missing mock data for API calls in tests.",
+              "Environment variables not set in test setup."
+            ],
+            "solutions": [
+              "Check error stack trace on red screen and fix the issue.",
+              "Mock APIs with libraries like `msw` or `jest-fetch-mock`.",
+              "Set environment variables in test scripts or `.env.test`."
+            ]
+          },
+          {
+            "id": 82,
+            "title": "React Native App Loses State on Navigation",
+            "message": "State resets when navigating between screens.",
+            "causes": [
+              "Component unmounting on navigation.",
+              "State not preserved in a global store (e.g., Redux).",
+              "Navigation params not passed correctly."
+            ],
+            "solutions": [
+              "Preserve state with React Navigation’s `useIsFocused` hook.",
+              "Use Redux or Context API for global state management.",
+              "Pass state via navigation params: `navigation.navigate('Screen', { data })`."
+            ]
+          },
+          {
+            "id": 83,
+            "title": "React Native App Fails to Handle Large JSON Responses",
+            "message": "App crashes or slows down when fetching large datasets.",
+            "causes": [
+              "Parsing large JSON blocking the main thread.",
+              "Memory issues due to large data in state.",
+              "Inefficient rendering of large lists."
+            ],
+            "solutions": [
+              "Parse JSON in chunks or use streaming with `fetch`.",
+              "Paginate data with `FlatList` and `onEndReached`.",
+              "Optimize memory by clearing unused data from state."
+            ]
+          },
+          {
+            "id": 84,
+            "title": "React Native App Fails on Low Network Conditions",
+            "message": "App crashes or behaves poorly with slow or no internet.",
+            "causes": [
+              "No network error handling for API calls.",
+              "Missing offline state management.",
+              "Third-party libraries crashing on network timeouts."
+            ],
+            "solutions": [
+              "Add error handling with `try/catch` for API calls.",
+              "Use `NetInfo` to detect network status: `@react-native-community/netinfo`.",
+              "Implement offline caching with AsyncStorage or SQLite."
+            ]
+          },
+          {
+            "id": 85,
+            "title": "React Native App Fails After Ejecting from Expo",
+            "message": "Build errors or crashes after ejecting from Expo to bare workflow.",
+            "causes": [
+              "Missing native dependencies post-ejection.",
+              "Incorrect configuration in `android/build.gradle` or iOS `Podfile`.",
+              "Expo APIs used without proper replacement."
+            ],
+            "solutions": [
+              "Install native dependencies previously managed by Expo.",
+              "Follow ejection guide: update `android` and `ios` directories.",
+              "Replace Expo APIs with React Native equivalents (e.g., `expo-camera` with `react-native-camera`)."
+            ]
+          },
+          {
+            "id": 86,
+            "title": "React Native App Fails to Render Fonts on Some Devices",
+            "message": "Custom fonts load on some devices but fail on others.",
+            "causes": [
+              "Font file format not supported on certain OS versions.",
+              "Font linking issues during build.",
+              "Device-specific font rendering bugs."
+            ],
+            "solutions": [
+              "Use widely supported font formats (e.g., `.ttf`, `.otf`).",
+              "Re-link fonts with `npx react-native-asset` and rebuild.",
+              "Provide fallback fonts in `Text` styles."
+            ]
+          },
+          {
+            "id": 87,
+            "title": "React Native App Crashes on Orientation Change",
+            "message": "App crashes or behaves unexpectedly when rotating device.",
+            "causes": [
+              "State not preserved during orientation change.",
+              "Native modules not handling rotation events.",
+              "Layout issues with `onLayout` or dynamic styles."
+            ],
+            "solutions": [
+              "Save state before rotation using `Dimensions.addEventListener('change')`.",
+              "Ensure native modules handle rotation events properly.",
+              "Use responsive layouts with `Dimensions.get('window')`."
+            ]
+          },
+          {
+            "id": 88,
+            "title": "React Native App Fails to Install on Real Device",
+            "message": "App fails to install via USB or OTA with 'Cannot install' error.",
+            "causes": [
+              "Incorrect provisioning profiles or signing certificates.",
+              "Device storage full or OS version incompatible.",
+              "Corrupted APK/IPA due to build errors."
+            ],
+            "solutions": [
+              "Verify signing in Xcode or Android Studio.",
+              "Check device compatibility and free storage.",
+              "Clean and rebuild: `cd android && ./gradlew clean` or Xcode clean."
+            ]
+          },
+          {
+            "id": 89,
+            "title": "React Native App Fails to Handle Large Images",
+            "message": "App crashes or slows down when displaying large images.",
+            "causes": [
+              "High-resolution images consuming too much memory.",
+              "Images not resized before rendering.",
+              "Missing image caching or preload logic."
+            ],
+            "solutions": [
+              "Resize images before rendering with `react-native-image-resizer`.",
+              "Use `react-native-fast-image` for caching and optimization.",
+              "Limit image dimensions in `Image` component styles."
+            ]
+          },
+          {
+            "id": 90,
+            "title": "React Native App Fails to Load Resources in Offline Mode",
+            "message": "App shows blank screens or errors when offline.",
+            "causes": [
+              "Missing offline asset bundling.",
+              "No fallback UI for failed resource loads.",
+              "Network-dependent components not handled."
+            ],
+            "solutions": [
+              "Bundle assets in app: place in `android/app/src/main/res` or iOS project.",
+              "Add fallback UI for failed loads: `Image` with `defaultSource`.",
+              "Use `NetInfo` to show offline-friendly components."
+            ]
+          }
+  ]

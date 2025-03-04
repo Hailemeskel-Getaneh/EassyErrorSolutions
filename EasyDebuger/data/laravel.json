@@ -1,0 +1,1352 @@
+[
+    {
+      "id": 1,
+      "title": "Silent Route Failure Due to Middleware Misconfiguration",
+      "message": "No error raised, but route returns 403 or redirects unexpectedly.",
+      "causes": [
+        "Middleware applied incorrectly (e.g., `auth` middleware on unauthenticated route).",
+        "Custom middleware silently failing or redirecting without logging.",
+        "Middleware order causing unexpected behavior (e.g., `throttle` before `auth`)."
+      ],
+      "solutions": [
+        "Check middleware: Review route definition (`Route::get('/path', ...)->middleware('auth');`) and ensure user is authenticated.",
+        "Log middleware execution: Add `Log::info('Middleware executed');` in custom middleware to trace.",
+        "Adjust order: In `app/Http/Kernel.php`, reorder middleware stack (`protected $middlewarePriority = [...];`)."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Unexpected Behavior Due to Eloquent Relationship Lazy Loading",
+      "message": "No error raised, but N+1 query problem causes slow performance.",
+      "causes": [
+        "Not eager loading relationships (`$user->posts` in loop).",
+        "Forgetting to use `with()` in Eloquent queries.",
+        "Assuming relationships are loaded without checking."
+      ],
+      "solutions": [
+        "Eager load: `User::with('posts')->get();` instead of `$user->posts` in loops.",
+        "Debug queries: Enable query log (`DB::enableQueryLog();`) and inspect (`Log::info(DB::getQueryLog());`).",
+        "Use Laravel Telescope: Install Telescope (`composer require laravel/telescope`) to profile queries."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Silent Failure in Queue Job Execution",
+      "message": "No error raised, but queue job does not execute.",
+      "causes": [
+        "Queue worker not running (`php artisan queue:work`).",
+        "Job serialization failing due to unserializable objects (e.g., closures).",
+        "Queue backend (e.g., Redis) connection failing without retry."
+      ],
+      "solutions": [
+        "Start worker: `php artisan queue:work --tries=3` and monitor logs (`tail -f storage/logs/laravel.log`).",
+        "Ensure serializable data: Avoid passing closures (`$job->data = []` instead of `$job->data = function() {...};`).",
+        "Check backend: For Redis, verify connection (`redis-cli ping`) and config (`QUEUE_CONNECTION=redis` in `.env`)."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Unexpected Behavior Due to Stale Route Cache",
+      "message": "No error raised, but new routes not accessible after deployment.",
+      "causes": [
+        "Route cache not cleared after adding new routes (`php artisan route:cache`).",
+        "Deploying without updating route cache.",
+        "Using `Route::middleware()` with cached routes."
+      ],
+      "solutions": [
+        "Clear cache: `php artisan route:clear` and optionally re-cache (`php artisan route:cache`).",
+        "Inspect routes: `php artisan route:list` to verify new routes are registered.",
+        "Automate in deployment: Add `php artisan route:clear && php artisan route:cache` to deployment script."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Silent Data Loss in Eloquent Model Updates",
+      "message": "No error raised, but model updates not persisted in database.",
+      "causes": [
+        "Not calling `save()` after modifying Eloquent model (`$user->name = 'New Name';`).",
+        "Using `fill()` without `save()` (`$user->fill(['name' => 'New Name']);`).",
+        "Transaction not committed (`DB::beginTransaction()` without `commit()`)."
+      ],
+      "solutions": [
+        "Call save: `$user->name = 'New Name'; $user->save();`.",
+        "Ensure transaction commit: `DB::beginTransaction(); try { ...; DB::commit(); } catch (Exception $e) { DB::rollBack(); }`.",
+        "Debug changes: `Log::info($user->getChanges());` to inspect dirty attributes before save."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Unexpected Behavior Due to Middleware Not Applied to Group",
+      "message": "No error raised, but routes in group bypass middleware checks.",
+      "causes": [
+        "Not applying middleware to route group (`Route::middleware([])->group(...)`).",
+        "Incorrect middleware name or typo.",
+        "Middleware applied globally but overridden in specific routes."
+      ],
+      "solutions": [
+        "Apply to group: `Route::middleware(['auth'])->group(function () { Route::get('/dashboard', ...); });`.",
+        "Check middleware name: Verify in `app/Http/Kernel.php` (`protected $routeMiddleware = [...];`).",
+        "Trace middleware: Add `Log::info('Middleware applied');` in middleware to confirm execution."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Silent Failure Due to Incorrect Eloquent Scope",
+      "message": "No error raised, but scoped query returns unexpected results.",
+      "causes": [
+        "Global scope applied incorrectly (`ScopeClass::class` not filtering as expected).",
+        "Not removing global scope when needed.",
+        "Local scope not invoked properly (`scopeActive()` vs `active()`)."
+      ],
+      "solutions": [
+        "Check scope logic: `class ScopeClass implements Scope { public function apply(Builder $builder, Model $model) { $builder->where('active', 1); } }`.",
+        "Remove scope temporarily: `Model::withoutGlobalScope(ScopeClass::class)->get();`.",
+        "Invoke local scope: `$model->active()` (ensure defined as `scopeActive` in model)."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Laravel Cache Returning Stale Data",
+      "message": "No error raised, but cache returns outdated values.",
+      "causes": [
+        "Cache not invalidated after data update (`Cache::forget()` not called).",
+        "Using `Cache::forever()` without expiration strategy.",
+        "Cache key collision causing incorrect data retrieval."
+      ],
+      "solutions": [
+        "Invalidate cache: `Cache::forget('key');` after updating data.",
+        "Set TTL: `Cache::put('key', $value, now()->addMinutes(60));` instead of `forever()`.",
+        "Unique keys: Use specific keys (`Cache::put('user.{$user->id}', $data);`)."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Unexpected Behavior Due to Blade Directive Misuse",
+      "message": "No error raised, but Blade template renders incorrect output.",
+      "causes": [
+        "Misusing `@if`/`@endif` causing logic errors.",
+        "Not escaping user input (`{{ $input }}` vs `{!! $input !!}`).",
+        "Custom directive not applied correctly."
+      ],
+      "solutions": [
+        "Validate directives: Ensure `@if($condition) ... @endif` pairs match.",
+        "Escape output: Use `{{ $input }}` to escape HTML; `{!! $input !!}` only for trusted HTML.",
+        "Debug directive: For custom directives (`Blade::directive('name', ...)`), add `Log::info('Directive executed');`."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Silent Failure in Eloquent Mass Assignment",
+      "message": "No error raised, but mass-assigned fields not saved.",
+      "causes": [
+        "Not defining `$fillable` or `$guarded` in model.",
+        "Trying to mass-assign fields not in `$fillable` (`User::create(['email' => '...'])`).",
+        "Using `update()` without ensuring fillable fields."
+      ],
+      "solutions": [
+        "Define fillable: `protected $fillable = ['email', 'name'];` in model.",
+        "Use guarded: `protected $guarded = [];` if allowing most fields.",
+        "Debug assignment: `Log::info($model->getAttributes());` after `create()` or `update()`."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Unexpected Behavior Due to Database Transaction Rollback",
+      "message": "No error raised, but data changes not persisted despite `commit()`.",
+      "causes": [
+        "Nested transactions rolling back outer transactions.",
+        "Not handling exceptions properly (`DB::transaction()` throwing uncaught exception).",
+        "Calling `rollBack()` in nested transaction inadvertently."
+      ],
+      "solutions": [
+        "Handle exceptions: `DB::transaction(function () { ... });` auto-rolls back on error.",
+        "Manual handling: `DB::beginTransaction(); try { ...; DB::commit(); } catch (Exception $e) { DB::rollBack(); throw $e; }`.",
+        "Avoid nesting: Use `DB::transaction()` sparingly or flatten transaction logic."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Silent Failure in Artisan Command Execution",
+      "message": "No error raised, but custom Artisan command does not execute as expected.",
+      "causes": [
+        "Command not registered in `app/Console/Kernel.php`.",
+        "Logic error in command’s `handle()` method.",
+        "Not outputting feedback (`$this->info()`, `$this->error()`)."
+      ],
+      "solutions": [
+        "Register command: In `app/Console/Kernel.php`, add to `$commands` (`protected $commands = [MyCommand::class];`).",
+        "Debug handle: Add `$this->info('Executing...');` in `handle()` to trace execution.",
+        "Run manually: `php artisan my:command --verbose` to see output."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Unexpected Behavior Due to Incorrect Event Listener Binding",
+      "message": "No error raised, but event listener not triggered.",
+      "causes": [
+        "Event not registered in `EventServiceProvider`.",
+        "Listener method not matching event (`handle()` signature incorrect).",
+        "Event not fired (`event(new MyEvent());` not called)."
+      ],
+      "solutions": [
+        "Register event: In `EventServiceProvider`, `$listen = ['App\\Events\\MyEvent' => ['App\\Listeners\\MyListener']];`.",
+        "Match listener: `public function handle(MyEvent $event) { ... }`.",
+        "Fire event: `event(new MyEvent($data));` or `MyEvent::dispatch($data);`."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Silent Failure in Blade Component Rendering",
+      "message": "No error raised, but `<x-my-component />` does not render.",
+      "causes": [
+        "Component class or view not defined (`app/View/Components/MyComponent.php`).",
+        "Not using correct namespace (`App\\View\\Components`).",
+        "Blade view file missing (`resources/views/components/my-component.blade.php`)."
+      ],
+      "solutions": [
+        "Define component: `php artisan make:component MyComponent` to scaffold.",
+        "Check namespace: Ensure class is in `App\\View\\Components` (`class MyComponent extends Component`).",
+        "Verify view: Ensure `resources/views/components/my-component.blade.php` exists."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Unexpected Behavior Due to Incorrect Middleware Priority",
+      "message": "No error raised, but middleware executes in wrong order.",
+      "causes": [
+        "Middleware priority not set in `Kernel.php` (`$middlewarePriority`).",
+        "Custom middleware interfering with default middleware.",
+        "Assuming middleware order matches definition."
+      ],
+      "solutions": [
+        "Set priority: In `app/Http/Kernel.php`, `$middlewarePriority = ['SubstituteBindings', 'auth', 'throttle', ...];`.",
+        "Trace execution: Add `Log::info('Middleware: ' . get_class($this));` in each middleware `handle()`.",
+        "Reorder groups: Adjust `$middlewareGroups` in `Kernel.php` if needed."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Silent Authentication Failure",
+      "message": "No error raised, but `Auth::check()` returns false despite login.",
+      "causes": [
+        "Session driver misconfigured (`SESSION_DRIVER` in `.env`).",
+        "Guard not specified (`Auth::guard('web')`).",
+        "Session middleware not applied (`StartSession` missing)."
+      ],
+      "solutions": [
+        "Check driver: Ensure `SESSION_DRIVER=file` or `redis` in `.env` and storage writable (`chmod 777 storage`).",
+        "Specify guard: `Auth::guard('web')->check();` or set default in `config/auth.php`.",
+        "Verify middleware: Ensure `StartSession` in `$middlewareGroups['web']` in `Kernel.php`."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Unexpected Behavior Due to Incorrect Scope in Query Builder",
+      "message": "No error raised, but query excludes expected records.",
+      "causes": [
+        "Using `where()` instead of `orWhere()` in complex conditions.",
+        "Not grouping conditions (`where(...)->where(...)` vs `where(function($query) {...})`).",
+        "Global scope silently filtering results."
+      ],
+      "solutions": [
+        "Group conditions: `where(function($query) { $query->where('a', 1)->orWhere('b', 2); })`.",
+        "Debug query: `$query->toSql();` and `Log::info($query->toSql(), $query->getBindings());`.",
+        "Remove scope: `Model::withoutGlobalScope('scopeName')->get();` if needed."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Silent Failure in File Storage",
+      "message": "No error raised, but file not stored using `Storage::put()`.",
+      "causes": [
+        "Storage disk not configured (`config/filesystems.php`).",
+        "Storage directory not writable (`chmod 777 storage`).",
+        "Not checking return value of `Storage::put()`."
+      ],
+      "solutions": [
+        "Check disk: Ensure `default` disk in `config/filesystems.php` (`'default' => 'local'`).",
+        "Set permissions: `chmod 777 storage/app/public` for local disk.",
+        "Verify success: `$result = Storage::put('file.txt', $content); if (!$result) { Log::error('Storage failed'); }`."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Unexpected Behavior Due to Incorrect Config Caching",
+      "message": "No error raised, but configuration values not updated.",
+      "causes": [
+        "Config cache not cleared after `.env` changes (`php artisan config:cache`).",
+        "Using `env()` helper directly in cached config files.",
+        "Environment variables not reloaded after update."
+      ],
+      "solutions": [
+        "Clear cache: `php artisan config:clear && php artisan config:cache`.",
+        "Use `config()`: Replace `env('KEY')` with `config('app.key')` in cached configs (`config/app.php`).",
+        "Restart server: If using PHP-FPM, `sudo systemctl restart php-fpm` to reload `.env`."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Silent Failure in API Resource Transformation",
+      "message": "No error raised, but API resource returns incomplete data.",
+      "causes": [
+        "Not defining all fields in `toArray()` of API resource.",
+        "Conditional logic in `toArray()` excluding fields unexpectedly.",
+        "Not loading relationships (`$this->load('relation')`)."
+      ],
+      "solutions": [
+        "Define fields: `public function toArray($request) { return ['id' => $this->id, 'name' => $this->name]; }`.",
+        "Load relations: `$this->load('relation');` or `return $this->whenLoaded('relation', ...);`.",
+        "Debug output: `Log::info($this->resource);` in `toArray()` to inspect raw data."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Unexpected Behavior Due to Incorrect Pivot Table Access",
+      "message": "No error raised, but pivot table data not accessible in many-to-many relation.",
+      "causes": [
+        "Not defining pivot attributes in `withPivot()` (`belongsToMany`).",
+        "Accessing pivot data without `pivot` accessor (`$user->roles->pivot`).",
+        "Not loading pivot data (`withPivot` not called)."
+      ],
+      "solutions": [
+        "Define pivot: `return $this->belongsToMany(Role::class)->withPivot('attribute');`.",
+        "Access pivot: `$user->roles->first()->pivot->attribute;`.",
+        "Debug relation: `Log::info($user->roles->toArray());` to inspect pivot data."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Silent Failure in Laravel Notification Sending",
+      "message": "No error raised, but notification not sent.",
+      "causes": [
+        "Notification channel misconfigured (`mail`, `database`, etc.).",
+        "Not implementing `toArray()` or `toMail()` in `Notification` class.",
+        "Queue driver failure (e.g., `QUEUE_CONNECTION=sync` instead of `redis`)."
+      ],
+      "solutions": [
+        "Check channel: Ensure `via()` matches config (`public function via($notifiable) { return ['mail']; }`).",
+        "Implement method: `public function toMail($notifiable) { return (new MailMessage)->line('Hello!'); }`.",
+        "Verify queue: Set `QUEUE_CONNECTION=redis` in `.env` and run `php artisan queue:work`."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Unexpected Behavior Due to Incorrect Validation Rule",
+      "message": "No error raised, but validation passes/fails unexpectedly.",
+      "causes": [
+        "Using incorrect rule syntax (`required` vs `required_if`).",
+        "Not specifying custom messages for failed rules.",
+        "Validation not applied to all fields (`$request->validate()`)."
+      ],
+      "solutions": [
+        "Check rules: `$request->validate(['field' => 'required|email']);`.",
+        "Add messages: `$request->validate([...], ['field.required' => 'Field is required']);`.",
+        "Debug input: `Log::info($request->all());` before validation to inspect."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Silent Failure in Laravel Middleware Cache",
+      "message": "No error raised, but cached middleware response not updated.",
+      "causes": [
+        "Using `throttle` or custom cache middleware without invalidation.",
+        "Cache backend (e.g., Redis) misconfigured or down.",
+        "Not clearing cache after config changes."
+      ],
+      "solutions": [
+        "Invalidate cache: `Cache::forget('throttle:key');` after updates.",
+        "Check backend: For Redis, `redis-cli ping` and config (`CACHE_DRIVER=redis`).",
+        "Debug middleware: Add `Log::info('Cache hit/miss');` in middleware `handle()`."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Unexpected Behavior Due to Incorrect Eloquent Mutator",
+      "message": "No error raised, but attribute value not set as expected.",
+      "causes": [
+        "Mutator not defined correctly (`setNameAttribute` vs `setNamesAttribute`).",
+        "Not returning value in accessor (`getNameAttribute`).",
+        "Mutator logic skipping updates."
+      ],
+      "solutions": [
+        "Define mutator: `public function setNameAttribute($value) { $this->attributes['name'] = strtoupper($value); }`.",
+        "Return in accessor: `public function getNameAttribute() { return strtoupper($this->attributes['name']); }`.",
+        "Debug set: `Log::info($value);` in mutator to trace."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Silent Failure in Laravel Mail Sending",
+      "message": "No error raised, but email not sent.",
+      "causes": [
+        "Mail driver misconfigured (`MAIL_DRIVER` in `.env`).",
+        "SMTP credentials incorrect or server down.",
+        "Not handling exceptions in `Mail::send()`."
+      ],
+      "solutions": [
+        "Check config: `MAIL_DRIVER=smtp` and `MAIL_HOST=smtp.example.com` in `.env`.",
+        "Test SMTP: `telnet smtp.example.com 587` to verify connectivity.",
+        "Handle errors: `try { Mail::send(...); } catch (Exception $e) { Log::error($e->getMessage()); }`."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Unexpected Behavior Due to Incorrect Route Model Binding",
+      "message": "No error raised, but route model binding returns wrong or null model.",
+      "causes": [
+        "Not defining key in route (`{user:id}` vs `{user}`).",
+        "Model not found but resolved silently (`resolveRouteBinding()`).",
+        "Custom binding logic incorrect."
+      ],
+      "solutions": [
+        "Define key: `Route::get('/users/{user:id}', ...);`.",
+        "Handle null: `public function resolveRouteBinding($value) { return $this->find($value) ?? abort(404); }`.",
+        "Debug binding: `Log::info($value);` in `resolveRouteBinding()`."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Silent Failure in Laravel Telescope Logging",
+      "message": "No error raised, but Telescope does not log requests/queries.",
+      "causes": [
+        "Telescope not installed or registered (`composer require laravel/telescope`).",
+        "Environment not set to `local` (`APP_ENV=production`).",
+        "Database storage not migrated (`php artisan telescope:install`)."
+      ],
+      "solutions": [
+        "Install Telescope: `composer require laravel/telescope && php artisan telescope:install`.",
+        "Set environment: `APP_ENV=local` in `.env` for Telescope to log.",
+        "Migrate database: `php artisan migrate` after Telescope install."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Unexpected Behavior Due to Incorrect Artisan Cache Command",
+      "message": "No error raised, but Artisan cache commands (e.g., `cache:clear`) fail.",
+      "causes": [
+        "Cache driver misconfigured (`CACHE_DRIVER` in `.env`).",
+        "Cache backend (e.g., Redis) connection failure.",
+        "Not clearing specific caches (`view`, `route`)."
+      ],
+      "solutions": [
+        "Check driver: `CACHE_DRIVER=redis` in `.env` and verify connection (`redis-cli ping`).",
+        "Clear all caches: `php artisan cache:clear && php artisan view:clear && php artisan route:clear`.",
+        "Debug backend: `Log::info(Cache::getStore());` to inspect cache driver."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Silent Failure in Laravel Policy Authorization",
+      "message": "No error raised, but policy denies access without feedback.",
+      "causes": [
+        "Policy not registered in `AuthServiceProvider`.",
+        "Policy method returning `false` without logging.",
+        "Not using `Gate::allows()` or `$this->authorize()`."
+      ],
+      "solutions": [
+        "Register policy: `protected $policies = ['Model' => 'ModelPolicy'];` in `AuthServiceProvider`.",
+        "Add logging: `public function view(User $user) { $result = $user->id === $this->user_id; Log::info('Policy result: $result'); return $result; }`.",
+        "Use Gate: `if (Gate::allows('view', $model)) { ... }` or `$this->authorize('view', $model);`."
+      ]
+    },
+    {
+      "id": 31,
+      "title": "Unexpected Behavior Due to Incorrect Blade Cache",
+      "message": "No error raised, but Blade templates not updated after changes.",
+      "causes": [
+        "Blade view cache not cleared (`php artisan view:clear`).",
+        "Using `view()->cache()` with long TTL.",
+        "Server-side caching (e.g., OPcache) not invalidated."
+      ],
+      "solutions": [
+        "Clear cache: `php artisan view:clear`.",
+        "Disable caching in dev: `view()->cache(false);` or set `VIEW_CACHE=0` in `.env`.",
+        "Restart server: `sudo systemctl restart php-fpm` to clear OPcache."
+      ]
+    },
+    {
+      "id": 32,
+      "title": "Silent Failure in Laravel Testing with Database",
+      "message": "No error raised, but test database not populated or cleaned.",
+      "causes": [
+        "Not using `RefreshDatabase` or `DatabaseMigrations` trait.",
+        "Test database not configured (`DB_CONNECTION` in `phpunit.xml`).",
+        "Migration not run for test environment (`php artisan migrate --env=testing`)."
+      ],
+      "solutions": [
+        "Use trait: `use RefreshDatabase;` in test class to reset database.",
+        "Set test DB: In `phpunit.xml`, `<env name='DB_CONNECTION' value='sqlite'/>` with `testing.sqlite`.",
+        "Run migrations: `php artisan migrate --env=testing` before tests."
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Unexpected Behavior Due to Incorrect Eloquent Observer",
+      "message": "No error raised, but observer not triggered.",
+      "causes": [
+        "Observer not registered in `AppServiceProvider` or `EventServiceProvider`.",
+        "Event not fired due to model bypass (e.g., `DB::table()`).",
+        "Logic error in observer `creating()`, `updating()` methods."
+      ],
+      "solutions": [
+        "Register observer: In `AppServiceProvider`, `Model::observe(ModelObserver::class);`.",
+        "Use Eloquent: `$model->save();` instead of `DB::table('table')->update([...]);`.",
+        "Debug observer: `Log::info('Observer triggered');` in observer methods."
+      ]
+    },
+    {
+      "id": 34,
+      "title": "Silent Failure in Laravel Rate Limiting",
+      "message": "No error raised, but rate limiting not applied or too permissive.",
+      "causes": [
+        "Throttle middleware not applied (`throttle:60,1` not set).",
+        "Rate limiter key not unique (`RateLimiter::for()`).",
+        "Cache backend (e.g., Redis) not functioning."
+      ],
+      "solutions": [
+        "Apply throttle: `Route::middleware('throttle:60,1')->get('/api', ...);`.",
+        "Customize limiter: `RateLimiter::for('api', function () { return Limit::perMinute(60); });`.",
+        "Check cache: Ensure `CACHE_DRIVER=redis` and Redis running (`redis-cli ping`)."
+      ]
+    },
+    {
+      "id": 35,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Tinker Usage",
+      "message": "No error raised, but Tinker commands produce unexpected results.",
+      "causes": [
+        "Not importing necessary classes (`App\\Models\\User`).",
+        "Running commands in wrong environment (`APP_ENV=production`).",
+        "Not saving changes to database (`$user->save()`)."
+      ],
+      "solutions": [
+        "Import classes: `use App\\Models\\User; $user = User::first();`.",
+        "Set environment: `APP_ENV=local` in `.env` for Tinker usage.",
+        "Persist changes: `$user->name = 'New'; $user->save();`."
+      ]
+    },
+    {
+      "id": 36,
+      "title": "Silent Failure in Laravel Horizon Job Processing",
+      "message": "No error raised, but Horizon does not process jobs.",
+      "causes": [
+        "Horizon not running (`php artisan horizon`).",
+        "Redis connection failing (`HORIZON_DRIVER=redis`).",
+        "Supervisor not restarting Horizon (`/etc/supervisor/conf.d/horizon.conf`)."
+      ],
+      "solutions": [
+        "Start Horizon: `php artisan horizon` and monitor dashboard (`/horizon`).",
+        "Check Redis: `redis-cli ping` and `HORIZON_DRIVER=redis` in `.env`.",
+        "Configure Supervisor: `sudo supervisorctl reread && sudo supervisorctl update`."
+      ]
+    },
+    {
+      "id": 37,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Passport Token Expiration",
+      "message": "No error raised, but tokens expire too soon or persist too long.",
+      "causes": [
+        "Not setting token expiration (`Passport::tokensExpireIn()`).",
+        "Incorrect `expires_at` in `oauth_access_tokens` table.",
+        "Not refreshing tokens properly."
+      ],
+      "solutions": [
+        "Set expiration: In `AuthServiceProvider`, `Passport::tokensExpireIn(now()->addDays(15));`.",
+        "Check tokens: `DB::table('oauth_access_tokens')->where('id', $tokenId)->first();`.",
+        "Refresh token: `Passport::refreshTokensExpireIn(now()->addDays(30));`."
+      ]
+    },
+    {
+      "id": 38,
+      "title": "Silent Failure in Laravel Seeder",
+      "message": "No error raised, but database not seeded as expected.",
+      "causes": [
+        "Not running `db:seed` (`php artisan db:seed`).",
+        "Seeder class not registered in `DatabaseSeeder.php`.",
+        "Data conflicts (e.g., duplicate keys) causing silent failures."
+      ],
+      "solutions": [
+        "Run seeder: `php artisan db:seed --class=MySeeder`.",
+        "Register seeder: In `DatabaseSeeder`, `$this->call(MySeeder::class);`.",
+        "Handle errors: `try { DB::table('table')->insert([...]); } catch (Exception $e) { Log::error($e); }`."
+      ]
+    },
+    {
+      "id": 39,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Broadcasting",
+      "message": "No error raised, but broadcast events not received by frontend.",
+      "causes": [
+        "Broadcast driver misconfigured (`BROADCAST_DRIVER` in `.env`).",
+        "Not starting Laravel Echo Server or Pusher.",
+        "Channel not authorized (`Broadcast::channel()`)."
+      ],
+      "solutions": [
+        "Set driver: `BROADCAST_DRIVER=pusher` and configure `PUSHER_*` keys in `.env`.",
+        "Start server: For Redis, `laravel-echo-server start` or use Pusher service.",
+        "Authorize channel: `Broadcast::channel('channel-{id}', fn($user, $id) => $user->id === $id);`."
+      ]
+    },
+    {
+      "id": 40,
+      "title": "Silent Failure in Laravel Dusk Testing",
+      "message": "No error raised, but Dusk tests fail to run browsers.",
+      "causes": [
+        "ChromeDriver not installed or incompatible version.",
+        "Headless Chrome not supported on test environment.",
+        "Not running Dusk server (`php artisan dusk`)."
+      ],
+      "solutions": [
+        "Install ChromeDriver: `php artisan dusk:install` and verify (`chromedriver --version`).",
+        "Run headless: Ensure Chrome supports headless (`--headless` in `/vendor/laravel/dusk/bin/chromedriver`).",
+        "Start testing: `php artisan dusk --env=testing`."
+      ]
+    },
+    {
+      "id": 41,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Envoy Deployment",
+      "message": "No error raised, but Envoy deployment script fails silently.",
+      "causes": [
+        "SSH key not added to agent (`ssh-add`).",
+        "Envoy task not defined or syntax error in `Envoy.blade.php`.",
+        "Server permissions or paths incorrect."
+      ],
+      "solutions": [
+        "Add SSH key: `ssh-add ~/.ssh/id_rsa` and test (`ssh user@server`).",
+        "Verify task: `task('deploy', ['on' => 'web', 'run' => ['cd /path', 'git pull']]);` in `Envoy.blade.php`.",
+        "Run verbose: `vendor/bin/envoy run deploy --debug`."
+      ]
+    },
+    {
+      "id": 42,
+      "title": "Silent Failure in Laravel API Authentication",
+      "message": "No error raised, but API endpoint returns 401 Unauthorized.",
+      "causes": [
+        "Not passing `Authorization` header with token (`Bearer`).",
+        "Passport/Laravel Sanctum middleware not applied (`auth:api`).",
+        "Token expired or invalid."
+      ],
+      "solutions": [
+        "Add header: `Authorization: Bearer <token>` in API request.",
+        "Apply middleware: `Route::middleware('auth:api')->get('/user', ...);`.",
+        "Refresh token: `$user->createToken('name')->accessToken;` for new token."
+      ]
+    },
+    {
+      "id": 43,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Policy Scope",
+      "message": "No error raised, but policy scope filters out valid data.",
+      "causes": [
+        "Policy scoping incorrectly (`viewAny()` too restrictive).",
+        "Not checking user permissions in scope.",
+        "Applying scope globally without user context."
+      ],
+      "solutions": [
+        "Adjust policy: `public function viewAny(User $user) { return $user->isAdmin(); }`.",
+        "Debug scope: `Log::info('Policy scope applied');` in policy method.",
+        "Bypass scope: `Gate::withoutPolicies()->allows('viewAny', Model::class);` if needed."
+      ]
+    },
+    {
+      "id": 44,
+      "title": "Silent Failure in Laravel Livewire Component",
+      "message": "No error raised, but Livewire component does not update frontend.",
+      "causes": [
+        "Not emitting events from component (`$this->emit('event')`).",
+        "Frontend listener not registered (`@event.window.alert('Updated')`).",
+        "Livewire scripts not included (`@livewireScripts`)."
+      ],
+      "solutions": [
+        "Emit event: `$this->emit('refreshComponent');` in component.",
+        "Listen event: `<div wire:refreshComponent.window='update()''>...</div>`.",
+        "Include scripts: `@livewireScripts` in `layouts/app.blade.php`."
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Factories",
+      "message": "No error raised, but factory creates incomplete or incorrect data.",
+      "causes": [
+        "Not defining all required fields in factory (`factory()->make()`).",
+        "Not handling relationships (`has()`, `for()`).",
+        "Factory state not applied (`state('stateName')`)."
+      ],
+      "solutions": [
+        "Define fields: `public function definition() { return ['name' => $this->faker->name]; }`.",
+        "Add relations: `User::factory()->hasPosts(3)->create();`.",
+        "Apply state: `User::factory()->state(['role' => 'admin'])->create();`."
+      ]
+    },
+    {
+      "id": 46,
+      "title": "Silent Failure in Laravel Task Scheduling",
+      "message": "No error raised, but scheduled task does not execute.",
+      "causes": [
+        "Cron job not configured (`* * * * * php /path/to/artisan schedule:run`).",
+        "Task not defined in `app/Console/Kernel.php`.",
+        "Server time zone mismatch affecting schedule."
+      ],
+      "solutions": [
+        "Set up cron: `crontab -e` and add `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1`.",
+        "Define task: In `Kernel.php`, `$schedule->command('my:command')->daily();`.",
+        "Check timezone: Ensure `APP_TIMEZONE` in `.env` matches server (`date`)."
+      ]
+    },
+    {
+      "id": 47,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Pagination",
+      "message": "No error raised, but pagination links incorrect or missing.",
+      "causes": [
+        "Not using `paginate()` (`get()` instead).",
+        "Custom query not respecting paginate parameters.",
+        "Not rendering pagination links in Blade (`->links()`)."
+      ],
+      "solutions": [
+        "Use paginate: `Model::paginate(15);` instead of `Model::get();`.",
+        "Respect params: `$query->paginate(15);` in custom queries.",
+        "Render links: `@foreach($items as $item) ... @endforeach {{ $items->links() }}`."
+      ]
+    },
+    {
+      "id": 48,
+      "title": "Silent Failure in Laravel Resource Collection",
+      "message": "No error raised, but resource collection returns incomplete data.",
+      "causes": [
+        "Not transforming data in `collect()` (`ResourceCollection`).",
+        "Not loading nested relationships (`$this->load()`).",
+        "Incorrect mapping in `toArray()`."
+      ],
+      "solutions": [
+        "Transform data: `public function toArray($request) { return $this->collection->map(...); }`.",
+        "Load relations: `$this->load(['relation']);` in constructor.",
+        "Debug output: `Log::info($this->collection->toArray());` in `toArray()`."
+      ]
+    },
+    {
+      "id": 49,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Broadcasting Authentication",
+      "message": "No error raised, but broadcast authentication fails.",
+      "causes": [
+        "Not defining channel authorization (`Broadcast::routes()`).",
+        "User not authenticated for private/presence channels.",
+        "Frontend not including CSRF token or API token."
+      ],
+      "solutions": [
+        "Define routes: In `routes/channels.php`, `Broadcast::channel('channel', fn($user) => $user);`.",
+        "Authenticate user: Ensure `Auth::check()` for private channels.",
+        "Include token: `Echo.channel('channel').listen(..., { headers: { 'X-CSRF-Token': token } });`."
+      ]
+    },
+    {
+      "id": 50,
+      "title": "Silent Failure in Laravel Horizon Configuration",
+      "message": "No error raised, but Horizon does not balance workers.",
+      "causes": [
+        "Not configuring `horizon.php` for balancing (`balance` key).",
+        "Supervisor not running (`supervisord.conf`).",
+        "Redis connection timeout (`HORIZON_DRIVER=redis`)."
+      ],
+      "solutions": [
+        "Set balance: In `config/horizon.php`, `'balance' => 'auto'`.",
+        "Start supervisor: `sudo systemctl start supervisor && sudo supervisorctl reread`.",
+        "Check Redis: `redis-cli ping` and `HORIZON_DRIVER=redis` in `.env`."
+      ]
+    },
+    {
+      "id": 51,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Encryption",
+      "message": "No error raised, but `Crypt::decrypt()` fails with wrong results.",
+      "causes": [
+        "Not setting `APP_KEY` in `.env` before encryption.",
+        "Decrypting data encrypted with a different key.",
+        "Not catching `DecryptException`."
+      ],
+      "solutions": [
+        "Set key: `php artisan key:generate` to set `APP_KEY`.",
+        "Ensure key match: Use same `APP_KEY` for encrypt/decrypt.",
+        "Catch exception: `try { $decrypted = Crypt::decrypt($data); } catch (DecryptException $e) { Log::error($e); }`."
+      ]
+    },
+    {
+      "id": 52,
+      "title": "Silent Failure in Laravel Forge Deployment",
+      "message": "No error raised, but Forge deployment script fails.",
+      "causes": [
+        "Git branch mismatch (`main` vs `master`).",
+        "Composer install failing due to memory limits.",
+        "Forge not running `php artisan migrate`."
+      ],
+      "solutions": [
+        "Check branch: Ensure Forge deploys correct branch (`git branch`).",
+        "Increase memory: Add `COMPOSER_MEMORY_LIMIT=-1` in Forge environment.",
+        "Add migration: In Forge deployment script, `php artisan migrate --force`."
+      ]
+    },
+    {
+      "id": 53,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Notification Routing",
+      "message": "No error raised, but notification sent to wrong user.",
+      "causes": [
+        "Not defining `routeNotificationForMail()` in `Notifiable`.",
+        "Using `$notifiable->email` without validation.",
+        "Broadcasting to incorrect channel."
+      ],
+      "solutions": [
+        "Define route: `public function routeNotificationForMail($notification) { return $this->email; }`.",
+        "Validate email: `if ($this->email) { return $this->email; }`.",
+        "Check channel: `public function toBroadcast($notifiable) { return new BroadcastMessage(['channel' => 'user-' . $this->id]); }`."
+      ]
+    },
+    {
+      "id": 54,
+      "title": "Silent Failure in Laravel API Rate Limiting",
+      "message": "No error raised, but API rate limiting not applied.",
+      "causes": [
+        "Not applying `throttle` middleware to API routes.",
+        "Rate limiter not configured (`RouteServiceProvider`).",
+        "Cache driver not functioning (`CACHE_DRIVER`)."
+      ],
+      "solutions": [
+        "Apply throttle: `Route::middleware('throttle:60,1')->prefix('api')->group(...);`.",
+        "Configure limiter: In `RouteServiceProvider`, `RateLimiter::for('api', ...);`.",
+        "Check cache: Ensure `CACHE_DRIVER=redis` and Redis running (`redis-cli ping`)."
+      ]
+    },
+    {
+      "id": 55,
+      "title": "Unexpected Behavior Due to Incorrect Laravel DTO Mapping",
+      "message": "No error raised, but Data Transfer Object (DTO) maps incorrect data.",
+      "causes": [
+        "Not defining properties in DTO class.",
+        "Incorrect mapping logic in `fromRequest()` or `toArray()`.",
+        "Not validating input before mapping."
+      ],
+      "solutions": [
+        "Define properties: `class MyDTO { public string $name; public int $age; }`.",
+        "Map correctly: `public static function fromRequest(Request $request): self { return new self($request->name, $request->age); }`.",
+        "Validate input: `$request->validate(['name' => 'required', 'age' => 'required|integer']);`."
+      ]
+    },
+    {
+      "id": 56,
+      "title": "Silent Failure in Laravel Spatie Permission Setup",
+      "message": "No error raised, but `hasRole()` returns false despite role assigned.",
+      "causes": [
+        "Not assigning role correctly (`$user->assignRole('name')`).",
+        "Permissions not migrated (`php artisan permission:cache-reset`).",
+        "Not using correct guard (`auth()->guard('web')`)."
+      ],
+      "solutions": [
+        "Assign role: `$user->assignRole('admin');` or `$user->roles()->attach($roleId);`.",
+        "Reset cache: `php artisan permission:cache-reset`.",
+        "Check guard: `$user->hasRole('admin', 'web');`."
+      ]
+    },
+    {
+      "id": 57,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Resource Loading",
+      "message": "No error raised, but API resource does not include nested data.",
+      "causes": [
+        "Not loading relationships (`$this->load('relation')`).",
+        "Not using `whenLoaded()` in `toArray()`.",
+        "Relation not defined in model."
+      ],
+      "solutions": [
+        "Load relation: `$this->load('relation');` in resource constructor.",
+        "Use whenLoaded: `['relation' => $this->whenLoaded('relation')]` in `toArray()`.",
+        "Define relation: `public function relation() { return $this->hasMany(Relation::class); }`."
+      ]
+    },
+    {
+      "id": 58,
+      "title": "Silent Failure in Laravel Model Factory Seeding",
+      "message": "No error raised, but factory does not seed expected data.",
+      "causes": [
+        "Not defining factory in `DatabaseSeeder.php`.",
+        "Factory missing `$factory->define(Model::class, ...)`.",
+        "Not handling foreign key constraints."
+      ],
+      "solutions": [
+        "Define factory: `User::factory()->count(10)->create();` in `DatabaseSeeder`.",
+        "Check factory: `public function definition() { return [...]; }` in `UserFactory.php`.",
+        "Handle relations: `User::factory()->has(Posts::factory()->count(3))->create();`."
+      ]
+    },
+    {
+      "id": 59,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Horizon Metrics",
+      "message": "No error raised, but Horizon metrics inaccurate.",
+      "causes": [
+        "Not clearing Horizon stats (`horizon:snapshot`).",
+        "Redis connection issues (`HORIZON_DRIVER=redis`).",
+        "Supervisor not running (`supervisord.conf`)."
+      ],
+      "solutions": [
+        "Clear stats: `php artisan horizon:snapshot` regularly.",
+        "Check Redis: `redis-cli ping` and `HORIZON_DRIVER=redis` in `.env`.",
+        "Start supervisor: `sudo systemctl start supervisor && sudo supervisorctl reread`."
+      ]
+    },
+    {
+      "id": 60,
+      "title": "Silent Failure in Laravel Scout Search Indexing",
+      "message": "No error raised, but Scout indexing fails.",
+      "causes": [
+        "Scout driver not configured (`SCOUT_DRIVER` in `.env`).",
+        "Search engine (e.g., Algolia) credentials incorrect.",
+        "Not importing models (`php artisan scout:import`)."
+      ],
+      "solutions": [
+        "Set driver: `SCOUT_DRIVER=algolia` and `ALGOLIA_*` keys in `.env`.",
+        "Check credentials: Verify Algolia API keys in `.env`.",
+        "Import models: `php artisan scout:import 'App\\Models\\Model'`."
+      ]
+    },
+    {
+      "id": 61,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Storage Link",
+      "message": "No error raised, but files in storage not accessible publicly.",
+      "causes": [
+        "Not running `php artisan storage:link`.",
+        "Storage disk not set to public (`config/filesystems.php`).",
+        "Web server (e.g., Nginx) not serving `public/storage`."
+      ],
+      "solutions": [
+        "Create link: `php artisan storage:link`.",
+        "Set disk: `'disks' => ['public' => ['driver' => 'local', 'root' => storage_path('app/public')]]`.",
+        "Check server: Ensure Nginx `alias` directive for `/storage` points to `public/storage`."
+      ]
+    },
+    {
+      "id": 62,
+      "title": "Silent Failure in Laravel Model Observers with Bulk Operations",
+      "message": "No error raised, but observer not triggered during bulk updates.",
+      "causes": [
+        "Using `DB::table()` or `update()` bypassing Eloquent events.",
+        "Not dispatching events manually for bulk operations.",
+        "Observer logic failing silently."
+      ],
+      "solutions": [
+        "Use Eloquent: `Model::where(...)->update([...]);` triggers events.",
+        "Dispatch manually: `Model::updating(function ($model) { ... });`.",
+        "Debug observer: `Log::info('Observer triggered');` in observer methods."
+      ]
+    },
+    {
+      "id": 63,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Middleware Cache",
+      "message": "No error raised, but middleware cache returns stale responses.",
+      "causes": [
+        "Not invalidating cache (`Cache::forget()`) after updates.",
+        "Cache key not unique (`Cache::put('key', ...)`).",
+        "Cache backend (e.g., Redis) failing silently."
+      ],
+      "solutions": [
+        "Invalidate cache: `Cache::forget('key');` after updates.",
+        "Unique keys: `Cache::put('user.{$user->id}', $data);`.",
+        "Check backend: `Cache::get('test')` and `redis-cli ping`."
+      ]
+    },
+    {
+      "id": 64,
+      "title": "Silent Failure in Laravel API Resource Pagination",
+      "message": "No error raised, but API resource pagination links missing.",
+      "causes": [
+        "Not using `resourceCollection()` (`PaginatedResourceResponse`).",
+        "Not passing paginated data (`Model::paginate()`).",
+        "Not rendering links in frontend."
+      ],
+      "solutions": [
+        "Use resource collection: `return new ResourceCollection(Model::paginate());`.",
+        "Pass paginated data: `Model::paginate(15);` instead of `Model::get();`.",
+        "Render links: `{{ $resources->links() }}` or `$resources->toArray($request)['links']`."
+      ]
+    },
+    {
+      "id": 65,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Policy in Resource Controller",
+      "message": "No error raised, but policy not applied to resource controller.",
+      "causes": [
+        "Not defining policy in `AuthServiceProvider`.",
+        "Not using `$this->authorizeResource(Model::class);`.",
+        "Policy method missing (`view()`, `update()`)."
+      ],
+      "solutions": [
+        "Define policy: `$policies = ['Model' => 'ModelPolicy'];` in `AuthServiceProvider`.",
+        "Authorize resource: `public function __construct() { $this->authorizeResource(Model::class); }`.",
+        "Add method: `public function view(User $user, Model $model) { return true; }`."
+      ]
+    },
+    {
+      "id": 66,
+      "title": "Silent Failure in Laravel Telescope Setup",
+      "message": "No error raised, but Telescope dashboard not accessible.",
+      "causes": [
+        "Not installing Telescope (`composer require laravel/telescope`).",
+        "Middleware not applied (`TelescopeServiceProvider`).",
+        "Not publishing assets (`php artisan telescope:publish`)."
+      ],
+      "solutions": [
+        "Install Telescope: `composer require laravel/telescope && php artisan telescope:install`.",
+        "Add middleware: `protected $middlewareGroups['web'] = [...TelescopeServiceProvider::class];`.",
+        "Publish assets: `php artisan telescope:publish`."
+      ]
+    },
+    {
+      "id": 67,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Soft Deletes",
+      "message": "No error raised, but soft-deleted records still appear.",
+      "causes": [
+        "Not using `SoftDeletes` trait (`use SoftDeletes;`).",
+        "Not querying with `withTrashed()` or `onlyTrashed()`.",
+        "Migration missing `softDeletes()` column."
+      ],
+      "solutions": [
+        "Add trait: `use SoftDeletes;` in model and `$dates = ['deleted_at'];`.",
+        "Query correctly: `Model::withTrashed()->get();` or `Model::onlyTrashed()->get();`.",
+        "Add column: `$table->softDeletes();` in migration."
+      ]
+    },
+    {
+      "id": 68,
+      "title": "Silent Failure in Laravel API Authentication Middleware",
+      "message": "No error raised, but API middleware fails to authenticate.",
+      "causes": [
+        "Not applying `auth:api` middleware.",
+        "Not passing `Authorization` header with token.",
+        "Passport/Sanctum token invalid or expired."
+      ],
+      "solutions": [
+        "Apply middleware: `Route::middleware('auth:api')->get('/user', ...);`.",
+        "Pass header: `Authorization: Bearer <token>` in request.",
+        "Generate token: `$user->createToken('name')->accessToken;`."
+      ]
+    },
+    {
+      "id": 69,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Model Casting",
+      "message": "No error raised, but casted attribute returns wrong type.",
+      "causes": [
+        "Not defining `$casts` in model (`protected $casts = [...]`).",
+        "Using incorrect cast type (`array` vs `json`).",
+        "Not handling null values in casts."
+      ],
+      "solutions": [
+        "Define casts: `protected $casts = ['options' => 'array'];`.",
+        "Use correct type: `'options' => 'json'` if JSON string.",
+        "Handle null: `public function getOptionsAttribute($value) { return $value ?? []; }`."
+      ]
+    },
+    {
+      "id": 70,
+      "title": "Silent Failure in Laravel Mix Compilation",
+      "message": "No error raised, but `npm run dev` does not compile assets.",
+      "causes": [
+        "Not installing Node dependencies (`npm install`).",
+        "Error in `webpack.mix.js` (e.g., invalid path).",
+        "Insufficient memory for Node process."
+      ],
+      "solutions": [
+        "Install dependencies: `npm install`.",
+        "Check config: Ensure `mix.js('resources/js/app.js', 'public/js')` paths correct.",
+        "Increase memory: `NODE_OPTIONS=--max_old_space_size=4096 npm run dev`."
+      ]
+    },
+    {
+      "id": 71,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Blade Section",
+      "message": "No error raised, but Blade section not rendered.",
+      "causes": [
+        "Not yielding section (`@yield('section')`).",
+        "Section redefined in child template (`@section` overwrite).",
+        "Not ending section (`@endsection` missing)."
+      ],
+      "solutions": [
+        "Yield section: `@yield('section')` in `layouts/app.blade.php`.",
+        "Avoid overwrite: Use `@parent` in child (`@section('section') @parent ... @endsection`).",
+        "Check syntax: Ensure `@section('name') ... @endsection` pairs match."
+      ]
+    },
+    {
+      "id": 72,
+      "title": "Silent Failure in Laravel API Response Formatting",
+      "message": "No error raised, but API response format inconsistent.",
+      "causes": [
+        "Not using `JsonResource` for consistent formatting.",
+        "Not handling `null` values in response.",
+        "Not setting correct HTTP codes (`response()->json()`)."
+      ],
+      "solutions": [
+        "Use resource: `return new MyResource($model);` instead of `response()->json($model);`.",
+        "Handle null: `['field' => $this->field ?? 'default']` in `toArray()`.",
+        "Set status: `return response()->json($data, 200);`."
+      ]
+    },
+    {
+      "id": 73,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Queue Retry Logic",
+      "message": "No error raised, but queue job retries indefinitely.",
+      "causes": [
+        "Not setting `maxTries` property in job class.",
+        "Not handling exceptions in `handle()`.",
+        "Not logging retry attempts."
+      ],
+      "solutions": [
+        "Set max tries: `public $tries = 3;` in job class.",
+        "Handle exceptions: `public function handle() { try { ... } catch (Exception $e) { $this->fail($e); } }`.",
+        "Log retries: `public function failed(Exception $e) { Log::error($e); }`."
+      ]
+    },
+    {
+      "id": 74,
+      "title": "Silent Failure in Laravel Passport Client Setup",
+      "message": "No error raised, but OAuth client not created.",
+      "causes": [
+        "Not running `passport:install` (`php artisan passport:install`).",
+        "Not creating client (`passport:client`).",
+        "Database not migrated (`php artisan migrate`)."
+      ],
+      "solutions": [
+        "Install Passport: `php artisan passport:install`.",
+        "Create client: `php artisan passport:client --personal`.",
+        "Migrate database: `php artisan migrate`."
+      ]
+    },
+    {
+      "id": 75,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Horizon Worker Balancing",
+      "message": "No error raised, but Horizon workers not balanced.",
+      "causes": [
+        "Not configuring `balance` in `horizon.php`.",
+        "Insufficient workers (`maxProcesses` too low).",
+        "Redis connection issues (`HORIZON_DRIVER=redis`)."
+      ],
+      "solutions": [
+        "Set balance: `'balance' => 'auto'` in `config/horizon.php`.",
+        "Increase workers: `'environments' => ['production' => ['maxProcesses' => 10]]`.",
+        "Check Redis: `redis-cli ping` and `HORIZON_DRIVER=redis`."
+      ]
+    },
+    {
+      "id": 76,
+      "title": "Silent Failure in Laravel Scout Indexing",
+      "message": "No error raised, but Scout indexing does not update search engine.",
+      "causes": [
+        "Not enabling search syncing (`shouldBeSearchable()`).",
+        "Search engine (e.g., Algolia) API keys incorrect.",
+        "Not running `scout:sync` (`php artisan scout:sync`)."
+      ],
+      "solutions": [
+        "Enable sync: `public function shouldBeSearchable() { return true; }`.",
+        "Check keys: `ALGOLIA_APP_ID` and `ALGOLIA_SECRET` in `.env`.",
+        "Sync manually: `php artisan scout:sync 'App\\Models\\Model'`."
+      ]
+    },
+    {
+      "id": 77,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Eloquent Polymorphic Relation",
+      "message": "No error raised, but polymorphic relation returns wrong data.",
+      "causes": [
+        "Not defining `morphTo()` or `morphMany()` correctly.",
+        "Not setting `type` and `id` in pivot table.",
+        "Not loading polymorphic relations (`$this->load('relation')`)."
+      ],
+      "solutions": [
+        "Define relation: `public function relation() { return $this->morphTo(); }`.",
+        "Set pivot: `DB::table('pivot')->insert(['type' => 'App\\Models\\Type', 'id' => 1]);`.",
+        "Load relation: `$model->load('relation');`."
+      ]
+    },
+    {
+      "id": 78,
+      "title": "Silent Failure in Laravel API Exception Handling",
+      "message": "No error raised, but API exceptions not formatted as JSON.",
+      "causes": [
+        "Not overriding `render()` in `App\\Exceptions\\Handler`.",
+        "Not registering API exception handler.",
+        "Not setting `Accept: application/json` in request."
+      ],
+      "solutions": [
+        "Override render: `public function render($request, Exception $e) { if ($request->is('api/*')) { return response()->json(['error' => $e->getMessage()], 500); } return parent::render($request, $e); }`.",
+        "Set header: `Accept: application/json` in API request.",
+        "Debug handler: `Log::info('Exception handler executed');` in `render()`."
+      ]
+    },
+    {
+      "id": 79,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Listener Priority",
+      "message": "No error raised, but listeners execute in wrong order.",
+      "causes": [
+        "Not setting listener priority (`Event::listen()`).",
+        "Multiple listeners on same event without order.",
+        "Not using `shouldQueue()` for async listeners."
+      ],
+      "solutions": [
+        "Set priority: `Event::listen('event', Listener::class, 10);` or `$listener->priority = 10;`.",
+        "Queue listener: `class Listener implements ShouldQueue { ... }`.",
+        "Debug order: `Log::info('Listener executed');` in each listener."
+      ]
+    },
+    {
+      "id": 80,
+      "title": "Silent Failure in Laravel Inertia.js SSR",
+      "message": "No error raised, but Inertia server-side rendering fails.",
+      "causes": [
+        "Not installing `inertiajs/inertia-laravel` (`composer require`).",
+        "Not running Node SSR server (`node server.js`).",
+        "Inertia middleware not applied (`HandleInertiaRequests`)."
+      ],
+      "solutions": [
+        "Install Inertia: `composer require inertiajs/inertia-laravel`.",
+        "Start SSR: `node server.js` in `resources/js/ssr.js`.",
+        "Apply middleware: `protected $middlewareGroups['web'] = [...HandleInertiaRequests::class];`."
+      ]
+    },
+    {
+      "id": 81,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Blade Include",
+      "message": "No error raised, but Blade `@include` does not render.",
+      "causes": [
+        "Not using correct path (`@include('path.to.view')`).",
+        "View file not found (`resources/views/path/to/view.blade.php`).",
+        "Not passing required variables to included view."
+      ],
+      "solutions": [
+        "Correct path: `@include('partial.view')` checks `resources/views/partial/view.blade.php`.",
+        "Verify file: `ls resources/views/partial/view.blade.php`.",
+        "Pass variables: `@include('partial.view', ['var' => $value])`."
+      ]
+    },
+    {
+      "id": 82,
+      "title": "Silent Failure in Laravel Forge Queue Worker",
+      "message": "No error raised, but Forge queue worker not processing jobs.",
+      "causes": [
+        "Worker not running (`queue:work` not in `scheduler`).",
+        "Supervisor not configured (`/etc/supervisor/conf.d/laravel-worker.conf`).",
+        "Queue driver misconfigured (`QUEUE_CONNECTION` in `.env`)."
+      ],
+      "solutions": [
+        "Start worker: In Forge, add Daemon: `php artisan queue:work --tries=3`.",
+        "Configure Supervisor: `sudo nano /etc/supervisor/conf.d/laravel-worker.conf` with `[program:laravel-worker] command=php artisan queue:work`.",
+        "Set driver: `QUEUE_CONNECTION=redis` in `.env`."
+      ]
+    },
+    {
+      "id": 83,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Eloquent Accessor",
+      "message": "No error raised, but accessor modifies data unexpectedly.",
+      "causes": [
+        "Not defining accessor correctly (`getNameAttribute` vs `getNamesAttribute`).",
+        "Not handling null values.",
+        "Accessor logic altering raw data."
+      ],
+      "solutions": [
+        "Define accessor: `public function getNameAttribute($value) { return strtoupper($value); }`.",
+        "Handle null: `return $value ?? 'default';`.",
+        "Debug accessor: `Log::info($value);` in accessor method."
+      ]
+    },
+    {
+      "id": 84,
+      "title": "Silent Failure in Laravel API Middleware Pipeline",
+      "message": "No error raised, but middleware pipeline skips middleware.",
+      "causes": [
+        "Middleware not registered in `Kernel.php`.",
+        "Not applying middleware to API routes (`$middlewareGroups['api']`).",
+        "Middleware returning early without `$next()`."
+      ],
+      "solutions": [
+        "Register middleware: `$routeMiddleware['custom'] = CustomMiddleware::class;` in `Kernel.php`.",
+        "Apply to API: `$middlewareGroups['api'] = [...'custom'];` in `Kernel.php`.",
+        "Ensure next: `public function handle($request, Closure $next) { ...; return $next($request); }`."
+      ]
+    },
+    {
+      "id": 85,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Telescope Configuration",
+      "message": "No error raised, but Telescope logs incomplete data.",
+      "causes": [
+        "Not enabling all watchers (`telescope.watchers` in `config/telescope.php`).",
+        "Not setting `APP_ENV=local` for full logging.",
+        "Database storage not optimized (`telescope_entries` table)."
+      ],
+      "solutions": [
+        "Enable watchers: `'watchers' => ['query' => true, 'request' => true]` in `config/telescope.php`.",
+        "Set environment: `APP_ENV=local` in `.env`.",
+        "Optimize storage: Add indexes to `telescope_entries` (`ALTER TABLE telescope_entries ADD INDEX idx_type(type);`)."
+      ]
+    },
+    {
+      "id": 86,
+      "title": "Silent Failure in Laravel Scout Full-Text Search",
+      "message": "No error raised, but search results inconsistent.",
+      "causes": [
+        "Not indexing all searchable fields (`toSearchableArray()`).",
+        "Search engine (e.g., Algolia) not syncing properly.",
+        "Not handling empty search queries."
+      ],
+      "solutions": [
+        "Define searchable: `public function toSearchableArray() { return ['title' => $this->title]; }`.",
+        "Sync manually: `php artisan scout:import 'App\\Models\\Model'`.",
+        "Handle empty: `Model::search($query)->get() ?: []`."
+      ]
+    },
+    {
+      "id": 87,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Blade Component Props",
+      "message": "No error raised, but Blade component props not passed.",
+      "causes": [
+        "Not defining props in component class (`public $prop;`).",
+        "Not passing props in Blade (`<x-component :prop='value' />`).",
+        "Prop mismatch between component and Blade."
+      ],
+      "solutions": [
+        "Define props: `public function __construct($prop) { $this->prop = $prop; }`.",
+        "Pass props: `<x-my-component :prop='$value' />`.",
+        "Debug props: `Log::info($this->prop);` in component `mount()`."
+      ]
+    },
+    {
+      "id": 88,
+      "title": "Silent Failure in Laravel Horizon Snapshot",
+      "message": "No error raised, but Horizon snapshot does not update metrics.",
+      "causes": [
+        "Not scheduling `horizon:snapshot` (`schedule:run`).",
+        "Redis connection failing (`HORIZON_DRIVER=redis`).",
+        "Not clearing stale metrics."
+      ],
+      "solutions": [
+        "Schedule snapshot: In `Kernel.php`, `$schedule->command('horizon:snapshot')->everyFiveMinutes();`.",
+        "Check Redis: `redis-cli ping` and `HORIZON_DRIVER=redis`.",
+        "Clear metrics: `php artisan horizon:clear`."
+      ]
+    },
+    {
+      "id": 89,
+      "title": "Unexpected Behavior Due to Incorrect Laravel Factory Relationships",
+      "message": "No error raised, but factory-created relationships not linked.",
+      "causes": [
+        "Not defining `has()` or `for()` in factory.",
+        "Not saving parent model before child (`create()` vs `make()`).",
+        "Foreign key constraints not set."
+      ],
+      "solutions": [
+        "Define relation: `User::factory()->has(Posts::factory()->count(3))->create();`.",
+        "Save parent: `$user = User::factory()->create(); $user->posts()->saveMany(Posts::factory()->count(3)->make());`.",
+        "Check constraints: `$table->foreign('user_id')->references('id')->on('users');`."
+      ]
+    },
+    {
+      "id": 90,
+      "title": "Silent Failure in Laravel API Resource Conditional Fields",
+      "message": "No error raised, but conditional fields not included in API response.",
+      "causes": [
+        "Not using `when()` or `whenLoaded()` in `toArray()`.",
+        "Not passing condition correctly (`$request->user()`).",
+        "Not loading related data (`$this->load()`)."
+      ],
+      "solutions": [
+        "Use when: `['field' => $this->when($condition, $value)]` in `toArray()`.",
+        "Check condition: `['user' => $this->when($request->user(), $request->user()->id)]`.",
+        "Load relation: `$this->load('relation'); ['relation' => $this->whenLoaded('relation')]`,"
+      ]
+    }
+  ]
