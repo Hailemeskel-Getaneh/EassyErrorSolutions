@@ -1,0 +1,753 @@
+[
+    {
+      "id": 1,
+      "title": "CORS Error Between React Frontend and Express Backend",
+      "message": "Cross-Origin Resource Sharing (CORS) error when fetching data from Express API.",
+      "causes": [
+        "Backend server not configured to allow requests from React frontend origins.",
+        "Missing CORS headers in Express responses.",
+        "React app running on a different port (e.g., localhost:3000) than Express (e.g., localhost:5000)."
+      ],
+      "solutions": [
+        "Install and configure `cors` middleware in Express: `npm install cors` and `app.use(cors())`.",
+        "Specify allowed origins: `app.use(cors({ origin: 'http://localhost:3000' }))`.",
+        "For development, set up a proxy in `package.json` of React: `\"proxy\": \"http://localhost:5000\"`."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "MongoDB Connection Timeout",
+      "message": "Failed to connect to MongoDB: 'connect ETIMEDOUT' or 'connection refused'.",
+      "causes": [
+        "Incorrect MongoDB URI in environment variables.",
+        "MongoDB server not running or unreachable (e.g., wrong host/port or Atlas whitelist).",
+        "Firewall blocking MongoDB port (default: 27017)."
+      ],
+      "solutions": [
+        "Verify MongoDB URI in `.env`: `MONGODB_URI=mongodb://localhost:27017/dbname` or Atlas URI.",
+        "Ensure MongoDB is running: `mongod` (local) or whitelist IP in Atlas.",
+        "Check firewall settings and allow port 27017."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "React App Fails to Fetch Data from Express API in Production",
+      "message": "API requests fail with 404 or CORS errors in production but work in development.",
+      "causes": [
+        "Frontend and backend hosted on different domains without proper CORS setup.",
+        "API base URL hardcoded as `localhost` in React.",
+        "Environment variables for API URL not set in production."
+      ],
+      "solutions": [
+        "Set API base URL dynamically: `const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'`.",
+        "Configure CORS for production origin in Express: `app.use(cors({ origin: 'https://yourdomain.com' }))`.",
+        "Use environment variables in production: `.env.production` with `REACT_APP_API_URL`."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Node.js 'Cannot Find Module' Error in Express",
+      "message": "Cannot find module 'some-package' when running Express server.",
+      "causes": [
+        "Package not installed in `node_modules`.",
+        "Running `node server.js` from the wrong directory.",
+        "Typo in module import path or name."
+      ],
+      "solutions": [
+        "Install the missing package: `npm install some-package`.",
+        "Ensure you're in the correct directory: `cd backend && node server.js`.",
+        "Verify import path: `require('./module')` or `import module from './module'`.",
+        "Clear npm cache if needed: `npm cache clean --force`."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "MongoDB Query Returns Empty Array",
+      "message": "No data returned from MongoDB query despite data existing in the database.",
+      "causes": [
+        "Incorrect query syntax or field names.",
+        "Connecting to the wrong database or collection.",
+        "Data type mismatch in query (e.g., string vs. ObjectId)."
+      ],
+      "solutions": [
+        "Double-check query syntax: `Model.find({ field: value })`.",
+        "Verify database and collection names in MongoDB URI and code.",
+        "Convert data types if needed: `mongoose.Types.ObjectId(id)` for ObjectId fields."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "React State Not Updating After API Call",
+      "message": "State updates don’t reflect in UI after fetching data from Express API.",
+      "causes": [
+        "Not using `setState` or `useState` hook correctly.",
+        "Asynchronous API call not awaited properly.",
+        "Mutating state directly instead of creating a new state."
+      ],
+      "solutions": [
+        "Use `setState` or `useState` correctly: `setData(response.data)`.",
+        "Await API calls: `const response = await axios.get('/api/data')`.",
+        "Ensure immutability: `setData([...response.data])` for arrays."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Environment Variables Undefined in Node.js/Express",
+      "message": "Environment variables like `process.env.MONGODB_URI` are undefined.",
+      "causes": [
+        "Missing `.env` file or `dotenv` package.",
+        "Environment variables not loaded before usage.",
+        "CI/CD or production environment not configured with variables."
+      ],
+      "solutions": [
+        "Install and configure `dotenv`: `npm install dotenv` and `require('dotenv').config()` at the top of `server.js`.",
+        "Create `.env` file with variables: `MONGODB_URI=mongodb://localhost:27017/dbname`.",
+        "Set variables in production (e.g., Heroku: `heroku config:set MONGODB_URI=...`)."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Express Middleware Not Executing",
+      "message": "Custom middleware in Express doesn’t run or apply as expected.",
+      "causes": [
+        "Middleware not properly defined or missing `next()` call.",
+        "Middleware registered after routes in Express.",
+        "Incorrect middleware mounting path."
+      ],
+      "solutions": [
+        "Ensure middleware calls `next()`: `(req, res, next) => { ...; next(); }`.",
+        "Register middleware before routes: `app.use(middleware); app.use('/api', routes);`.",
+        "Verify middleware path: `app.use('/specific-path', middleware)`."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "React App White Screen in Production",
+      "message": "React app shows a white screen after deployment with no errors.",
+      "causes": [
+        "Incorrect `homepage` field in `package.json`.",
+        "Routing issues with React Router (e.g., 404 on refresh).",
+        "Missing `build` folder or incorrect static file serving in Express."
+      ],
+      "solutions": [
+        "Set `homepage` in `package.json`: `\"homepage\": \"https://yourdomain.com\"`.",
+        "Serve React build correctly in Express: `app.use(express.static(path.join(__dirname, 'frontend/build'))); app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'frontend/build/index.html')));`.",
+        "Ensure `build` folder exists: `cd frontend && npm run build`."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "MongoDB Duplicate Key Error",
+      "message": "MongoDB throws `E11000 duplicate key error collection`.",
+      "causes": [
+        "Inserting a document with a duplicate value in a unique index field (e.g., email).",
+        "Not handling duplicate inserts in application logic.",
+        "Schema changes causing unexpected unique constraints."
+      ],
+      "solutions": [
+        "Check for existing documents before saving: `Model.findOne({ email })`.",
+        "Handle errors in code: `try { await newDoc.save() } catch (err) { if (err.code === 11000) handleDuplicate() }`.",
+        "Drop or modify unique index if not needed: `db.collection.dropIndex('field_unique')`."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Node.js Memory Leak in Express Server",
+      "message": "Express server slows down or crashes due to memory usage spikes.",
+      "causes": [
+        "Unclosed database connections or streams.",
+        "Global variables storing large data indefinitely.",
+        "Infinite loops or recursive calls in API routes."
+      ],
+      "solutions": [
+        "Ensure connections close properly: `mongoose.connection.close()` in cleanup.",
+        "Use memory profiling tools like `node --inspect` and Chrome DevTools.",
+        "Check for infinite loops and optimize recursive functions."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "React App Fails to Render Large Data from MongoDB",
+      "message": "React UI lags or crashes when rendering large datasets fetched from MongoDB.",
+      "causes": [
+        "Fetching and rendering entire dataset at once.",
+        "No pagination or lazy loading implemented.",
+        "Inefficient rendering of large lists in React."
+      ],
+      "solutions": [
+        "Implement pagination in Express: `Model.find().skip(page * limit).limit(limit)`.",
+        "Use React virtualized lists: `react-window` or `react-virtualized`.",
+        "Fetch data incrementally with infinite scroll or `useEffect`."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Express API Rate Limit Exceeded Error",
+      "message": "Express API returns '429 Too Many Requests' error.",
+      "causes": [
+        "No rate limiting implemented in Express.",
+        "Rapid API calls from React frontend (e.g., in a loop).",
+        "Third-party API used by Express enforcing rate limits."
+      ],
+      "solutions": [
+        "Add rate limiting in Express: `npm install express-rate-limit` and `app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }))`.",
+        "Debounce or throttle API calls in React: `lodash.debounce` or `setTimeout`.",
+        "Handle third-party API limits with retries or caching."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "MongoDB Schema Validation Fails Unexpectedly",
+      "message": "MongoDB validation error: 'Path `field` is required'.",
+      "causes": [
+        "Document missing required fields defined in Mongoose schema.",
+        "Frontend sending incomplete data to Express.",
+        "Schema changes not reflected in existing database documents."
+      ],
+      "solutions": [
+        "Validate data before saving: `const doc = new Model(data); await doc.validate()`.",
+        "Add default values in schema: `{ field: { type: String, default: '' } }`.",
+        "Update existing documents: `Model.updateMany({}, { $set: { field: 'default' } })`."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "React App Authentication Fails After Refresh",
+      "message": "User logs out or loses auth state when refreshing React app.",
+      "causes": [
+        "Auth state stored only in React state (not persisted).",
+        "JWT token not stored or validated correctly.",
+        "No refresh token mechanism implemented."
+      ],
+      "solutions": [
+        "Store JWT in `localStorage` or `sessionStorage`: `localStorage.setItem('token', token)`.",
+        "Validate token on app load: `useEffect(() => { checkToken() }, [])`.",
+        "Implement refresh tokens in Express: Issue new tokens via `/refresh-token` endpoint."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Express Server Crashes on Unhandled Promise Rejection",
+      "message": "Express server crashes with 'UnhandledPromiseRejectionWarning'.",
+      "causes": [
+        "Async route handlers not catching errors.",
+        "No global error handler for rejected promises.",
+        "MongoDB queries failing without error handling."
+      ],
+      "solutions": [
+        "Use `try/catch` in async handlers: `async (req, res) => { try { ... } catch (err) { res.status(500).send(err) } }`.",
+        "Add global handler: `process.on('unhandledRejection', (err) => console.error(err))`.",
+        "Wrap routes in error middleware: `app.use((err, req, res, next) => res.status(500).send('Server Error'))`."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "React App Memory Usage Spikes on API Polling",
+      "message": "React app slows down due to frequent API polling.",
+      "causes": [
+        "Uncontrolled `setInterval` in `useEffect` without cleanup.",
+        "No debouncing or caching of API requests.",
+        "Large API responses bloating React state."
+      ],
+      "solutions": [
+        "Add cleanup in `useEffect`: `const interval = setInterval(fetchData, 5000); return () => clearInterval(interval)`.",
+        "Cache responses with libraries like `react-query` or `swr`.",
+        "Optimize state updates: Avoid storing unnecessary data in React state."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "MongoDB Indexes Not Applied Correctly",
+      "message": "Slow queries despite indexes defined in MongoDB schema.",
+      "causes": [
+        "Indexes not created in MongoDB after schema definition.",
+        "Compound indexes not matching query patterns.",
+        "MongoDB version or Atlas tier not supporting certain indexes."
+      ],
+      "solutions": [
+        "Ensure indexes are created: `Model.createIndexes()` or `db.collection.createIndex()`.",
+        "Verify query matches index: Use `explain()` to analyze query performance.",
+        "Check MongoDB server logs for indexing errors."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Express Server Not Handling File Uploads",
+      "message": "File uploads fail with '413 Payload Too Large' or no data received.",
+      "causes": [
+        "No middleware for handling multipart forms (e.g., `multer`).",
+        "Body-parser size limit too low for file uploads.",
+        "Frontend sending incorrect `Content-Type` for uploads."
+      ],
+      "solutions": [
+        "Use `multer` for file uploads: `npm install multer` and `app.use(multer().single('file'))`.",
+        "Increase body-parser limit: `app.use(express.json({ limit: '10mb' }))`.",
+        "Set correct headers in React: `axios.post('/upload', formData, { headers: { 'Content-Type': 'multipart/form-data' } })`."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "React Router Not Working in Production Deployment",
+      "message": "React Router returns 404 on page refresh in production.",
+      "causes": [
+        "Server not configured to serve React app for all routes.",
+        "Express backend not redirecting SPA routes to `index.html`.",
+        "Hosting provider (e.g., Netlify) not set up for SPA routing."
+      ],
+      "solutions": [
+        "Serve React app for all routes in Express: `app.get('*', (req, res) => res.sendFile('frontend/build/index.html'))`.",
+        "Add `_redirects` file for Netlify: `/* /index.html 200`.",
+        "Set `basename` in React Router if hosted in subdirectory: `<BrowserRouter basename='/app'>`."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "MongoDB Aggregation Pipeline Returns Unexpected Results",
+      "message": "Aggregation queries return incorrect or empty results.",
+      "causes": [
+        "Incorrect pipeline stages or syntax (e.g., `$match`, `$group`).",
+        "Field names mismatched in pipeline stages.",
+        "Data type mismatches in aggregation operators."
+      ],
+      "solutions": [
+        "Validate pipeline stages: `Model.aggregate([{ $match: { field: value } }])`.",
+        "Log intermediate results: `console.log(await Model.aggregate(...))`.",
+        "Ensure field types match operators (e.g., `$gt` for numbers)."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Express API Requests Timing Out",
+      "message": "API requests hang or timeout when calling Express endpoints.",
+      "causes": [
+        "Long-running database queries in Express routes.",
+        "No timeout set for Express server or HTTP requests.",
+        "Network issues between React frontend and Express backend."
+      ],
+      "solutions": [
+        "Optimize database queries: Add indexes or limit returned data.",
+        "Set timeout in Express: `app.set('timeout', 30000)` and handle with `req.on('timeout', ...`).",
+        "Set timeout in React: `axios.get('/api', { timeout: 5000 })`."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "React App Not Displaying Updated Data After MongoDB Update",
+      "message": "Frontend UI doesn’t reflect backend updates after MongoDB operations.",
+      "causes": [
+        "Frontend not refetching data after update.",
+        "Caching or stale state in React.",
+        "Express API not returning updated data correctly."
+      ],
+      "solutions": [
+        "Refetch data after update: `useEffect(() => { fetchData() }, [updateTrigger])`.",
+        "Avoid caching issues: Use `react-query` or `swr` for fresh data.",
+        "Return updated document in Express: `Model.findByIdAndUpdate(id, data, { new: true })`."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Node.js Express Server Crashes on High Traffic",
+      "message": "Express server crashes or slows down under heavy load.",
+      "causes": [
+        "No clustering or load balancing for Node.js.",
+        "Synchronous operations blocking the event loop.",
+        "Insufficient server resources (e.g., memory, CPU)."
+      ],
+      "solutions": [
+        "Use Node.js clustering: `const cluster = require('cluster')` to spawn workers.",
+        "Offload heavy tasks to worker threads: `worker_threads`.",
+        "Deploy with PM2 for process management: `pm2 start server.js --watch`."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "MongoDB Replica Set Connection Issues",
+      "message": "Cannot connect to MongoDB replica set from Express.",
+      "causes": [
+        "Incorrect replica set URI or missing `replicaSet` parameter.",
+        "Primary node down or network issues between nodes.",
+        "MongoDB Atlas cluster not properly configured."
+      ],
+      "solutions": [
+        "Add `replicaSet` in URI: `mongodb://host1,host2/dbname?replicaSet=rs0`.",
+        "Verify all nodes are running: Connect via MongoDB shell.",
+        "Check Atlas cluster status and ensure IPs are whitelisted."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "React App Fails to Build in CI Pipeline",
+      "message": "React app build fails in pipelines like GitHub Actions or Jenkins.",
+      "causes": [
+        "Missing Node.js version specification in CI environment.",
+        "Outdated npm/Yarn dependencies causing conflicts.",
+        "Environment variables not set in CI for React build."
+      ],
+      "solutions": [
+        "Specify Node.js version: `.nvmrc` or `setup-node` action in CI.",
+        "Use lockfiles: `npm ci` or `yarn install --frozen-lockfile` in CI.",
+        "Set env vars in CI: `.env` or CI secrets (e.g., `REACT_APP_API_URL`)."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Express API Not Receiving POST Body Data",
+      "message": "POST request body is empty or undefined in Express.",
+      "causes": [
+        "Missing body-parser middleware in Express.",
+        "Incorrect `Content-Type` header in React request.",
+        "Sending data in wrong format (e.g., JSON vs URL-encoded)."
+      ],
+      "solutions": [
+        "Add body-parser middleware: `app.use(express.json()); app.use(express.urlencoded({ extended: true }))`.",
+        "Set correct headers in React: `axios.post('/api', data, { headers: { 'Content-Type': 'application/json' } })`.",
+        "Log incoming requests in Express: `console.log(req.body)`."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "MongoDB Transactions Not Working with Mongoose",
+      "message": "Transaction fails or doesn’t rollback on error.",
+      "causes": [
+        "MongoDB not running as a replica set (required for transactions).",
+        "Session not properly managed in Mongoose.",
+        "Transaction timeout or uncaught errors."
+      ],
+      "solutions": [
+        "Set up MongoDB as a replica set: `mongod --replSet rs0` and initialize with `rs.initiate()`.",
+        "Use Mongoose sessions: `const session = await mongoose.startSession(); session.startTransaction()`.",
+        "Handle errors and cleanup: `try { ... } catch (err) { await session.abortTransaction() } finally { session.endSession() }`."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "React App Not Handling JWT Expiration Gracefully",
+      "message": "App crashes or logs out unexpectedly when JWT expires.",
+      "causes": [
+        "No mechanism to refresh JWT tokens.",
+        "API requests failing with 401 Unauthorized without handling.",
+        "Frontend blindly trusting expired tokens."
+      ],
+      "solutions": [
+        "Implement refresh token endpoint in Express: `/refresh-token` to issue new tokens.",
+        "Handle 401 errors in React: `axios.interceptors.response.use(res => res, err => { if (err.response.status === 401) refreshToken() })`.",
+        "Validate token expiry before requests: Decode token and check `exp` field."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Express Server Fails to Serve Static Files in Production",
+      "message": "Static files (e.g., React build) not served correctly by Express.",
+      "causes": [
+        "Incorrect path to static files in Express setup.",
+        "Missing `express.static` middleware.",
+        "Deployment environment not serving `build` folder."
+      ],
+      "solutions": [
+        "Serve static files: `app.use(express.static(path.join(__dirname, 'frontend/build'))).",
+        "Verify build folder exists: `cd frontend && npm run build` before deployment.",
+        "Set correct path in production: Adjust `__dirname` if needed for deployment structure."
+      ]
+    },
+    {
+      "id": 31,
+      "title": "React App Not Rendering Updated MongoDB Data in Real-Time",
+      "message": "Frontend doesn’t reflect MongoDB updates without manual refresh.",
+      "causes": [
+        "No real-time mechanism (e.g., WebSockets) between Express and React.",
+        "Frontend not polling or subscribing to updates.",
+        "Express API not notifying clients of changes."
+      ],
+      "solutions": [
+        "Implement WebSockets with `socket.io`: `npm install socket.io` in Express and `socket.io-client` in React.",
+        "Poll API periodically in React: `useEffect(() => { const interval = setInterval(fetchData, 5000); return () => clearInterval(interval) }, [])`.",
+        "Use MongoDB change streams: `Model.watch().on('change', data => io.emit('update', data))`."
+      ]
+    },
+    {
+      "id": 32,
+      "title": "MongoDB Write Conflicts in High-Concurrency Apps",
+      "message": "Write conflicts or data inconsistencies during concurrent updates.",
+      "causes": [
+        "No locking mechanism for concurrent writes.",
+        "Overlapping transactions updating the same document.",
+        "Optimistic concurrency control not implemented."
+      ],
+      "solutions": [
+        "Use optimistic concurrency: Add `version` field and check before updates: `Model.findOneAndUpdate({ _id: id, version: currentVersion }, { $inc: { version: 1 } })`.",
+        "Implement retry logic for failed writes: `try { await updateDoc() } catch (err) { retry() }`.",
+        "Use MongoDB transactions for atomic updates if replica set enabled."
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Express Server Not Scaling with Multiple Users",
+      "message": "Express server becomes slow or unresponsive with multiple users.",
+      "causes": [
+        "Single-threaded Node.js overwhelmed by requests.",
+        "No caching for frequent API calls.",
+        "Database queries not optimized for scale."
+      ],
+      "solutions": [
+        "Use Node.js clustering or PM2: `pm2 start server.js -i max`.",
+        "Add caching with Redis: `npm install redis` and cache API responses.",
+        "Optimize MongoDB queries with indexes and aggregation pipelines."
+      ]
+    },
+    {
+      "id": 34,
+      "title": "React App Fails to Display Errors from Express API",
+      "message": "API errors are not shown in React UI, just logged in console.",
+      "causes": [
+        "No error handling in React after API calls.",
+        "Express API not sending proper error responses.",
+        "Frontend ignoring error states from API responses."
+      ],
+      "solutions": [
+        "Handle errors in React: `axios.get('/api').catch(err => setError(err.response.data.message))`.",
+        "Send structured errors from Express: `res.status(400).json({ error: 'Invalid input' })`.",
+        "Display errors in UI: `<div>{error && <p>{error}</p>}</div>`."
+      ]
+    },
+    {
+      "id": 35,
+      "title": "MongoDB Connection Pool Exhausted",
+      "message": "Error: 'MongoServerSelectionError: connection pool exhausted'.",
+      "causes": [
+        "Too many open connections to MongoDB.",
+        "Connections not closed after operations.",
+        "High traffic overwhelming default pool size."
+      ],
+      "solutions": [
+        "Increase pool size in Mongoose: `mongoose.connect(uri, { maxPoolSize: 50 })`.",
+        "Close connections properly: `mongoose.connection.close()` in cleanup.",
+        "Monitor and optimize queries to reduce connection usage."
+      ]
+    },
+    {
+      "id": 36,
+      "title": "React App Security Vulnerability with API Keys",
+      "message": "API keys exposed in React frontend code.",
+      "causes": [
+        "Hardcoding API keys in React source code.",
+        "No backend proxy for third-party API calls.",
+        "Public git repository exposing `.env` files."
+      ],
+      "solutions": [
+        "Never hardcode API keys; use environment variables: `process.env.REACT_APP_API_KEY`.",
+        "Proxy third-party API calls through Express: `/api/external` endpoint.",
+        "Add `.env` to `.gitignore` and encrypt sensitive data in production."
+      ]
+    },
+    {
+      "id": 37,
+      "title": "Express Server Not Logging Requests Properly",
+      "message": "API requests not logged or logs are incomplete.",
+      "causes": [
+        "No logging middleware configured in Express.",
+        "Custom logger missing request details (e.g., body, headers).",
+        "Log file rotation or storage issues."
+      ],
+      "solutions": [
+        "Use `morgan` for logging: `npm install morgan` and `app.use(morgan('combined'))`.",
+        "Add custom logging: `app.use((req, res, next) => { console.log(req.method, req.url); next() })`.",
+        "Use `winston` for advanced logging with rotation: `npm install winston`."
+      ]
+    },
+    {
+      "id": 38,
+      "title": "React App Failing Jest Tests with MongoDB",
+      "message": "Jest tests fail when interacting with MongoDB.",
+      "causes": [
+        "No test database setup for Jest.",
+        "MongoDB connection not mocked or isolated.",
+        "Timing issues in async database tests."
+      ],
+      "solutions": [
+        "Use an in-memory MongoDB for testing: `npm install mongodb-memory-server`.",
+        "Mock MongoDB with `jest-mongodb`: `npm install @shelf/jest-mongodb`.",
+        "Add `beforeAll`/`afterAll` to manage database setup/teardown."
+      ]
+    },
+    {
+      "id": 39,
+      "title": "Express API Not Handling Large File Downloads",
+      "message": "File downloads fail or timeout for large files.",
+      "causes": [
+        "No streaming support for file downloads in Express.",
+        " Insufficient memory to buffer large files.",
+        "Client timeout settings too low."
+      ],
+      "solutions": [
+        "Stream files in Express: `res.download(filePath)` or `fs.createReadStream(filePath).pipe(res)`.",
+        "Increase memory limits in Node.js if needed: `node --max-old-space-size=8192 server.js`.",
+        "Adjust client timeout: `axios.get('/download', { timeout: 30000 })`."
+      ]
+    },
+    {
+      "id": 40,
+      "title": "MongoDB Data Not Persisting in Dockerized Environment",
+      "message": "Data disappears after restarting Docker container with MongoDB.",
+      "causes": [
+        "No persistent volume configured for MongoDB container.",
+        "MongoDB writing to ephemeral container storage.",
+        "Misconfigured Docker Compose setup."
+      ],
+      "solutions": [
+        "Add a volume in `docker-compose.yml`: `volumes: - mongo-data:/data/db`.",
+        "Define volume in Docker: `docker run -v mongo-data:/data/db mongo`.",
+        "Verify data directory permissions in MongoDB container."
+      ]
+    },
+    {
+      "id": 41,
+      "title": "React App Not Handling Socket.io Connections Properly",
+      "message": "WebSocket connections (Socket.io) disconnect or fail to establish.",
+      "causes": [
+        "No Socket.io client setup in React.",
+        "Express server not handling WebSocket CORS correctly.",
+        "Network issues or load balancer not supporting WebSockets."
+      ],
+      "solutions": [
+        "Set up Socket.io client in React: `npm install socket.io-client` and `const socket = io('http://localhost:5000')`.",
+        "Configure CORS in Express: `const io = require('socket.io')(server, { cors: { origin: '*' } })`.",
+        "Ensure hosting provider supports WebSockets (e.g., enable sticky sessions in load balancer)."
+      ]
+    },
+    {
+      "id": 42,
+      "title": "Express Server Not Handling Concurrent Requests Efficiently",
+      "message": "API requests queue up or fail under concurrent load.",
+      "causes": [
+        "Synchronous code blocking the event loop in Express.",
+        "No async handling for database operations.",
+        "Limited server resources or poor configuration."
+      ],
+      "solutions": [
+        "Use async/await for all I/O operations: `const data = await Model.find()`.",
+        "Offload heavy tasks to queues: Use `bull` or `kue` for background jobs.",
+        "Scale horizontally with Docker/Kubernetes or vertically with more resources."
+      ]
+    },
+    {
+      "id": 43,
+      "title": "React App Fails Accessibility Audits",
+      "message": "Frontend fails WCAG or other accessibility audits.",
+      "causes": [
+        "Missing ARIA attributes on interactive elements.",
+        "Poor color contrast or non-focusable elements.",
+        "No keyboard navigation support for React components."
+      ],
+      "solutions": [
+        "Add ARIA attributes: `<button aria-label='Close'>X</button>`.",
+        "Use tools like `eslint-plugin-jsx-a11y` to enforce accessibility.",
+        "Ensure keyboard navigation: Add `tabIndex` and handle `onKeyDown` events."
+      ]
+    },
+    {
+      "id": 44,
+      "title": "MongoDB Slow Performance with Large Collections",
+      "message": "Queries on large MongoDB collections take too long.",
+      "causes": [
+        "Missing indexes on frequently queried fields.",
+        "Inefficient queries fetching unnecessary data.",
+        "No sharding for very large datasets."
+      ],
+      "solutions": [
+        "Add indexes: `db.collection.createIndex({ field: 1 })`.",
+        "Optimize queries: Use `projection` to fetch only needed fields: `Model.find({}, { field: 1 })`.",
+        "Consider sharding for horizontal scaling if data size justifies."
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Express API Not Validating Input Data",
+      "message": "Invalid or malicious input passes through Express API.",
+      "causes": [
+        "No input validation middleware in Express.",
+        "Frontend sending unexpected data formats.",
+        "No sanitization of user input."
+      ],
+      "solutions": [
+        "Use `express-validator`: `npm install express-validator` and validate: `check('email').isEmail()`.",
+        "Sanitize inputs with `sanitize-html` or `xss-clean`.",
+        "Validate data in React forms before submitting: Use `yup` or `formik`."
+      ]
+    },
+    {
+      "id": 46,
+      "title": "React App Fails to Handle Network Failures Gracefully",
+      "message": "App crashes or shows blank UI when network fails.",
+      "causes": [
+        "No network error handling in React API calls.",
+        "No offline state management.",
+        "Express API not sending proper error responses."
+      ],
+      "solutions": [
+        "Handle network errors: `axios.get('/api').catch(err => setError('Network error'))`.",
+        "Implement offline detection: Use `navigator.onLine` and show fallback UI.",
+        "Return meaningful errors from Express: `res.status(503).json({ error: 'Service unavailable' })`."
+      ]
+    },
+    {
+      "id": 47,
+      "title": "MongoDB Backup Not Restoring Properly",
+      "message": "Restored MongoDB data missing collections or corrupted.",
+      "causes": [
+        "Incorrect `mongodump`/`mongorestore` commands.",
+        "Backup taken from incompatible MongoDB versions.",
+        "Missing database or collection names during restore."
+      ],
+      "solutions": [
+        "Backup with: `mongodump --uri mongodb://localhost:27017/dbname`.",
+        "Restore with: `mongorestore --uri mongodb://localhost:27017/dbname dump/`.",
+        "Ensure MongoDB versions match between backup and restore."
+      ]
+    },
+    {
+      "id": 48,
+      "title": "Express Server Not Securing Sensitive Routes",
+      "message": "Unauthenticated users can access protected API routes.",
+      "causes": [
+        "No authentication middleware on routes.",
+        "JWT validation not implemented properly.",
+        "Middleware order allowing bypass of auth checks."
+      ],
+      "solutions": [
+        "Add JWT middleware: `const auth = (req, res, next) => { verifyToken(req.headers.authorization); next() }; app.use('/protected', auth, route)`.",
+        "Use `jsonwebtoken`: `npm install jsonwebtoken` and `jwt.verify(token, secret)`.",
+        "Apply middleware before routes: `app.use(auth); app.use('/api', routes)`."
+      ]
+    },
+    {
+      "id": 49,
+      "title": "React App Fails to Load Images in Production",
+      "message": "Images load in development but fail in production builds.",
+      "causes": [
+        "Relative paths breaking after React build.",
+        "Images not served by Express or hosting provider.",
+        "Incorrect `publicPath` in build configuration."
+      ],
+      "solutions": [
+        "Import images in React: `import img from './img.png'`.",
+        "Serve images via Express: `app.use('/images', express.static('images'))`.",
+        "Ensure hosting provider serves static assets correctly."
+      ]
+    },
+    {
+      "id": 50,
+      "title": "MERN App Fails End-to-End Integration Tests",
+      "message": "Integration tests fail despite unit tests passing.",
+      "causes": [
+        "Mocked APIs not matching real backend behavior.",
+        "Database state not reset between tests.",
+        "Timing issues between React frontend and Express backend."
+      ],
+      "solutions": [
+        "Use a test database for integration: Configure separate MongoDB URI.",
+        "Reset database state: `beforeEach(() => Model.deleteMany({}))`.",
+        "Add delays or retries for async operations: `jest.useFakeTimers()`."
+      ]
+    }
+  ]

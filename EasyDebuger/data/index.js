@@ -6,7 +6,9 @@ import pythonErrors from "./python.json";
 import gitErrors from "./git_and_github.json";
 import reactNativeErrors from "./react_native.json";
 import javaErrors from "./java.json";
-import cppErrors from "./cpp.json";
+import php from "./php.json";
+import laravel from "./laravel.json";
+import MERNStack from "./MERNStack.json";
 
 const errorData = {
   javascript: javascriptErrors,
@@ -17,7 +19,10 @@ const errorData = {
   git: gitErrors,
   reactNative: reactNativeErrors,
   java: javaErrors,
-  
+  php: php,
+  laravel: laravel,
+  MERNStack: MERNStack
+
 };
 
 export default errorData;
