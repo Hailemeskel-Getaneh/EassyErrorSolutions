@@ -1,0 +1,2073 @@
+[
+    {
+      "id": 1,
+      "title": "Git Command Not Found",
+      "message": "bash: git: command not found",
+      "causes": [
+        "Git is not installed on the system.",
+        "Git binary is not in the system PATH.",
+        "Using a terminal or environment where Git isn’t configured."
+      ],
+      "solutions": [
+        "Install Git: Download from https://git-scm.com/ and follow installation instructions.",
+        "Add Git to PATH: On Windows, ensure Git is in `C:\\Program Files\\Git\\bin`; on Unix, verify with `which git`.",
+        "Reopen the terminal or source the shell configuration (e.g., `source ~/.bashrc`)."
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Fatal: Not a Git Repository",
+      "message": "fatal: not a git repository (or any of the parent directories): .git",
+      "causes": [
+        "Running Git commands outside a Git repository.",
+        "The `.git` directory is missing or deleted.",
+        "Incorrect directory navigation during initialization."
+      ],
+      "solutions": [
+        "Initialize a new Git repository: `git init` in the project directory.",
+        "Navigate to the correct directory: `cd path/to/repo`.",
+        "Clone the repository if it exists remotely: `git clone <url>`. Ensure you’re in the correct directory after cloning."
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Git Push Fails: Permission Denied",
+      "message": "remote: Permission to <user/repo>.git denied to user.",
+      "causes": [
+        "Lack of write permissions for the repository on GitHub.",
+        "Incorrect SSH key or authentication credentials.",
+        "Using HTTPS instead of SSH without proper token setup."
+      ],
+      "solutions": [
+        "Verify repository permissions on GitHub: Ensure you’re a collaborator or have push access.",
+        "Check SSH key setup: `ssh -T git@github.com` should authenticate successfully. Add a new key if needed (`ssh-keygen -t rsa`).",
+        "Use a Personal Access Token (PAT) for HTTPS: Generate a PAT in GitHub settings and use it instead of a password."
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Merge Conflict",
+      "message": "Auto-merging <file> failed; fix conflicts and then commit the result.",
+      "causes": [
+        "Conflicting changes in the same file between branches.",
+        "Attempting to merge branches with overlapping edits.",
+        "Pulling changes without resolving local modifications."
+      ],
+      "solutions": [
+        "Open conflicted files and resolve conflicts manually: Look for `<<<<<<< HEAD`, `=======`, and `>>>>>>>` markers.",
+        "Mark resolved files with `git add <file>` and continue the merge: `git commit`.",
+        "Use a merge tool (e.g., VS Code, `git mergetool`) for easier conflict resolution."
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Git Push Rejected: Non-Fast-Forward",
+      "message": "rejected: failed to push some refs to 'url' (non-fast-forward)",
+      "causes": [
+        "Remote repository has changes not present in the local branch.",
+        "Attempting to push without pulling remote changes first.",
+        "Diverging histories between local and remote branches."
+      ],
+      "solutions": [
+        "Pull remote changes first: `git pull --rebase` to integrate changes without a merge commit.",
+        "Force push if intentional (with caution): `git push --force` (can overwrite remote history).",
+        "Merge remote changes manually: `git pull`, resolve conflicts, then push."
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Git Clone Fails: Repository Not Found",
+      "message": "remote: Repository not found.",
+      "causes": [
+        "Incorrect repository URL or typo in the clone command.",
+        "Lack of access permissions to the repository.",
+        "Repository deleted or renamed on GitHub."
+      ],
+      "solutions": [
+        "Verify the repository URL in GitHub and correct the clone command: `git clone <correct-url>`.",
+        "Ensure you have access: Check GitHub repository permissions or authenticate with SSH/PAT.",
+        "Contact the repository owner if it’s missing or renamed."
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Git Commit Fails: No Changes Staged",
+      "message": "nothing to commit, working tree clean",
+      "causes": [
+        "No changes made to tracked files.",
+        "Forgetting to stage changes with `git add`.",
+        "Changes are in untracked files not yet added to Git."
+      ],
+      "solutions": [
+        "Stage changes: `git add <file>` or `git add .` for all changes.",
+        "Verify changes exist: `git status` to confirm staged and untracked files.",
+        "Add untracked files: `git add <untracked-file>` and commit."
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Git Fetch Fails: Could Not Resolve Host",
+      "message": "fatal: could not resolve host: github.com",
+      "causes": [
+        "No internet connection.",
+        "DNS issues preventing access to GitHub.",
+        "Firewall or VPN blocking GitHub’s domain."
+      ],
+      "solutions": [
+        "Check internet connectivity: `ping github.com` or access GitHub in a browser.",
+        "Use a different DNS server (e.g., Google DNS: 8.8.8.8) in network settings.",
+        "Disable VPN or firewall temporarily to test connectivity."
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Git Rebase Fails with Conflicts",
+      "message": "error: could not apply <commit>... Resolve all conflicts manually.",
+      "causes": [
+        "Conflicting changes between commits being rebased.",
+        "Attempting to rebase without resolving conflicts.",
+        "Uncommitted changes in the working directory."
+      ],
+      "solutions": [
+        "Resolve conflicts in affected files, then `git add <file>` and continue: `git rebase --continue`.",
+        "Abort rebase if needed: `git rebase --abort` to return to original state.",
+        "Stash uncommitted changes before rebasing: `git stash`, rebase, then `git stash pop`."
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Git Push Fails: Large File Detected",
+      "message": "remote: error: GH001: Large files detected.",
+      "causes": [
+        "Attempting to push a file larger than GitHub’s 100MB limit.",
+        "Large file committed in history without Git LFS.",
+        "Binary files not tracked with Git LFS."
+      ],
+      "solutions": [
+        "Use Git LFS for large files: `git lfs install`, `git lfs track '*.bin'`, then recommit.",
+        "Remove large files from history: `git filter-branch --index-filter 'git rm --cached --ignore-unmatch <large-file>'` or use `BFG Repo-Cleaner`.",
+        "Push smaller files or split the large file into parts."
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Git Submodule Update Fails",
+      "message": "fatal: No url found for submodule path '<path>' in .gitmodules",
+      "causes": [
+        "Missing or incorrect URL in `.gitmodules` file.",
+        "Submodule repository deleted or inaccessible.",
+        "Submodule not initialized after cloning parent repo."
+      ],
+      "solutions": [
+        "Initialize and update submodules: `git submodule init` and `git submodule update`.",
+        "Verify `.gitmodules` file for correct URLs and update if needed.",
+        "Clone submodules recursively if cloning anew: `git clone --recurse-submodules <repo-url>`."
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Git Commit Fails: Author Identity Unknown",
+      "message": "fatal: unable to auto-detect email address (got 'user@host')",
+      "causes": [
+        "Git user name or email not configured locally.",
+        "Incorrect or missing `user.email` and `user.name` in Git config.",
+        "Running Git commands in a new environment without setup."
+      ],
+      "solutions": [
+        "Set user identity: `git config --global user.name 'Your Name'` and `git config --global user.email 'your.email@example.com'`.",
+        "Verify config: `git config --list` to check settings.",
+        "Set locally if preferred: Remove `--global` flag to set per repository."
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Git Push Fails: Branch Diverged",
+      "message": "Your branch and 'origin/main' have diverged.",
+      "causes": [
+        "Local and remote branches have different commit histories.",
+        "Rewriting history locally (e.g., `git commit --amend`) after pushing.",
+        "Other contributors pushed changes to the same branch."
+      ],
+      "solutions": [
+        "Pull and merge changes: `git pull` to integrate remote changes, resolve conflicts if any.",
+        "Force push if intentional: `git push --force` (use with caution, as it overwrites remote history).",
+        "Create a new branch to preserve history: `git checkout -b new-branch` and push."
+      ]
+    },
+    {
+      "id": 14,
+      "title": "GitHub Pull Request Cannot Be Merged",
+      "message": "This branch has conflicts that must be resolved.",
+      "causes": [
+        "Conflicting changes between the PR branch and base branch.",
+        "Base branch updated after PR creation.",
+        "Rebase or merge conflicts not resolved."
+      ],
+      "solutions": [
+        "Rebase PR branch onto base: `git fetch origin`, `git checkout pr-branch`, `git rebase origin/main`, resolve conflicts, then `git push --force`.",
+        "Merge base into PR branch: `git checkout pr-branch`, `git merge origin/main`, resolve conflicts, then push.",
+        "Use GitHub’s 'Resolve Conflicts' UI in the PR page for small conflicts."
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Git Stash Fails: No Local Changes",
+      "message": "No local changes to save",
+      "causes": [
+        "No uncommitted changes to stash.",
+        "Changes already staged or committed.",
+        "Running `git stash` without modified files."
+      ],
+      "solutions": [
+        "Verify changes exist: `git status` to see modified or untracked files.",
+        "Add untracked files if needed: `git stash --include-untracked`.",
+        "Ensure you’re in the correct branch or directory."
+      ]
+    },
+    {
+      "id": 16,
+      "title": "GitHub Actions Workflow Fails: Syntax Error",
+      "message": "Invalid workflow file: .github/workflows/ci.yml (Line X, Col Y)",
+      "causes": [
+        "Syntax error in GitHub Actions YAML file.",
+        "Missing required fields (e.g., `jobs`, `steps`).",
+        "Indentation or formatting issues in the workflow file."
+      ],
+      "solutions": [
+        "Validate YAML syntax using a linter (e.g., `yamllint ci.yml`).",
+        "Check GitHub Actions documentation for required fields and structure.",
+        "Fix indentation (use 2 spaces) and retest the workflow."
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Git Fetch Fails: Authentication Failed",
+      "message": "remote: Invalid username or password.",
+      "causes": [
+        "Outdated or incorrect credentials cached in Git.",
+        "Using HTTPS without a valid Personal Access Token.",
+        "SSH key not added to the SSH agent."
+      ],
+      "solutions": [
+        "Update credentials: `git config --global credential.helper cache` and retry with correct username/PAT.",
+        "Generate and use a PAT for HTTPS: Replace password with PAT in GitHub.",
+        "Add SSH key to agent: `ssh-add ~/.ssh/id_rsa` and verify with `ssh -T git@github.com`."
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Git Reset Fails: HEAD Not Defined",
+      "message": "fatal: Needed a single revision",
+      "causes": [
+        "No commits in the repository yet (empty repo).",
+        "Incorrect reference in `git reset` command.",
+        "Corrupted Git history or detached HEAD state."
+      ],
+      "solutions": [
+        "Make an initial commit if repo is empty: `git commit -m 'Initial commit'`.",
+        "Specify a valid commit or branch: `git reset --hard <commit-hash>`.",
+        "Reattach HEAD if detached: `git checkout main`."
+      ]
+    },
+    {
+      "id": 19,
+      "title": "GitHub Pages Not Deploying",
+      "message": "GitHub Pages site not live or showing 404.",
+      "causes": [
+        "Incorrect branch or directory set for GitHub Pages.",
+        "Missing `index.html` in the root of the deployed branch.",
+        "GitHub Pages not enabled in repository settings."
+      ],
+      "solutions": [
+        "Set correct branch for Pages: Go to Settings > Pages, set branch (e.g., `gh-pages`) and directory (e.g., `/` or `/docs`).",
+        "Ensure `index.html` exists in the specified directory.",
+        "Enable Pages in repository settings and wait a few minutes for deployment."
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Git Cherry-Pick Fails: Empty Commit",
+      "message": "error: empty commit set passed",
+      "causes": [
+        "No commits specified in cherry-pick command.",
+        "Specified commit hash doesn’t exist.",
+        "Commit already applied in the current branch."
+      ],
+      "solutions": [
+        "Verify commit hash: `git log` to find the correct commit.",
+        "Provide a valid commit: `git cherry-pick <commit-hash>`.",
+        "Skip if already applied or resolve conflicts if any."
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Git Pull Fails: Uncommitted Changes",
+      "message": "error: Your local changes would be overwritten by merge.",
+      "causes": [
+        "Uncommitted changes in the working directory.",
+        "Attempting to pull changes that conflict with local edits.",
+        "Untracked files causing issues during merge."
+      ],
+      "solutions": [
+        "Commit or stash changes: `git add . && git commit -m 'WIP'` or `git stash`.",
+        "Pull after committing/stashing: `git pull`, then `git stash pop` if stashed.",
+        "Force overwrite if intentional: `git fetch && git reset --hard origin/main` (loses local changes)."
+      ]
+    },
+    {
+      "id": 22,
+      "title": "GitHub API Rate Limit Exceeded",
+      "message": "API rate limit exceeded for user.",
+      "causes": [
+        "Making too many API requests without authentication.",
+        "CI/CD workflows or scripts hitting GitHub API limits.",
+        "Shared IP address causing collective rate limiting."
+      ],
+      "solutions": [
+        "Authenticate API requests with a Personal Access Token (PAT).",
+        "Reduce API usage in scripts or cache requests.",
+        "Wait for the rate limit to reset (usually 1 hour) or contact GitHub support."
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Git Checkout Fails: Pathspec Did Not Match",
+      "message": "error: pathspec 'branch_name' did not match any file(s) known to git.",
+      "causes": [
+        "Branch doesn’t exist locally or remotely.",
+        "Typo in branch name during checkout.",
+        "Remote branch not fetched yet."
+      ],
+      "solutions": [
+        "Fetch remote branches: `git fetch origin`.",
+        "Verify branch name: `git branch -a` to list all branches.",
+        "Checkout correctly: `git checkout branch_name` or `git checkout -b branch_name origin/branch_name`."
+      ]
+    },
+    {
+      "id": 24,
+      "title": "GitHub Actions Job Fails: Permission Denied",
+      "message": "Error: Permission denied to access repository.",
+      "causes": [
+        "Insufficient permissions for the GitHub Actions token.",
+        "Workflow trying to access a private repository without access.",
+        "PAT or GITHUB_TOKEN missing required scopes."
+      ],
+      "solutions": [
+        "Check token permissions: Ensure GITHUB_TOKEN or PAT has `repo` scope in workflow.",
+        "Grant access: Add the repository to the token’s access list in GitHub settings.",
+        "Use a PAT with broader permissions in secrets: `secrets.MY_PAT` in workflow YAML."
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Git Push Fails: Detached HEAD State",
+      "message": "You are in 'detached HEAD' state. You can look around...",
+      "causes": [
+        "Checking out a commit or tag instead of a branch.",
+        "Pushing from a detached HEAD state.",
+        "Not creating a branch before making changes."
+      ],
+      "solutions": [
+        "Create a new branch: `git checkout -b new-branch`.",
+        "Commit changes on the new branch and push: `git push origin new-branch`.",
+        "Switch back to a branch if needed: `git checkout main`."
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Git Remote Already Exists",
+      "message": "fatal: remote origin already exists.",
+      "causes": [
+        "Attempting to add a remote that already exists.",
+        "Incorrect remote name in `git remote add` command.",
+        "Reusing a repository with an existing remote."
+      ],
+      "solutions": [
+        "Check existing remotes: `git remote -v`.",
+        "Update the existing remote URL: `git remote set-url origin <new-url>`.",
+        "Remove and re-add if needed: `git remote remove origin`, then `git remote add origin <url>`."
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Git Ignore Not Working",
+      "message": "Files in .gitignore are still being tracked.",
+      "causes": [
+        "Files already tracked before adding to `.gitignore`.",
+        "Incorrect syntax in `.gitignore` file.",
+        "Using `.gitignore` patterns that don’t match the files."
+      ],
+      "solutions": [
+        "Untrack files: `git rm -r --cached <file-or-dir>`, then re-add and commit.",
+        "Verify `.gitignore` syntax: Use patterns like `*.log` or `node_modules/`.",
+        "Check global `.gitignore`: `git config --global core.excludesfile` for conflicts."
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Git Clone Fails: Shallow Clone Issues",
+      "message": "error: RPC failed; HTTP 500 curl 22 The requested URL returned error: 500",
+      "causes": [
+        "Attempting a shallow clone on a large repository.",
+        "Network issues during clone operation.",
+        "GitHub server-side errors or timeouts."
+      ],
+      "solutions": [
+        "Perform a full clone: `git clone <url>` without `--depth`.",
+        "Increase Git buffer size: `git config --global http.postBuffer 524288000`.",
+        "Retry after checking GitHub status: https://www.githubstatus.com/."
+      ]
+    },
+    {
+      "id": 29,
+      "title": "GitHub Webhook Fails: Delivery Failed",
+      "message": "Webhook delivery failed with HTTP 500 or timeout.",
+      "causes": [
+        "Webhook endpoint URL is incorrect or down.",
+        "Server not accepting webhook payloads.",
+        "Firewall or network restrictions blocking GitHub IPs."
+      ],
+      "solutions": [
+        "Verify the webhook URL and ensure the endpoint is live.",
+        "Check server logs for errors and ensure it accepts POST requests.",
+        "Whitelist GitHub webhook IPs: See GitHub’s Meta API for current IPs."
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Git Push Fails: Pre-Receive Hook Declined",
+      "message": "remote: error: pre-receive hook declined",
+      "causes": [
+        "Server-side hook rejecting the push (e.g., commit message checks).",
+        "Insufficient permissions enforced by hook.",
+        "Violating repository rules (e.g., branch protection)."
+      ],
+      "solutions": [
+        "Check hook logs or contact repository admin for rejection reason.",
+        "Fix commits to meet hook requirements (e.g., amend commit messages).",
+        "Push to a different branch if protected: `git push origin feature-branch`."
+      ]
+    },
+    {
+        "id": 31,
+        "title": "Pushing to GitHub Without Saving Results in Empty File",
+        "message": "File appears on GitHub with no content after pushing.",
+        "causes": [
+          "Pushing changes without saving the file locally.",
+          "Staging an empty or untracked file with `git add`.",
+          "File saved incorrectly or not recognized by the editor before committing."
+        ],
+        "solutions": [
+          "Ensure the file is saved in your editor before staging: Save all files (e.g., Ctrl+S in VS Code).",
+          "Verify file content locally: `cat <file>` or open in an editor to confirm content.",
+          "Stage and commit again: `git add <file>`, `git commit --amend`, then `git push` to update the commit."
+        ]
+      },
+      {
+        "id": 32,
+        "title": "Git Push Fails: Branch Protection Rule",
+        "message": "remote: error: GH006: Protected branch update failed for refs/heads/main.",
+        "causes": [
+          "Branch protection rules on GitHub require a pull request for changes.",
+          "Direct pushes to protected branches like `main` are restricted.",
+          "Missing required status checks or admin approval for pushes."
+        ],
+        "solutions": [
+          "Create a new branch: `git checkout -b feature-branch`, commit changes, and push: `git push origin feature-branch`.",
+          "Create a pull request on GitHub to merge changes into the protected branch.",
+          "Ensure required status checks (e.g., CI tests) pass before merging the PR."
+        ]
+      },
+      {
+        "id": 33,
+        "title": "Git Clone Fails: HTTPS Deprecated Password Authentication",
+        "message": "remote: Support for password authentication was removed on August 13, 2021.",
+        "causes": [
+          "Using HTTPS with username/password authentication after GitHub deprecated it.",
+          "Not using a Personal Access Token (PAT) or SSH for authentication.",
+          "Outdated Git client not recognizing PAT requirements."
+        ],
+        "solutions": [
+          "Generate a PAT in GitHub: Settings > Developer settings > Personal access tokens > Generate new token.",
+          "Clone with PAT: `git clone https://<your-username>:<your-pat>@github.com/<repo>.git`.",
+          "Switch to SSH: Set up SSH keys (`ssh-keygen -t rsa`) and clone with `git clone git@github.com:<repo>.git`."
+        ]
+      },
+      {
+        "id": 34,
+        "title": "Git Rebase Fails: Cannot Rebase Onto Multiple Branches",
+        "message": "error: Cannot rebase onto multiple branches.",
+        "causes": [
+          "Attempting to rebase onto multiple branches simultaneously.",
+          "Incorrect syntax in rebase command (e.g., specifying ambiguous refs).",
+          "Misunderstanding the rebase target branch."
+        ],
+        "solutions": [
+          "Specify a single target branch: `git rebase origin/main`.",
+          "Fetch latest refs: `git fetch origin` to ensure correct branch references.",
+          "Abort and retry: `git rebase --abort`, then rebase with correct syntax."
+        ]
+      },
+      {
+        "id": 35,
+        "title": "GitHub Actions Fails: Node Version Mismatch",
+        "message": "Error: Node.js version specified in workflow not found.",
+        "causes": [
+          "Node version specified in `.github/workflows/ci.yml` not supported.",
+          "Mismatch between local Node version and Actions runner.",
+          "Outdated `actions/setup-node` version in workflow."
+        ],
+        "solutions": [
+          "Specify a supported Node version: Update workflow YAML with `uses: actions/setup-node@v3` and `node-version: '16.x'`.",
+          "Check available versions: Refer to `actions/setup-node` documentation for supported Node.js versions.",
+          "Match local and CI versions: Use `.nvmrc` or `package.json` `engines` to align Node versions."
+        ]
+      },
+      {
+        "id": 36,
+        "title": "Git Status Shows Untracked Files Despite .gitignore",
+        "message": "Untracked files still appear in `git status` despite being in `.gitignore`.",
+        "causes": [
+          "Files were tracked before adding to `.gitignore`.",
+          "`.gitignore` syntax incorrect or not covering specific files.",
+          "Nested `.gitignore` files overriding parent rules."
+        ],
+        "solutions": [
+          "Untrack previously tracked files: `git rm -r --cached <file-or-dir>`, then re-add to `.gitignore`.",
+          "Verify `.gitignore` patterns: Ensure correct syntax (e.g., `*.log` for log files).",
+          "Check for nested `.gitignore` files: `find . -name .gitignore` to locate and resolve conflicts."
+        ]
+      },
+      {
+        "id": 37,
+        "title": "Git Pull Fails: Refusing to Merge Unrelated Histories",
+        "message": "fatal: refusing to merge unrelated histories",
+        "causes": [
+          "Attempting to merge two repositories or branches with no common history.",
+          "Creating a new repository and pushing to an existing remote with different history.",
+          "Accidentally initializing a new Git repo in an existing project."
+        ],
+        "solutions": [
+          "Allow unrelated histories: `git pull --allow-unrelated-histories`, then resolve any conflicts.",
+          "Rebase instead of merge: `git fetch origin`, `git rebase origin/main`.",
+          "Start fresh if needed: Clone the remote repo and copy files manually to avoid history conflicts."
+        ]
+      },
+      {
+        "id": 38,
+        "title": "GitHub Pull Request Fails Required Checks",
+        "message": "Required status checks failed: CI/tests.",
+        "causes": [
+          "CI pipeline tests failed in GitHub Actions or other services.",
+          "Required checks configured in branch protection rules not passing.",
+          "Misconfigured CI workflow file causing incomplete checks."
+        ],
+        "solutions": [
+          "Check Actions logs: Go to Actions tab in GitHub repo to debug failed jobs.",
+          "Fix failing tests: Update code or tests to pass required checks.",
+          "Temporarily disable checks (if admin): Settings > Branches > Edit rule, but fix issues first."
+        ]
+      },
+      {
+        "id": 39,
+        "title": "Git Stash Pop Fails: Conflicts",
+        "message": "error: Your local changes to the following files would be overwritten by merge.",
+        "causes": [
+          "Stashed changes conflict with current working directory changes.",
+          "Attempting to pop stash without committing or staging local changes.",
+          "Multiple stashes applied without resolving earlier conflicts."
+        ],
+        "solutions": [
+          "Commit or stash current changes: `git add . && git commit -m 'WIP'` or `git stash`.",
+          "Pop stash and resolve conflicts: `git stash pop`, manually resolve conflicts, then `git add` resolved files.",
+          "Apply specific stash if multiple exist: `git stash list`, then `git stash apply stash@{n}`."
+        ]
+      },
+      {
+        "id": 40,
+        "title": "GitHub Codespaces Fails to Start",
+        "message": "Failed to create Codespace: Timeout or insufficient resources.",
+        "causes": [
+          "GitHub Codespaces resource limits reached.",
+          "Network issues preventing Codespace creation.",
+          "Repository configuration (e.g., `.devcontainer`) causing errors."
+        ],
+        "solutions": [
+          "Check resource usage: GitHub Settings > Billing > Codespaces for limits.",
+          "Retry creation and ensure stable internet connection.",
+          "Verify `.devcontainer/devcontainer.json`: Ensure valid configuration or remove if not needed."
+        ]
+      },
+      {
+        "id": 41,
+        "title": "Git Push Fails: Signed Commits Required",
+        "message": "remote: error: GH013: Repository rule violations found.",
+        "causes": [
+          "Repository requires signed commits, but local commits are unsigned.",
+          "GPG signature not set up on local machine.",
+          "Branch protection rule enforcing signed commits."
+        ],
+        "solutions": [
+          "Set up GPG signing: Generate a key (`gpg --gen-key`), add to GitHub, and configure Git (`git config --global commit.gpgsign true`).",
+          "Sign past commits: `git rebase --committer-date-is-author-date --signoff HEAD^`, then force push.",
+          "Disable rule if admin: Settings > Branches > Edit rule, uncheck 'Require signed commits' (if permissible)."
+        ]
+      },
+      {
+        "id": 42,
+        "title": "Git Branch Fails: Already Exists",
+        "message": "fatal: A branch named 'feature-branch' already exists.",
+        "causes": [
+          "Attempting to create a branch that already exists locally or remotely.",
+          "Not switching to the existing branch before making changes.",
+          "Confusion between local and remote branch names."
+        ],
+        "solutions": [
+          "Switch to existing branch: `git checkout feature-branch`.",
+          "Create a new branch with a different name: `git checkout -b new-feature-branch`.",
+          "Delete the existing branch if needed: `git branch -D feature-branch`, then recreate."
+        ]
+      },
+      {
+        "id": 43,
+        "title": "GitHub Dependabot Alerts Not Triggering",
+        "message": "No Dependabot alerts despite outdated dependencies.",
+        "causes": [
+          "Dependabot not enabled for the repository.",
+          "Incorrect or missing `dependabot.yml` configuration.",
+          "Dependencies not supported by Dependabot (e.g., private registries)."
+        ],
+        "solutions": [
+          "Enable Dependabot: Settings > Security & analysis > Enable Dependabot alerts and version updates.",
+          "Add `dependabot.yml`: Create `.github/dependabot.yml` with correct ecosystems (e.g., `npm`, `pip`).",
+          "Manually check for updates: Use `npm outdated` or `yarn upgrade-interactive` for unsupported registries."
+        ]
+      },
+      {
+        "id": 44,
+        "title": "Git Push Fails: Pack File Too Large",
+        "message": "remote: error: pack file too large",
+        "causes": [
+          "Pushing a large number of changes or binary files in a single push.",
+          "Git server (e.g., GitHub) imposing limits on pack file size.",
+          "Inefficient repository history with large deltas."
+        ],
+        "solutions": [
+          "Increase Git buffer size: `git config --global http.postBuffer 524288000`.",
+          "Break push into smaller chunks: Commit and push smaller sets of changes.",
+          "Rewrite history to reduce size: Use `git filter-branch` or `BFG Repo-Cleaner` to prune large files."
+        ]
+      },
+      {
+        "id": 45,
+        "title": "Git Clone Fails: Partial Clone Issues",
+        "message": "error: unable to read tree object",
+        "causes": [
+          "Using partial clone (`--filter=blob:none`) with unsupported Git server.",
+          "Corrupted objects in the remote repository.",
+          "Network interruption during clone causing incomplete data."
+        ],
+        "solutions": [
+          "Perform a full clone: `git clone <url>` without partial clone options.",
+          "Repair remote repo (if admin): `git fsck` and restore missing objects.",
+          "Retry with stable internet or use `--no-checkout` to fetch history first."
+        ]
+      },
+      {
+        "id": 46,
+        "title": "GitHub Actions Fails: Secret Not Found",
+        "message": "Error: The secret '<secret-name>' was not found.",
+        "causes": [
+          "Secret referenced in workflow but not added to repository.",
+          "Typo in secret name in workflow YAML.",
+          "Secret scoped to wrong environment or repository."
+        ],
+        "solutions": [
+          "Add secret: Settings > Secrets and variables > Actions > New repository secret.",
+          "Verify secret name in workflow: Ensure it matches exactly (case-sensitive).",
+          "Check environment scope: If using environments, add secret to correct environment."
+        ]
+      },
+      {
+        "id": 47,
+        "title": "Git Reset Fails: Ambiguous Argument",
+        "message": "fatal: ambiguous argument '<hash>': unknown revision or path not in the working tree.",
+        "causes": [
+          "Incorrect or non-existent commit hash in `git reset`.",
+          "Typo in branch name or reference.",
+          "Commit not in current branch’s history."
+        ],
+        "solutions": [
+          "Verify commit hash: `git log --oneline` to find correct hash.",
+          "Use correct reference: `git reset --hard <commit-hash>` or `git reset --hard origin/main`.",
+          "Fetch missing commits if needed: `git fetch origin`."
+        ]
+      },
+      {
+        "id": 48,
+        "title": "GitHub Pull Request Fails: Merge Commit Conflicts",
+        "message": "Merge commit cannot be created due to conflicts.",
+        "causes": [
+          "Automatic merge commit failing due to conflicting changes.",
+          "Base branch updated with changes conflicting with PR.",
+          "Stale PR branch outdated relative to base branch."
+        ],
+        "solutions": [
+          "Rebase PR branch: `git checkout pr-branch`, `git rebase origin/main`, resolve conflicts, then `git push --force`.",
+          "Merge base into PR: `git checkout pr-branch`, `git merge origin/main`, resolve conflicts, then push.",
+          "Use GitHub’s 'Update branch' button if conflicts are manageable."
+        ]
+      },
+      {
+        "id": 49,
+        "title": "Git Push Fails: Repository Size Limit Exceeded",
+        "message": "remote: error: GH001: Repository size limit exceeded.",
+        "causes": [
+          "Total repository size exceeds GitHub’s limits (e.g., 5GB recommended).",
+          "Large files or history bloating the repository.",
+          "Binary assets not managed with Git LFS."
+        ],
+        "solutions": [
+          "Use Git LFS for large files: `git lfs install`, `git lfs track '*.bin'`, recommit.",
+          "Rewrite history to remove large files: Use `BFG Repo-Cleaner` or `git filter-branch`.",
+          "Archive old history into a separate repo and start fresh."
+        ]
+      },
+      {
+        "id": 50,
+        "title": "Git Commit Fails: Pre-Commit Hook Failed",
+        "message": "error: pre-commit hook failed (add --no-verify to bypass)",
+        "causes": [
+          "Pre-commit hook (e.g., linting, tests) failing.",
+          "Custom hook script enforcing rules like commit message format.",
+          "Misconfigured hook dependencies not installed."
+        ],
+        "solutions": [
+          "Fix hook issues: Run failing commands (e.g., `npm run lint`) and fix errors.",
+          "Bypass temporarily (not recommended): `git commit --no-verify`.",
+          "Check hook script: Look in `.git/hooks/pre-commit` and resolve dependencies."
+        ]
+      },
+      {
+        "id": 51,
+        "title": "GitHub Actions Fails: Checkout Action Fails",
+        "message": "Error: Repository checkout failed in GitHub Actions.",
+        "causes": [
+          "Incorrect repository or branch specified in `actions/checkout`.",
+          "Insufficient permissions for GITHUB_TOKEN to checkout.",
+          "Network issues during checkout in runner."
+        ],
+        "solutions": [
+          "Verify checkout step: Use `uses: actions/checkout@v3` with correct ref (e.g., `ref: main`).",
+          "Check token permissions: Ensure GITHUB_TOKEN has `contents: read` scope.",
+          "Retry or debug: Add `run: git fetch --all` to runner to diagnose."
+        ]
+      },
+      {
+        "id": 52,
+        "title": "Git Fetch Fails: SSL Certificate Problem",
+        "message": "fatal: unable to access 'url': SSL certificate problem: self signed certificate",
+        "causes": [
+          "Self-signed SSL certificate on Git server.",
+          "Outdated Git client not recognizing modern SSL protocols.",
+          "Corporate proxy or firewall interfering with SSL."
+        ],
+        "solutions": [
+          "Disable SSL verification (not recommended for production): `git config --global http.sslVerify false`.",
+          "Add custom certificate: `git config --global http.sslCAInfo /path/to/cert.pem`.",
+          "Update Git client to latest version for better SSL support."
+        ]
+      },
+      {
+        "id": 53,
+        "title": "Git Push Fails: Upstream Branch Not Set",
+        "message": "fatal: The current branch has no upstream branch.",
+        "causes": [
+          "Pushing a new local branch without setting an upstream.",
+          "Branch not linked to a remote branch.",
+          "First push of a new branch without specifying remote."
+        ],
+        "solutions": [
+          "Set upstream and push: `git push --set-upstream origin <branch-name>`.",
+          "Push directly with remote: `git push origin <branch-name>`.",
+          "Verify tracking: `git branch -vv` to see upstream associations."
+        ]
+      },
+      {
+        "id": 54,
+        "title": "GitHub Pages Fails: Custom Domain Not Working",
+        "message": "Custom domain shows 404 or doesn’t resolve.",
+        "causes": [
+          "Incorrect DNS settings for custom domain.",
+          "Missing CNAME file in repository.",
+          "GitHub Pages custom domain not configured in settings."
+        ],
+        "solutions": [
+          "Set up DNS: Add a CNAME or A record pointing to GitHub Pages (e.g., `user.github.io`).",
+          "Add CNAME file: Create `CNAME` file in repo root with domain (e.g., `yourdomain.com`).",
+          "Configure in GitHub: Settings > Pages > Custom domain, add domain and enforce HTTPS."
+        ]
+      },
+      {
+        "id": 55,
+        "title": "Git Submodule Fails: Detached HEAD in Submodule",
+        "message": "You are in 'detached HEAD' state in a submodule.",
+        "causes": [
+          "Checking out a specific commit instead of a branch in submodule.",
+          "Submodule not updated to a tracking branch.",
+          "Manually modifying submodule without proper branch setup."
+        ],
+        "solutions": [
+          "Switch to a branch in submodule: `cd <submodule-path>`, `git checkout main`.",
+          "Update submodule: `git submodule update --remote --merge`.",
+          "Commit changes in parent repo: `git add <submodule-path>`, `git commit -m 'Update submodule'`, then push."
+        ]
+      },
+      {
+        "id": 56,
+        "title": "Git Push Fails: Commit Message Format Violation",
+        "message": "remote: error: Commit message does not follow required format.",
+        "causes": [
+          "Server-side hook enforcing commit message format (e.g., ticket numbers).",
+          "Custom pre-push hook rejecting commits.",
+          "Repository rules requiring specific commit message structure."
+        ],
+        "solutions": [
+          "Amend commit message: `git commit --amend`, update message to match format (e.g., 'JIRA-123: Fix bug').",
+          "Check hook requirements: Contact repo admin or check `.git/hooks/pre-push` for rules.",
+          "Bypass temporarily (if allowed): `git push --no-verify`."
+        ]
+      },
+      {
+        "id": 57,
+        "title": "GitHub Actions Fails: Dependency Cache Not Working",
+        "message": "Dependency installation takes too long despite caching.",
+        "causes": [
+          "Incorrect cache key in workflow causing cache misses.",
+          "Cache action not restoring dependencies correctly.",
+          "Dependencies changing frequently, invalidating cache."
+        ],
+        "solutions": [
+          "Use stable cache key: Update workflow with `actions/cache@v3` and key like `cache-${{ hashFiles('package-lock.json') }}`.",
+          "Verify restore path: Ensure `restore-keys` matches dependency paths (e.g., `node_modules`).",
+          "Clear cache manually in Actions UI if corrupted, then rebuild."
+        ]
+      },
+      {
+        "id": 58,
+        "title": "Git Log Fails: Ambiguous Output",
+        "message": "fatal: ambiguous argument 'HEAD': unknown revision",
+        "causes": [
+          "No commits in the repository (empty repo).",
+          "Corrupted Git history or missing HEAD reference.",
+          "Working in a bare repository without commits."
+        ],
+        "solutions": [
+          "Make an initial commit: `touch README.md`, `git add .`, `git commit -m 'Initial commit'`.",
+          "Check HEAD: `git rev-parse HEAD` to verify reference, fix with `git symbolic-ref HEAD refs/heads/main` if broken.",
+          "Clone a fresh copy if repo is corrupted beyond repair."
+        ]
+      },
+      {
+        "id": 59,
+        "title": "GitHub Fork Fails: Unable to Fork",
+        "message": "Cannot fork because you have reached the limit of forked repositories.",
+        "causes": [
+          "GitHub account has exceeded fork limits.",
+          "Forking a private repository without sufficient permissions.",
+          "Organization restrictions preventing forks."
+        ],
+        "solutions": [
+          "Delete unused forks to free up space: Go to your GitHub profile > Repositories.",
+          "Request permission: Contact repo owner for access to private repo.",
+          "Clone instead of fork: `git clone <repo-url>` and work locally without forking."
+        ]
+      },
+      {
+        "id": 60,
+        "title": "Git Commit Fails: No Changes After Amend",
+        "message": "No changes detected after amending commit.",
+        "causes": [
+          "No new changes staged after `git commit --amend`.",
+          "Amending a commit without modifying files or message.",
+          "Staged changes not reflecting actual file updates."
+        ],
+        "solutions": [
+          "Stage new changes: `git add <file>` before amending.",
+          "Update commit message: `git commit --amend -m 'New message'` if no file changes.",
+          "Verify file updates: Ensure files are saved and staged correctly."
+        ]
+      },
+      {
+        "id": 61,
+        "title": "Git Push Fails: Commit Author Email Not Verified",
+        "message": "remote: error: GH007: Your push would publish a commit with an unverified email.",
+        "causes": [
+          "Commit email not associated with your GitHub account or not verified.",
+          "GitHub repository settings enforcing verified commits.",
+          "Using a local Git email that differs from your GitHub account email."
+        ],
+        "solutions": [
+          "Verify email on GitHub: Settings > Emails > Add and verify the email used in commits.",
+          "Update local Git email: `git config --global user.email 'verified-email@example.com'`, then amend commits: `git commit --amend --reset-author`.",
+          "Force push amended commits: `git push --force` (use with caution)."
+        ]
+      },
+      {
+        "id": 62,
+        "title": "Git Checkout Fails: Local Changes Would Be Overwritten",
+        "message": "error: Your local changes to the following files would be overwritten by checkout.",
+        "causes": [
+          "Uncommitted changes in the working directory conflict with the target branch.",
+          "Switching branches without committing or stashing changes.",
+          "Modified files that differ between the current and target branch."
+        ],
+        "solutions": [
+          "Commit or stash changes: `git add . && git commit -m 'WIP'` or `git stash`.",
+          "Checkout after committing/stashing: `git checkout <branch>`, then `git stash pop` if stashed.",
+          "Force checkout (loses changes): `git checkout --force <branch>`."
+        ]
+      },
+      {
+        "id": 63,
+        "title": "GitHub Actions Fails: Timeout on Long-Running Job",
+        "message": "Error: The job running on runner exceeded the maximum execution time of 360 minutes.",
+        "causes": [
+          "Job execution time exceeds GitHub Actions default timeout (6 hours).",
+          "Long-running tests, builds, or deployments without optimization.",
+          "Infinite loops or stuck processes in the workflow."
+        ],
+        "solutions": [
+          "Set a custom timeout: Add `timeout-minutes: 120` to the job in `.github/workflows/ci.yml`.",
+          "Optimize the job: Break into smaller jobs or optimize scripts (e.g., cache dependencies, reduce test scope).",
+          "Debug for loops: Check logs for stuck processes and add exit conditions."
+        ]
+      },
+      {
+        "id": 64,
+        "title": "Git Merge Fails: Already Up-to-Date",
+        "message": "Already up-to-date.",
+        "causes": [
+          "No new changes in the source branch to merge into the target branch.",
+          "Source branch already merged into the target.",
+          "Attempting to merge the same branch into itself."
+        ],
+        "solutions": [
+          "Verify branch commits: `git log --oneline source-branch..target-branch` to see differences.",
+          "Fetch latest changes: `git fetch origin` to ensure both branches are up-to-date.",
+          "Switch to correct branches: `git checkout target-branch` and `git merge source-branch`."
+        ]
+      },
+      {
+        "id": 65,
+        "title": "Git Clone Fails: Disk Space Full",
+        "message": "fatal: write error: No space left on device",
+        "causes": [
+          "Local disk space is full, preventing Git from writing objects.",
+          "Large repository or many objects exhausting available space.",
+          "Temporary files or Git objects consuming excessive space."
+        ],
+        "solutions": [
+          "Free up disk space: Delete unnecessary files or use `df -h` to check usage.",
+          "Clean Git repository: `git gc --aggressive --prune=now` to remove unused objects.",
+          "Clone to another drive: Specify a different path with more space: `git clone <url> /path/to/other/drive`."
+        ]
+      },
+      {
+        "id": 66,
+        "title": "GitHub Pull Request Fails: Required Reviewers Not Assigned",
+        "message": "At least 1 approving review is required by reviewers with write access.",
+        "causes": [
+          "Branch protection rules require code reviews before merging.",
+          "No reviewers assigned to the pull request.",
+          "Assigned reviewers have not yet approved the PR."
+        ],
+        "solutions": [
+          "Assign reviewers: Go to the PR page, click 'Reviewers', and add team members with write access.",
+          "Request reviews: Use GitHub UI to notify reviewers or mention them in comments.",
+          "Disable rule if admin: Settings > Branches > Edit rule, uncheck 'Require pull request reviews' (if permissible)."
+        ]
+      },
+      {
+        "id": 67,
+        "title": "Git Push Fails: Case Sensitivity Conflict",
+        "message": "error: refusing to update checked out branch: refs/heads/main",
+        "causes": [
+          "File names differing only in case (e.g., `file.txt` vs `File.txt`) causing conflicts.",
+          "Case-insensitive file system (e.g., macOS, Windows) vs case-sensitive Git.",
+          "Renaming files with case changes not recognized by Git."
+        ],
+        "solutions": [
+          "Rename explicitly: `git mv file.txt File-temp.txt`, then `git mv File-temp.txt File.txt`.",
+          "Enable case sensitivity: `git config core.ignorecase false` (use cautiously).",
+          "Avoid case-only changes: Standardize naming conventions across platforms."
+        ]
+      },
+      {
+        "id": 68,
+        "title": "GitHub CLI Fails: Authentication Required",
+        "message": "gh: authentication required (run 'gh auth login' to authenticate)",
+        "causes": [
+          "GitHub CLI (`gh`) not authenticated.",
+          "Token expired or revoked.",
+          "No credentials configured for `gh` CLI."
+        ],
+        "solutions": [
+          "Authenticate CLI: Run `gh auth login` and follow prompts to authenticate.",
+          "Refresh token: `gh auth refresh` if token expired.",
+          "Check status: `gh auth status` to verify authentication details."
+        ]
+      },
+      {
+        "id": 69,
+        "title": "Git Fetch Fails: Packed-Refs Locked",
+        "message": "error: cannot lock ref 'refs/remotes/origin/main': is at <hash> but expected <hash>",
+        "causes": [
+          "Corrupted packed-refs file in `.git` directory.",
+          "Multiple Git processes competing for the same refs.",
+          "Interrupted fetch or push operation causing lock issues."
+        ],
+        "solutions": [
+          "Clean up refs: `rm .git/packed-refs` and `git fetch` to rebuild (backup first).",
+          "Ensure single process: Close other Git operations before fetching.",
+          "Reclone if needed: `git clone <url>` into a fresh directory."
+        ]
+      },
+      {
+        "id": 70,
+        "title": "GitHub Actions Fails: Runner Out of Memory",
+        "message": "Error: Process completed with exit code 137 (out of memory).",
+        "causes": [
+          "Runner memory limit exceeded during job execution.",
+          "High memory usage in build/test scripts (e.g., large test suites).",
+          "Insufficient memory allocated to GitHub-hosted runners."
+        ],
+        "solutions": [
+          "Optimize memory usage: Reduce memory-intensive tasks (e.g., split test suites).",
+          "Use self-hosted runner: Set up a self-hosted runner with more memory.",
+          "Increase swap space: Add `swapfile` setup in workflow if using self-hosted runners."
+        ]
+      },
+      {
+        "id": 71,
+        "title": "Git Commit Fails: Empty Commit Message",
+        "message": "Aborting commit due to empty commit message.",
+        "causes": [
+          "Not providing a commit message with `git commit`.",
+          "Closing the commit message editor without entering text.",
+          "Custom hook enforcing non-empty commit messages."
+        ],
+        "solutions": [
+          "Provide message inline: `git commit -m 'Your message here'`.",
+          "Reopen editor: `git commit` and enter a message in the editor.",
+          "Amend last commit: `git commit --amend` to update the message."
+        ]
+      },
+      {
+        "id": 72,
+        "title": "Git Push Fails: Push to Wrong Remote",
+        "message": "Pushed changes to unintended remote repository.",
+        "causes": [
+          "Incorrect remote set up in `git remote`.",
+          "Forgetting to update remote URL before pushing.",
+          "Multiple remotes configured, pushing to wrong one."
+        ],
+        "solutions": [
+          "Check remotes: `git remote -v` to see configured remotes.",
+          "Update remote URL: `git remote set-url origin <correct-url>`.",
+          "Undo push (if possible): `git push origin :wrong-branch` to delete remote branch, then push to correct remote."
+        ]
+      },
+      {
+        "id": 73,
+        "title": "GitHub Repository Fails: Transfer Ownership Denied",
+        "message": "You don’t have permission to transfer this repository.",
+        "causes": [
+          "Insufficient permissions to transfer ownership.",
+          "Organization restrictions preventing repo transfer.",
+          "Target user or organization not accepting transfers."
+        ],
+        "solutions": [
+          "Verify permissions: Ensure you’re an admin/owner of the repo.",
+          "Contact organization admin: Request transfer approval if restricted.",
+          "Clone and recreate: As a last resort, clone the repo and create a new one under the target owner."
+        ]
+      },
+      {
+        "id": 74,
+        "title": "Git Bisect Fails: Bad Revision",
+        "message": "fatal: Bad revision '<hash>'",
+        "causes": [
+          "Incorrect commit hash specified in `git bisect`.",
+          "Commit not in current branch’s history.",
+          "Corrupted repository history."
+        ],
+        "solutions": [
+          "Verify hash: `git log --oneline` to find correct commit.",
+          "Start bisect with known good/bad commits: `git bisect start HEAD <bad-hash>`, `git bisect good <good-hash>`.",
+          "Reset bisect if stuck: `git bisect reset` to exit bisect mode."
+        ]
+      },
+      {
+        "id": 75,
+        "title": "GitHub Actions Fails: Environment Not Found",
+        "message": "Error: Environment 'staging' not found.",
+        "causes": [
+          "Referencing a non-existent environment in workflow.",
+          "Environment deleted or renamed in repository settings.",
+          "Typo in environment name in `.github/workflows/ci.yml`."
+        ],
+        "solutions": [
+          "Create environment: Settings > Environments > New environment.",
+          "Verify environment name: Check spelling in workflow YAML.",
+          "Remove environment reference: Update workflow to run without environment if not needed."
+        ]
+      },
+      {
+        "id": 76,
+        "title": "Git Push Fails: No Tracking Information",
+        "message": "There is no tracking information for the current branch.",
+        "causes": [
+          "Branch not set to track a remote branch.",
+          "Pushing a new branch without specifying remote.",
+          "Deleted remote branch still referenced locally."
+        ],
+        "solutions": [
+          "Set upstream: `git push --set-upstream origin <branch>`.",
+          "Push explicitly: `git push origin <branch>`.",
+          "Update tracking: `git branch --set-upstream-to=origin/<branch>`."
+        ]
+      },
+      {
+        "id": 77,
+        "title": "Git Revert Fails: Conflicts",
+        "message": "error: could not revert <hash>... hint: after resolving the conflicts, mark the corrected paths",
+        "causes": [
+          "Reverting a commit introduces conflicts with current changes.",
+          "Uncommitted changes in working directory preventing revert.",
+          "Reverted commit depends on subsequent changes."
+        ],
+        "solutions": [
+          "Resolve conflicts: Edit conflicted files, `git add <file>`, then `git revert --continue`.",
+          "Stash changes first: `git stash`, revert, then `git stash pop`.",
+          "Abort revert if needed: `git revert --abort`."
+        ]
+      },
+      {
+        "id": 78,
+        "title": "GitHub Dependabot Fails: Invalid Dependency File",
+        "message": "Dependabot cannot update dependencies due to invalid file format.",
+        "causes": [
+          "Corrupted or invalid dependency file (e.g., `package.json`, `Gemfile`).",
+          "Syntax errors in dependency file preventing parsing.",
+          "Unsupported dependency manager in Dependabot configuration."
+        ],
+        "solutions": [
+          "Validate file: Check `package.json` or other files for syntax errors (e.g., `npm init -y` to recreate if needed).",
+          "Fix Dependabot config: Ensure `.github/dependabot.yml` specifies correct ecosystems.",
+          "Manually update dependencies: Use `npm update` or equivalent until fixed."
+        ]
+      },
+      {
+        "id": 79,
+        "title": "Git Push Fails: Remote Rejected (Protected Tag)",
+        "message": "remote: error: GH006: Protected tag update failed for refs/tags/v1.0.",
+        "causes": [
+          "Attempting to push to a protected tag.",
+          "Tag protection rules enforced by repository settings.",
+          "Insufficient permissions to modify protected tags."
+        ],
+        "solutions": [
+          "Check tag protection: Settings > Tags > Verify protection rules.",
+          "Push to a new tag: `git tag v1.0.1`, `git push origin v1.0.1`.",
+          "Request admin to unprotect: If needed, ask admin to disable tag protection temporarily."
+        ]
+      },
+      {
+        "id": 80,
+        "title": "Git Worktree Fails: Worktree Already Exists",
+        "message": "fatal: working tree '<path>' already exists.",
+        "causes": [
+          "Attempting to create a worktree in a directory that already exists.",
+          "Previous worktree not removed properly.",
+          "Path conflict with existing worktree."
+        ],
+        "solutions": [
+          "List worktrees: `git worktree list` to see existing worktrees.",
+          "Remove old worktree: `git worktree remove <path>` or `rm -rf <path>` and `git worktree prune`.",
+          "Create in new path: `git worktree add <new-path> <branch>`."
+        ]
+      },
+      {
+        "id": 81,
+        "title": "GitHub Repository Fails: Cannot Delete Default Branch",
+        "message": "Cannot delete the default branch.",
+        "causes": [
+          "Attempting to delete the default branch (e.g., `main`) without changing it.",
+          "Branch protection rules preventing deletion.",
+          "Default branch still in use by open pull requests."
+        ],
+        "solutions": [
+          "Set a new default branch: Settings > Branches > Change default branch.",
+          "Delete old default: `git push origin --delete old-branch` after setting new default.",
+          "Resolve open PRs: Merge or close PRs targeting the default branch."
+        ]
+      },
+      {
+        "id": 82,
+        "title": "Git Fetch Fails: Refspec Not Found",
+        "message": "error: pathspec 'refs/remotes/origin/branch' did not match any file(s) known to git.",
+        "causes": [
+          "Fetching a branch or refspec that doesn’t exist on remote.",
+          "Typo in fetch command or refspec.",
+          "Remote branch deleted but still referenced locally."
+        ],
+        "solutions": [
+          "Verify remote branches: `git fetch origin && git branch -r`.",
+          "Correct refspec: `git fetch origin correct-branch`.",
+          "Prune stale refs: `git fetch --prune` to remove deleted remote branches."
+        ]
+      },
+      {
+        "id": 83,
+        "title": "GitHub Actions Fails: Artifact Upload Fails",
+        "message": "Error: Unable to upload artifact, HTTP 413 Payload Too Large.",
+        "causes": [
+          "Artifact size exceeds GitHub Actions upload limits.",
+          "Network issues interrupting upload.",
+          "Misconfigured artifact path including unnecessary files."
+        ],
+        "solutions": [
+          "Reduce artifact size: Exclude unnecessary files using `.artifactignore` or specify smaller paths.",
+          "Split artifacts: Use multiple `upload-artifact` actions for different directories.",
+          "Check upload step: Ensure artifact path exists and retry after network stabilization."
+        ]
+      },
+      {
+        "id": 84,
+        "title": "Git Push Fails: Invalid Refspec",
+        "message": "error: src refspec <branch> does not match any.",
+        "causes": [
+          "Pushing a branch or tag that doesn’t exist locally.",
+          "Typo in branch name or refspec in push command.",
+          "No commits on the branch to push."
+        ],
+        "solutions": [
+          "Verify branch existence: `git branch` to list local branches.",
+          "Correct branch name: `git push origin correct-branch`.",
+          "Create a commit: Ensure at least one commit exists (`git commit`) before pushing."
+        ]
+      },
+      {
+        "id": 85,
+        "title": "Git Commit Fails: Post-Commit Hook Failed",
+        "message": "error: post-commit hook failed",
+        "causes": [
+          "Post-commit hook script failing (e.g., notifications, formatting).",
+          "Dependencies required by the hook not installed.",
+          "Custom script errors in `.git/hooks/post-commit`."
+        ],
+        "solutions": [
+          "Debug hook: Check `.git/hooks/post-commit` for errors and fix.",
+          "Disable temporarily: Rename `post-commit` to `post-commit.bak` to skip.",
+          "Install dependencies: Ensure hook dependencies (e.g., `curl` for notifications) are available."
+        ]
+      },
+      {
+        "id": 86,
+        "title": "GitHub Repository Fails: Cannot Archive",
+        "message": "Failed to archive repository: Permission denied.",
+        "causes": [
+          "Insufficient permissions to archive the repository.",
+          "Organization restrictions or policies preventing archiving.",
+          "Active pull requests or issues blocking archival."
+        ],
+        "solutions": [
+          "Verify permissions: Ensure you’re an admin/owner of the repo.",
+          "Resolve dependencies: Close open PRs or issues before archiving.",
+          "Request admin access: Contact organization admin to archive on your behalf."
+        ]
+      },
+      {
+        "id": 87,
+        "title": "Git Push Fails: Invalid Hook Configuration",
+        "message": "remote: error: hook declined to update refs/heads/main",
+        "causes": [
+          "Server-side hook rejecting push due to configuration issues.",
+          "Custom hooks enforcing rules (e.g., no empty commits).",
+          "Hook script errors on the remote server."
+        ],
+        "solutions": [
+          "Check hook logs: Contact repo admin for server-side hook details.",
+          "Fix commits: Meet hook requirements (e.g., non-empty commits, specific formats).",
+          "Push to another branch: `git push origin feature-branch` if allowed."
+        ]
+      },
+      {
+        "id": 88,
+        "title": "Git Fetch Fails: Sparse Checkout Misconfiguration",
+        "message": "error: Sparse checkout leaves no entry on working directory",
+        "causes": [
+          "Sparse checkout enabled but no paths specified.",
+          "Incorrect sparse-checkout patterns in `.git/info/sparse-checkout`.",
+          "Sparse checkout not properly initialized."
+        ],
+        "solutions": [
+          "Set sparse-checkout patterns: `git sparse-checkout set path/to/include`.",
+          "Verify configuration: Check `.git/info/sparse-checkout` for correct patterns.",
+          "Disable sparse checkout: `git sparse-checkout disable` if not needed."
+        ]
+      },
+      {
+        "id": 89,
+        "title": "GitHub Actions Fails: Matrix Strategy Misconfiguration",
+        "message": "Error: Invalid matrix configuration in workflow.",
+        "causes": [
+          "Incorrect syntax in matrix strategy (e.g., missing keys).",
+          "Empty or invalid matrix values in `.github/workflows/ci.yml`.",
+          "Dependencies between matrix jobs not defined."
+        ],
+        "solutions": [
+          "Validate matrix syntax: Ensure `strategy.matrix` includes valid keys (e.g., `os: [ubuntu-latest, Windows-latest]`).",
+          "Fix empty values: Provide non-empty arrays for matrix variables.",
+          "Test matrix jobs: Run locally with `act` CLI to debug matrix configurations."
+        ]
+      },
+      {
+        "id": 90,
+        "title": "Git Push Fails: Remote Branch Locked",
+        "message": "remote: error: Branch main is currently locked.",
+        "causes": [
+          "Branch locked by repository admin to prevent pushes.",
+          "Temporary lock during deployment or CI/CD processes.",
+          "Organization-level restrictions on specific branches."
+        ],
+        "solutions": [
+          "Check lock status: Contact repo admin or check Settings > Branches.",
+          "Push to a different branch: `git checkout -b temp-branch`, `git push origin temp-branch`.",
+          "Wait for unlock: If temporary, retry after the lock expires."
+        ]
+      },
+
+      {
+        "id": 91,
+        "title": "Git Push Fails: Git LFS Bandwidth Limit Exceeded",
+        "message": "remote: error: Your push exceeds the Git LFS bandwidth limit.",
+        "causes": [
+          "Uploading large files via Git LFS exceeds GitHub’s bandwidth quota.",
+          "Free GitHub account or organization with limited LFS bandwidth.",
+          "Pushing multiple large files in a single operation."
+        ],
+        "solutions": [
+          "Check LFS usage: Settings > Billing > Git LFS Data to see current usage and limits.",
+          "Upgrade plan: Purchase additional Git LFS bandwidth or storage through GitHub billing.",
+          "Optimize pushes: Push smaller sets of large files incrementally or reduce file sizes."
+        ]
+      },
+      {
+        "id": 92,
+        "title": "Git Clone Fails: Git LFS Objects Missing",
+        "message": "error: failed to fetch some objects from '<url>': Smudge error: Object not found.",
+        "causes": [
+          "Git LFS objects not uploaded to the remote repository.",
+          "LFS objects deleted or corrupted on the server.",
+          "Cloning without initializing Git LFS locally."
+        ],
+        "solutions": [
+          "Initialize Git LFS: `git lfs install` before cloning or fetching.",
+          "Fetch LFS objects: `git lfs fetch --all` to download missing objects.",
+          "Re-upload objects: If admin, locate missing objects locally and push with `git lfs push --all origin`."
+        ]
+      },
+      {
+        "id": 93,
+        "title": "Git Rebase Fails: Interactive Rebase Already Started",
+        "message": "error: interactive rebase already started",
+        "causes": [
+          "Attempting to start a new interactive rebase while one is in progress.",
+          "Previous rebase interrupted or not completed.",
+          "Corrupted rebase state in `.git/rebase-merge`."
+        ],
+        "solutions": [
+          "Continue rebase: `git rebase --continue` after resolving conflicts or editing commits.",
+          "Abort rebase: `git rebase --abort` to cancel the current rebase.",
+          "Clean rebase state: `rm -rf .git/rebase-merge` and start anew (use with caution)."
+        ]
+      },
+      {
+        "id": 94,
+        "title": "GitHub Actions Fails: Access Denied to Private Repository",
+        "message": "Error: Permission denied to access private repository in workflow.",
+        "causes": [
+          "Workflow attempting to access a private repository without proper permissions.",
+          "GITHUB_TOKEN lacking scope to access private repos.",
+          "Personal Access Token (PAT) not configured or lacking permissions."
+        ],
+        "solutions": [
+          "Use a PAT: Add a PAT with `repo` scope as a secret and use in workflow (e.g., `env: TOKEN: ${{ secrets.MY_TOKEN }}`).",
+          "Grant access: Ensure the GITHUB_TOKEN has permissions to access the private repo via Actions settings.",
+          "Make repo public: If feasible, change repo visibility to public (not recommended if sensitive)."
+        ]
+      },
+      {
+        "id": 95,
+        "title": "Git Push Fails: Pre-Push Hook Timeout",
+        "message": "remote: error: pre-push hook timed out after X seconds.",
+        "causes": [
+          "Pre-push hook script taking too long to execute.",
+          "Complex validation (e.g., linting, tests) in pre-push hook.",
+          "Server-side resource constraints slowing down hook execution."
+        ],
+        "solutions": [
+          "Optimize hook: Simplify or optimize scripts in `.git/hooks/pre-push` (e.g., skip heavy tests).",
+          "Increase timeout: If server-side hook, ask admin to adjust timeout settings.",
+          "Bypass temporarily: `git push --no-verify` (use cautiously)."
+        ]
+      },
+      {
+        "id": 96,
+        "title": "Git Stash Fails: Unable to Restore Untracked Files",
+        "message": "error: cannot stash untracked files; use --include-untracked to include them.",
+        "causes": [
+          "Untracked files present but not included in stash command.",
+          "Using `git stash` without `--include-untracked` flag.",
+          "Untracked files causing conflicts during stash apply."
+        ],
+        "solutions": [
+          "Stash with untracked files: `git stash --include-untracked`.",
+          "Add untracked files: `git add <untracked-files>`, then `git stash`.",
+          "Clean untracked files if not needed: `git clean -fd` (careful, this deletes untracked files)."
+        ]
+      },
+      {
+        "id": 97,
+        "title": "GitHub Enterprise Fails: SSO Authentication Required",
+        "message": "remote: error: Single Sign-On (SSO) authentication required.",
+        "causes": [
+          "GitHub Enterprise instance requires SSO authentication.",
+          "Cloning or pushing without authenticating via SSO.",
+          "Outdated PAT or token not SSO-enabled."
+        ],
+        "solutions": [
+          "Enable SSO for token: Log into GitHub Enterprise, regenerate PAT with SSO enabled.",
+          "Authenticate with SSH: Use an SSH key authenticated via SSO (`ssh -T git@enterprise-host`).",
+          "Contact admin: Ensure your account is authorized for SSO access."
+        ]
+      },
+      {
+        "id": 98,
+        "title": "Git Fetch Fails: Corrupted Loose Object",
+        "message": "error: object file .git/objects/xx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx is empty",
+        "causes": [
+          "Corrupted loose objects in the local `.git` directory.",
+          "Disk write errors or interrupted Git operations.",
+          "Malware or manual tampering with `.git` directory."
+        ],
+        "solutions": [
+          "Recover from remote: `git fetch origin` and `git reset --hard origin/main`.",
+          "Clone anew: If unrecoverable, `git clone <url>` into a fresh directory.",
+          "Backup and repair: `git fsck` to identify issues, manually restore objects if possible."
+        ]
+      },
+      {
+        "id": 99,
+        "title": "GitHub Discussions Fails: Cannot Post Comment",
+        "message": "You don’t have permission to create discussions.",
+        "causes": [
+          "Insufficient permissions to post in Discussions.",
+          "Discussions feature disabled for the repository.",
+          "Repository rules restricting comments to specific roles."
+        ],
+        "solutions": [
+          "Verify permissions: Ensure you have write or comment access to the repo.",
+          "Enable Discussions: Settings > Features > Enable Discussions (if admin).",
+          "Contact repo owner: Request access to Discussions or clarification on restrictions."
+        ]
+      },
+      {
+        "id": 100,
+        "title": "Git Push Fails: Invalid Committer Email",
+        "message": "remote: error: Invalid committer email in commit.",
+        "causes": [
+          "Committer email not compliant with repository rules (e.g., must be company email).",
+          "Custom server-side hook enforcing email domain restrictions.",
+          "Using an alias email not recognized by GitHub."
+        ],
+        "solutions": [
+          "Update email: `git config --global user.email 'valid-email@company.com'`, amend: `git commit --amend --reset-author`.",
+          "Check hook rules: Contact repo admin for email policy details.",
+          "Force push amended commits: `git push --force` (use with caution)."
+        ]
+      },
+      {
+        "id": 101,
+        "title": "GitHub Actions Fails: Workflow Dispatch Not Triggering",
+        "message": "Workflow dispatch event not triggering despite manual trigger.",
+        "causes": [
+          "Missing `workflow_dispatch` trigger in `.github/workflows/ci.yml`.",
+          "Insufficient permissions to trigger workflows manually.",
+          "Workflow file syntax error preventing dispatch."
+        ],
+        "solutions": [
+          "Add dispatch trigger: Add `on: workflow_dispatch` at the top of the workflow file.",
+          "Verify permissions: Ensure user has write access to trigger workflows.",
+          "Validate YAML: Use `yamllint` or GitHub’s UI to check for syntax errors."
+        ]
+      },
+      {
+        "id": 102,
+        "title": "Git Commit Fails: Signed Commit Verification Failed",
+        "message": "error: cannot verify signature in commit",
+        "causes": [
+          "GPG signing enabled but signature verification fails.",
+          "GPG key expired or not added to GitHub.",
+          "Corrupted GPG key or mismatch between local and remote keys."
+        ],
+        "solutions": [
+          "Verify GPG key: `gpg --list-keys` to check key status, re-import if needed.",
+          "Add key to GitHub: Settings > SSH and GPG keys > Add GPG key.",
+          "Disable signing temporarily: `git config --global commit.gpgsign false` (if permissible)."
+        ]
+      },
+      {
+        "id": 103,
+        "title": "GitHub Projects Fails: Cannot Add Issue to Board",
+        "message": "Unable to add issue to project board.",
+        "causes": [
+          "Insufficient permissions to modify project boards.",
+          "Project board not linked to the repository.",
+          "Issue already archived or not visible to user."
+        ],
+        "solutions": [
+          "Check permissions: Ensure you have write access to the project board.",
+          "Link repository: Settings > Projects > Link the repository.",
+          "Reopen issue: If archived, unarchive the issue and retry."
+        ]
+      },
+      {
+        "id": 104,
+        "title": "Git Push Fails: Refusing to Delete Protected Branch",
+        "message": "remote: error: Cannot delete protected branch 'main'",
+        "causes": [
+          "Attempting to delete a branch protected by GitHub rules.",
+          "Branch protection settings preventing deletion.",
+          "Insufficient permissions to modify protected branches."
+        ],
+        "solutions": [
+          "Unprotect branch: Settings > Branches > Edit rule > Uncheck 'Protect this branch' (if admin).",
+          "Push to another branch: Avoid deleting protected branches unless necessary.",
+          "Request admin access: Ask repo admin to delete or unprotect the branch."
+        ]
+      },
+      {
+        "id": 105,
+        "title": "Git Fetch Fails: Remote Does Not Support Smart HTTP",
+        "message": "remote: error: The requested URL does not support smart HTTP.",
+        "causes": [
+          "Remote server not supporting Git’s smart HTTP protocol.",
+          "Using HTTPS on a server configured only for SSH.",
+          "Outdated Git server software lacking modern protocol support."
+        ],
+        "solutions": [
+          "Switch to SSH: `git remote set-url origin git@server:<repo>.git`, then fetch.",
+          "Update server: If admin, update Git server software to support smart HTTP.",
+          "Use dumb protocol (last resort): `git fetch --no-tags --progress`."
+        ]
+      },
+      {
+        "id": 106,
+        "title": "GitHub Security Advisory Fails: Cannot Publish",
+        "message": "Failed to publish security advisory: Permission denied.",
+        "causes": [
+          "Insufficient permissions to publish security advisories.",
+          "Repository settings restricting advisory creation.",
+          "Missing required fields in advisory submission."
+        ],
+        "solutions": [
+          "Verify permissions: Ensure you’re a repo admin or security manager.",
+          "Complete fields: Fill all required fields (e.g., CVE, description) in the advisory form.",
+          "Request access: Ask repo owner to grant security advisory permissions."
+        ]
+      },
+      {
+        "id": 107,
+        "title": "Git Commit Fails: Pre-Receive Hook Requires MFA",
+        "message": "remote: error: Pre-receive hook declined: MFA required.",
+        "causes": [
+          "Server-side hook enforcing multi-factor authentication (MFA).",
+          "User account not enabled for MFA.",
+          "Custom organizational policy requiring MFA for pushes."
+        ],
+        "solutions": [
+          "Enable MFA: Settings > Security > Enable two-factor authentication.",
+          "Verify MFA status: Ensure MFA is active before pushing.",
+          "Contact admin: Request temporary bypass or MFA policy adjustment."
+        ]
+      },
+      {
+        "id": 108,
+        "title": "Git Push Fails: Tag Already Exists",
+        "message": "remote: error: tag 'v1.0' already exists.",
+        "causes": [
+          "Attempting to push a tag that already exists on the remote.",
+          "Tag created locally and remotely with conflicting histories.",
+          "Reusing a tag name without deleting the old one."
+        ],
+        "solutions": [
+          "Delete remote tag: `git push origin :refs/tags/v1.0`, then push new tag: `git push origin v1.0`.",
+          "Create new tag: `git tag v1.0.1`, then `git push origin v1.0.1`.",
+          "Force push tag: `git push origin v1.0 --force` (use with caution)."
+        ]
+      },
+      {
+        "id": 109,
+        "title": "GitHub Actions Fails: Container Not Found",
+        "message": "Error: Unable to find container image 'my-image:latest'.",
+        "causes": [
+          "Docker image specified in workflow not found in registry.",
+          "Typo in image name or tag in `.github/workflows/ci.yml`.",
+          "Private container registry not authenticated."
+        ],
+        "solutions": [
+          "Verify image: Check Docker Hub or private registry for correct image name/tag.",
+          "Fix typo: Update workflow file with correct image (e.g., `container: my-image:latest`).",
+          "Authenticate registry: Add `docker/login-action` step with credentials in workflow."
+        ]
+      },
+      {
+        "id": 110,
+        "title": "Git Fetch Fails: Object Not Found After Garbage Collection",
+        "message": "error: object not found - no match for id (<hash>)",
+        "causes": [
+          "Garbage collection (`git gc`) removed objects still referenced.",
+          "Corrupted objects pruned without recovery.",
+          "Remote refs pointing to missing objects."
+        ],
+        "solutions": [
+          "Fetch from remote: `git fetch origin` to recover missing objects if available.",
+          "Restore from backup: Use a recent backup of the `.git` directory if available.",
+          "Reclone: `git clone <url>` into a fresh directory if unrecoverable."
+        ]
+      },
+      {
+        "id": 111,
+        "title": "GitHub Repository Fails: Cannot Enable Branch Protection",
+        "message": "Failed to enable branch protection: Insufficient permissions.",
+        "causes": [
+          "User lacks admin permissions to enable branch protection.",
+          "Organization restrictions preventing branch protection changes.",
+          "Conflicting repository settings blocking protection."
+        ],
+        "solutions": [
+          "Verify permissions: Ensure you’re a repo admin or have branch management rights.",
+          "Request admin access: Ask organization admin to enable protection.",
+          "Check restrictions: Review Settings > Branches for any overriding rules."
+        ]
+      },
+      {
+        "id": 112,
+        "title": "Git Push Fails: Push Rules Violation",
+        "message": "remote: error: Push rules violation: Commits must include ticket number.",
+        "causes": [
+          "Custom push rules enforcing specific commit metadata.",
+          "Server-side hooks rejecting commits without required patterns.",
+          "Organization policy requiring issue tracking references."
+        ],
+        "solutions": [
+          "Amend commits: `git commit --amend -m 'TICKET-123: Update feature'`.",
+          "Check rules: Contact repo admin for push rules details.",
+          "Force push amended commits: `git push --force` (use with caution)."
+        ]
+      },
+      {
+        "id": 113,
+        "title": "Git Merge Fails: Fast-Forward Not Possible",
+        "message": "merge: Not possible to fast-forward, aborting.",
+        "causes": [
+          "Merge requires a merge commit due to diverging histories.",
+          "Local branch ahead of remote with additional commits.",
+          "Non-fast-forward merge disabled with `--ff-only`."
+        ],
+        "solutions": [
+          "Allow merge commit: `git merge --no-ff` to create a merge commit.",
+          "Rebase instead: `git rebase origin/main`, resolve conflicts, then push.",
+          "Force fast-forward: `git fetch && git reset --hard origin/main` (loses local commits)."
+        ]
+      },
+      {
+        "id": 114,
+        "title": "GitHub Actions Fails: Cache Restore Fails",
+        "message": "Error: Cache restore failed - no cache entry found.",
+        "causes": [
+          "Cache key in workflow doesn’t match any existing cache.",
+          "Cache entry expired or deleted by GitHub.",
+          "Incorrect `restore-keys` configuration in `actions/cache`."
+        ],
+        "solutions": [
+          "Verify cache key: Ensure `key` in `actions/cache` matches previous runs (e.g., `key: cache-${{ hashFiles('package-lock.json') }}`).",
+          "Add fallback keys: Use `restore-keys` to match partial keys if exact match fails.",
+          "Rebuild cache: On next run, a new cache will be created if none exists."
+        ]
+      },
+      {
+        "id": 115,
+        "title": "Git Fetch Fails: HTTP/2 Stream Error",
+        "message": "fatal: HTTP/2 stream error: Stream was reset",
+        "causes": [
+          "Network instability interrupting HTTP/2 connection.",
+          "Git client or server not fully supporting HTTP/2.",
+          "Firewall or proxy interfering with HTTP/2 streams."
+        ],
+        "solutions": [
+          "Switch to HTTP/1.1: `git config --global http.version HTTP/1.1`, then retry fetch.",
+          "Retry with stable network: Ensure reliable internet connection.",
+          "Use SSH: `git remote set-url origin git@github.com:<repo>.git`, then fetch."
+        ]
+      },
+      {
+        "id": 116,
+        "title": "GitHub Repository Fails: Cannot Enable Auto-Merge",
+        "message": "Failed to enable auto-merge: Feature not available.",
+        "causes": [
+          "Auto-merge feature disabled in repository settings.",
+          "Insufficient permissions to enable auto-merge.",
+          "Pull request not meeting auto-merge prerequisites (e.g., required reviews)."
+        ],
+        "solutions": [
+          "Enable auto-merge: Settings > Pull Requests > Allow auto-merge (if admin).",
+          "Meet requirements: Ensure PR passes required checks and reviews.",
+          "Manually merge: If auto-merge unavailable, merge PR manually."
+        ]
+      },
+      {
+        "id": 117,
+        "title": "Git Commit Fails: Detached HEAD Cannot Commit",
+        "message": "You are in 'detached HEAD' state; commits will not be tracked.",
+        "causes": [
+          "Committing in a detached HEAD state.",
+          "Checking out a commit or tag directly instead of a branch.",
+          "Not creating a branch before committing changes."
+        ],
+        "solutions": [
+          "Create a branch: `git checkout -b new-branch`, then commit changes.",
+          "Switch to existing branch: `git checkout main`, then merge or cherry-pick commits.",
+          "Save commits: Commit in detached state, then `git branch temp-branch` to save."
+        ]
+      },
+      {
+        "id": 118,
+        "title": "GitHub Actions Fails: Self-Hosted Runner Offline",
+        "message": "Error: No runners are online to execute this job.",
+        "causes": [
+          "Self-hosted runner configured but offline.",
+          "Runner application not running on host machine.",
+          "Runner removed or unregistered from repository."
+        ],
+        "solutions": [
+          "Restart runner: On host machine, run `./run.sh` or equivalent in runner directory.",
+          "Verify registration: Settings > Actions > Runners > Ensure runner is listed.",
+          "Re-register runner: `./config.sh --url <repo-url> --token <token>` to re-add runner."
+        ]
+      },
+      {
+        "id": 119,
+        "title": "Git Push Fails: Remote Contains Work You Do Not Have",
+        "message": "remote: error: refusing to update checked out branch: refs/heads/main",
+        "causes": [
+          "Pushing to a non-bare repository where the branch is checked out.",
+          "Remote repository has a working directory with active changes.",
+          "Attempting push to a checked-out branch on a server."
+        ],
+        "solutions": [
+          "Push to a different branch: `git push origin feature-branch`.",
+          "Make remote bare: On remote, `git config --bool core.bare true` (if admin).",
+          "Reset remote HEAD: On remote, `git checkout --force another-branch`, then push."
+        ]
+      },
+      {
+        "id": 120,
+        "title": "Git Fetch Fails: Invalid Advertisement",
+        "message": "fatal: protocol error: bad line length character: Inva",
+        "causes": [
+          "Corrupted Git protocol during fetch.",
+          "Remote server issues (e.g., SSH misconfiguration).",
+          "Non-Git output (e.g., error messages) interfering with protocol."
+        ],
+        "solutions": [
+          "Retry fetch: `git fetch origin` after checking server status.",
+          "Use SSH instead: `git remote set-url origin git@server:<repo>.git`.",
+          "Check server logs: If admin, review server logs for output issues."
+        ]
+      },
+      {
+        "id": 121,
+        "title": "GitHub Repository Fails: Cannot Archive Repository",
+        "message": "Failed to archive repository: Repository is not empty.",
+        "causes": [
+          "GitHub requires repositories to be empty before archiving.",
+          "Active branches, tags, or files preventing archival.",
+          "Repository settings or restrictions blocking archival."
+        ],
+        "solutions": [
+          "Delete branches: `git push origin --delete branch-name` for all branches.",
+          "Remove tags: `git push origin --delete tag-name` for all tags.",
+          "Archive manually: Download repository contents, then delete the repository."
+        ]
+      },
+      {
+        "id": 122,
+        "title": "Git Push Fails: Invalid Refspec Format",
+        "message": "error: src refspec main does not match any.",
+        "causes": [
+          "Incorrect refspec format in push command.",
+          "Branch name not matching local or remote branches.",
+          "Typo in branch name or refspec."
+        ],
+        "solutions": [
+          "Verify branch name: `git branch` to list local branches, `git branch -r` for remote branches.",
+          "Correct refspec: `git push origin main` if branch exists.",
+          "Create branch: `git checkout -b main` to create a new branch."
+        ]
+      },
+      {
+        "id": 123,
+        "title": "GitHub Actions Fails: Job Timeout Exceeded",
+        "message": "Error: Job exceeded maximum execution time of 6h0m0s.",
+        "causes": [
+          "Workflow job taking longer than the maximum allowed time.",
+          "Complex build, tests, or deployment processes causing delays.",
+          "Network or resource constraints slowing down job execution."
+        ],
+        "solutions": [
+          "Optimize workflow: Split long-running jobs into smaller steps or parallel tasks.",
+          "Increase timeout: Update `timeout-minutes` in workflow YAML to allow longer execution.",
+          "Check resources: Ensure sufficient resources are available for the job."
+        ]
+        },
+        {
+          "id": 124,
+          "title": "Git Commit Fails: Invalid Commit Message Format",
+          "message": "error: commit message does not follow conventional format",
+          "causes": [
+            "Custom commit message format required by repository rules.",
+            "Server-side hooks enforcing specific commit message patterns.",
+            "Missing or incorrect commit message template."
+          ],
+          "solutions": [
+            "Update commit message: Follow the required format (e.g., `feat: add new feature` or `fix: resolve issue`.",
+            "Check hook rules: Contact repo admin for commit message format details.",
+            "Bypass temporarily: `git commit --no-verify` to skip commit message checks."
+          ]
+        },
+        {
+          "id": 125,
+          "title": "GitHub Repository Fails: Cannot Transfer Ownership",
+          "message": "Failed to transfer repository: User does not have permission.",
+          "causes": [
+            "Insufficient permissions to transfer repository ownership.",
+            "Organization restrictions preventing ownership transfer.",
+            "Repository settings or restrictions blocking transfer."
+          ],
+          "solutions": [
+            "Verify permissions: Ensure you’re an admin or owner of the repository.",
+            "Check organization rules: Review organization policies on repository transfers.",
+            "Request transfer: Contact current owner or organization admin for transfer."
+          ]
+        },
+        {
+          "id": 126,
+          "title": "Git Push Fails: Invalid Remote URL",
+          "message": "fatal: 'origin' does not appear to be a git repository",
+          "causes": [
+            "Incorrect or missing remote URL in repository configuration.",
+            "Remote repository not set up or configured properly.",
+            "Typo in remote name or URL."
+          ],
+          "solutions": [
+            "Check remote URL: `git remote -v` to view configured remotes.",
+            "Add remote: `git remote add origin <url>` with correct URL.",
+            "Update remote URL: `git remote set-url origin <new-url>` if needed."
+          ]
+        },
+        {
+          "id": 127,
+          "title": "GitHub Actions Fails: Workflow Run Not Triggered",
+          "message": "Error: Workflow run not triggered due to missing event.",
+          "causes": [
+            "Workflow file missing required `on` event trigger.",
+            "Incorrect event type specified in workflow YAML.",
+            "Workflow file not included in the correct directory."
+            ],
+            "solutions": [
+              "Add event trigger: Include `on: push` or other events at the top of the workflow file.",
+              "Check event type: Ensure the event type matches the intended trigger (e.g., `on: pull_request`).",
+              "Verify file location: Place workflow YAML in `.github/workflows/` directory."
+            ]
+            },
+            {
+              "id": 128,
+              "title": "Git Fetch Fails: Invalid Refspec",
+              "message": "error: pathspec 'refs/remotes/origin/branch' did not match any file(s) known to git.",
+              "causes": [
+                "Fetching a branch or refspec that doesn’t exist on remote.",
+                "Typo in fetch command or refspec.",
+                "Remote branch deleted but still referenced locally."
+              ],
+              "solutions": [
+                "Verify remote branches: `git fetch origin && git branch -r`.",
+                "Correct refspec: `git fetch origin correct-branch`.",
+                "Prune stale refs: `git fetch --prune` to remove deleted remote branches."
+              ]
+            },
+            {
+              "id": 129,
+              "title": "GitHub Repository Fails: Cannot Delete Default Branch",
+              "message": "Cannot delete the default branch.",
+              "causes": [
+                "Attempting to delete the default branch (e.g., `main`) without changing it.",
+                "Branch protection rules preventing deletion.",
+                "Default branch still in use by open pull requests."
+              ],
+              "solutions": [
+                "Set a new default branch: Settings > Branches > Change default branch.",
+                "Delete old default: `git push origin --delete old-branch` after setting new default.",
+                "Resolve open PRs: Merge or close PRs targeting the default branch."
+              ]
+            },
+            {
+              "id": 130,
+              "title": "Git Push Fails: Invalid Refspec",
+              "message": "error: src refspec <branch> does not match any.",
+              "causes": [
+                "Pushing a branch or tag that doesn’t exist locally.",
+                "Typo in branch name or refspec in push command.",
+                "No commits on the branch to push."
+              ],
+              "solutions": [
+                "Verify branch existence: `git branch` to list local branches.",
+                "Correct branch name: `git push origin correct-branch`.",
+                "Create a commit: Ensure at least one commit exists (`git commit`) before pushing."
+              ]
+            },
+            {
+              "id": 131,
+              "title": "Git Commit Fails: Post-Commit Hook Failed",
+              "message": "error: post-commit hook failed",
+              "causes": [
+                "Post-commit hook  script failing (e.g., notifications, formatting).",
+                "Dependencies required by the hook not installed.",
+                "Custom script errors in `.git/hooks/post-commit`."
+                ],
+                "solutions": [
+                  "Debug hook: Check `.git/hooks/post-commit` for errors and fix.",
+                  "Disable temporarily: Rename `post-commit` to `post-commit.bak` to skip.",
+                  "Install dependencies: Ensure hook dependencies (e.g., `curl` for notifications) are available."
+                ]
+                },
+                {
+                  "id": 132,
+                  "title": "GitHub Repository Fails: Cannot Archive",
+                  "message": "Failed to archive repository: Permission denied.",
+                  "causes": [
+                    "Insufficient permissions to archive the repository.",
+                    "Organization restrictions or policies preventing archiving.",
+                    "Active pull requests or issues blocking archival."
+                  ],
+                  "solutions": [
+                    "Verify permissions: Ensure you’re an admin/owner of the repo.",
+                    "Resolve dependencies: Close open PRs or issues before archiving.",
+                    "Request admin access: Contact organization admin to archive on your behalf."
+                  ]
+                  },
+                  {
+                    "id": 133,
+                    "title": "Git Push Fails: Invalid Hook Configuration",
+                    "message": "remote: error: hook declined to update refs/heads/main",
+                    "causes": [
+                      "Server-side hook rejecting push due to configuration issues.",
+                      "Custom hooks enforcing rules (e.g., no empty commits).",
+                      "Hook script errors on the remote server."
+                    ],
+                    "solutions": [
+                      "Check hook logs: Contact repo admin for server-side hook details.",
+                      "Fix commits: Meet hook requirements (e.g., non-empty commits, specific formats).",
+                      "Push to another branch: `git push origin feature-branch` if allowed."
+                    ]
+                    },
+                    {
+                      "id": 134,
+                      "title": "Git Fetch Fails: Sparse Checkout Misconfiguration",
+                      "message": "error: Sparse checkout leaves no entry on working directory",
+                      "causes": [
+                        "Sparse checkout enabled but no paths specified.",
+                        "Incorrect sparse-checkout patterns in `.git/info/sparse-checkout`.",
+                        "Sparse checkout not properly initialized."
+                      ],
+                      "solutions": [
+                        "Set sparse-checkout patterns: `git sparse-checkout set path/to/include`.",
+                        "Verify configuration: Check `.git/info/sparse-checkout` for correct patterns.",
+                        "Disable sparse checkout: `git sparse-checkout disable` if not needed."
+                      ]
+                      },
+                      {
+                        "id": 135,
+                        "title": "GitHub Actions Fails: Matrix Strategy Misconfiguration",
+                        "message": "Error: Invalid matrix configuration in workflow.",
+                        "causes": [
+                          "Incorrect syntax in matrix strategy (e.g., missing keys).",
+                          "Empty or invalid matrix values in `.github/workflows/ci.yml`.",
+                          "Dependencies between matrix jobs not defined."
+                        ],
+                        "solutions": [
+                          "Validate matrix syntax: Ensure `strategy.matrix` includes valid keys (e.g., `os: [ubuntu-latest, Windows-latest]`).",
+                          "Fix empty values: Provide non-empty arrays for matrix variables.",
+                          "Test matrix jobs: Run locally with `act` CLI to debug matrix configurations."
+                        ]
+                        },
+                        {
+                          "id": 136,
+                          "title": "Git Push Fails: Remote Branch Locked",
+                          "message": "remote: error: Branch main is currently locked.",
+                          "causes": [
+                            "Branch locked by repository admin to prevent pushes.",
+                            "Temporary lock during deployment or CI/CD processes.",
+                            "Organization-level restrictions on specific branches."
+                          ],
+                          "solutions": [
+                            "Check lock status: Contact repo admin or check Settings > Branches.",
+                            "Push to a different branch: `git checkout -b temp-branch`, `git push origin temp-branch`.",
+                            "Wait for unlock: If temporary, retry after the lock expires."
+                          ]
+                          },
+                          {
+                            "id": 137,
+                            "title": "Git Push Fails: Git LFS Bandwidth Limit Exceeded",
+                            "message": "remote: error: Your push exceeds the Git LFS bandwidth limit.",
+                            "causes": [
+                              "Uploading large files via Git LFS exceeds GitHub’s bandwidth quota.",
+                              "Free GitHub account or organization with limited LFS bandwidth.",
+                              "Pushing multiple large files in a single operation."
+                            ],
+                            "solutions": [
+                              "Check LFS usage: Settings > Billing > Git LFS Data to see current usage and limits.",
+                              "Upgrade plan: Purchase additional Git LFS bandwidth or storage through GitHub billing.",
+                              "Optimize pushes: Push smaller sets of large files incrementally or reduce file sizes."
+                            ]
+                            },
+                            {
+                              "id": 138,
+                              "title": "Git Clone Fails: Git LFS Objects Missing",
+                              "message": "error: failed to fetch some objects from '<url>': Smudge error: Object not found.",
+                              "causes": [
+                                "Git LFS objects not uploaded to the remote repository.",
+                                "LFS objects deleted or corrupted on the server.",
+                                "Cloning without initializing Git LFS locally."
+                              ],
+                              "solutions": [
+                                "Initialize Git LFS: `git lfs install` before cloning or fetching.",
+                                "Fetch LFS objects: `git lfs fetch --all` to download missing objects.",
+                                "Re-upload objects: If admin, locate missing objects locally and push with `git lfs push --all origin`."
+                              ]}
+    
+  ]
