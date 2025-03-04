@@ -749,5 +749,604 @@
         "Reset database state: `beforeEach(() => Model.deleteMany({}))`.",
         "Add delays or retries for async operations: `jest.useFakeTimers()`."
       ]
+    },
+    {
+      "id": 51,
+      "title": "MongoDB Aggregation Pipeline Fails with Large Data",
+      "message": "Aggregation pipeline fails or times out with large datasets.",
+      "causes": [
+        "Pipeline stages processing too much data without optimization.",
+        "No indexes supporting aggregation queries.",
+        "Memory limits exceeded on MongoDB server."
+      ],
+      "solutions": [
+        "Optimize pipeline: Use `$match` early to reduce data, limit `$lookup` joins.",
+        "Ensure indexes for `$sort` or `$group`: `db.collection.createIndex({ field: 1 })`.",
+        "Increase memory limits or shard data for scalability."
+      ]
+    },
+    {
+      "id": 52,
+      "title": "Express Server Not Handling GraphQL Queries",
+      "message": "GraphQL endpoint returns errors or fails to resolve queries.",
+      "causes": [
+        "Incorrect setup of `express-graphql` middleware.",
+        "Resolvers not defined or mismatched with schema.",
+        "No error handling for GraphQL resolvers."
+      ],
+      "solutions": [
+        "Set up GraphQL correctly: `npm install express-graphql graphql` and `app.use('/graphql', graphqlHTTP({ schema, graphiql: true }))`.",
+        "Verify resolver matches schema: `const resolvers = { Query: { getUser: () => User.find() } }`.",
+        "Add error handling: `try { return await User.find() } catch (err) { throw new Error('Failed to fetch') }`."
+      ]
+    },
+    {
+      "id": 53,
+      "title": "React App Fails to Render Server-Side with SSR",
+      "message": "Server-side rendering fails with errors like 'window is not defined'.",
+      "causes": [
+        "Browser-specific APIs (e.g., `window`, `document`) used during SSR.",
+        "No proper hydration setup between server and client.",
+        "Express server not rendering React components correctly."
+      ],
+      "solutions": [
+        "Check for browser APIs: `if (typeof window !== 'undefined') { accessWindow() }`.",
+        "Set up hydration: Use `ReactDOM.hydrate` in client and `renderToString` on server.",
+        "Use `next.js` for easier SSR or debug Express setup: `app.get('*', (req, res) => res.send(renderToString(<App />)))`."
+      ]
+    },
+    {
+      "id": 54,
+      "title": "Node.js Express Server Running Out of File Descriptors",
+      "message": "Error: 'EMFILE, too many open files' when running Express server.",
+      "causes": [
+        "Opening too many files without closing (e.g., file streams).",
+        "High traffic causing excessive file handles.",
+        "System limit on file descriptors too low."
+      ],
+      "solutions": [
+        "Close file streams properly: `fs.createReadStream().on('end', () => stream.close())`.",
+        "Increase system limit: `ulimit -n 4096` on Unix systems.",
+        "Use `graceful-fs` to handle file descriptor issues: `npm install graceful-fs`."
+      ]
+    },
+    {
+      "id": 55,
+      "title": "React App Not Updating State After Redux Action",
+      "message": "State updates in Redux don’t reflect in React components.",
+      "causes": [
+        "Mutating state directly in reducer instead of returning new state.",
+        "No `connect` or `useSelector` to subscribe to Redux store.",
+        "Middleware (e.g., `redux-thunk`) not dispatching actions correctly."
+      ],
+      "solutions": [
+        "Ensure reducer returns new state: `return { ...state, key: value }`.",
+        "Use `useSelector` in React: `const data = useSelector(state => state.data)`.",
+        "Debug middleware: Add `console.log` in `redux-thunk` actions."
+      ]
+    },
+    {
+      "id": 56,
+      "title": "MongoDB Change Streams Not Triggering",
+      "message": "Change streams in MongoDB don’t fire on document updates.",
+      "causes": [
+        "MongoDB not running as a replica set (required for change streams).",
+        "Incorrect pipeline or filter in change stream setup.",
+        "Network issues interrupting stream connection."
+      ],
+      "solutions": [
+        "Set up replica set: `mongod --replSet rs0` and `rs.initiate()`.",
+        "Verify change stream: `const stream = Model.watch([{ $match: { operationType: 'insert' } }])`.",
+        "Add reconnection logic: `stream.on('error', () => stream.close() && reconnect())`."
+      ]
+    },
+    {
+      "id": 57,
+      "title": "Express Server Not Handling CORS for Subdomains",
+      "message": "CORS fails for subdomains (e.g., api.domain.com) but works for main domain.",
+      "causes": [
+        "CORS middleware not configured for dynamic origins.",
+        "No support for credentials (e.g., cookies) in CORS setup.",
+        "React frontend sending requests without proper headers."
+      ],
+      "solutions": [
+        "Allow dynamic origins: `app.use(cors({ origin: (origin, callback) => callback(null, true) }))`.",
+        "Support credentials: `app.use(cors({ origin: true, credentials: true }))`.",
+        "Set headers in React: `axios.get('/api', { withCredentials: true })`."
+      ]
+    },
+    {
+      "id": 58,
+      "title": "React App Fails to Handle API Rate Limits Gracefully",
+      "message": "App crashes or stalls when Express API hits rate limits.",
+      "causes": [
+        "No retry logic for rate-limited API responses.",
+        "Frontend sending too many requests in a loop.",
+        "Express API not providing rate limit headers."
+      ],
+      "solutions": [
+        "Add retry logic in React: `axios-retry` or custom `setTimeout` on 429 responses.",
+        "Debounce requests in React: `const debouncedFetch = debounce(fetchData, 1000)`.",
+        "Send rate limit headers in Express: `res.set('X-RateLimit-Remaining', remaining)`."
+      ]
+    },
+    {
+      "id": 59,
+      "title": "MongoDB Replica Set Write Concerns Not Met",
+      "message": "Error: 'Not enough nodes to satisfy write concern'.",
+      "causes": [
+        "Replica set nodes down or unavailable.",
+        "Write concern set too high for available nodes.",
+        "Network issues preventing quorum."
+      ],
+      "solutions": [
+        "Check node status: `rs.status()` in MongoDB shell.",
+        "Lower write concern: `Model.create(data, { writeConcern: { w: 1 } })`.",
+        "Fix network issues and ensure all nodes are reachable."
+      ]
+    },
+    {
+      "id": 60,
+      "title": "Express Server Not Handling HTTPS in Production",
+      "message": "Express serves HTTP instead of HTTPS in production.",
+      "causes": [
+        "No HTTPS setup in Express server.",
+        "SSL certificates not configured or invalid.",
+        "Hosting provider not redirecting HTTP to HTTPS."
+      ],
+      "solutions": [
+        "Set up HTTPS in Express: `const https = require('https'); https.createServer(options, app).listen(443)`.",
+        "Use free SSL with Let’s Encrypt: `certbot --nginx` or similar.",
+        "Force HTTPS redirect: `app.use((req, res, next) => { if (!req.secure) res.redirect('https://' + req.headers.host + req.url); else next() })`."
+      ]
+    },
+    {
+      "id": 61,
+      "title": "React App Fails to Render Large Forms Efficiently",
+      "message": "Form inputs lag or freeze when handling large forms in React.",
+      "causes": [
+        "Uncontrolled inputs causing frequent re-renders.",
+        "No form library to optimize state updates.",
+        "Large state object updates triggering unnecessary renders."
+      ],
+      "solutions": [
+        "Use controlled inputs with `useMemo` for expensive computations.",
+        "Adopt `formik` or `react-hook-form` for optimized form handling: `npm install react-hook-form`.",
+        "Debounce input changes: `const debouncedChange = useCallback(debounce(setValue, 300), [])`."
+      ]
+    },
+    {
+      "id": 62,
+      "title": "MongoDB Sharding Not Distributing Data Evenly",
+      "message": "Sharded MongoDB collections show uneven data distribution.",
+      "causes": [
+        "Poor shard key choice leading to hotspotting.",
+        "No pre-splitting of chunks during sharding setup.",
+        "Low write activity not triggering auto-balancing."
+      ],
+      "solutions": [
+        "Choose a better shard key: Use a high-cardinality field (e.g., `userId`).",
+        "Pre-split chunks: `sh.splitAt('collection', { shardKey: value })`.",
+        "Force balancer to run: `sh.startBalancer()` in MongoDB shell."
+      ]
+    },
+    {
+      "id": 63,
+      "title": "Express Server Fails to Handle WebSocket Upgrades",
+      "message": "WebSocket connections fail with 'Unexpected server response: 400'.",
+      "causes": [
+        "No WebSocket upgrade handling in Express.",
+        "Load balancer or proxy not forwarding WebSocket upgrades.",
+        "CORS issues with WebSocket connections."
+      ],
+      "solutions": [
+        "Handle WebSocket upgrades: `const server = http.createServer(app); const io = require('socket.io')(server)`.",
+        "Configure proxy (e.g., Nginx): `proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection 'upgrade'`.",
+        "Allow WebSocket CORS: `io.origins('*:*')` or specify origins."
+      ]
+    },
+    {
+      "id": 64,
+      "title": "React App Fails to Persist Redux State Across Sessions",
+      "message": "Redux state resets on browser refresh.",
+      "causes": [
+        "No persistence mechanism for Redux store.",
+        "State stored only in memory, not localStorage.",
+        "Incorrect setup of `redux-persist`."
+      ],
+      "solutions": [
+        "Use `redux-persist`: `npm install redux-persist` and configure: `persistStore(store)`.",
+        "Manually save to `localStorage`: `localStorage.setItem('state', JSON.stringify(state))`.",
+        "Load state on app start: `const persistedState = localStorage.getItem('state') ? JSON.parse(...) : initialState`."
+      ]
+    },
+    {
+      "id": 65,
+      "title": "MongoDB Fails to Handle Text Search Queries",
+      "message": "Text search queries return empty or incorrect results.",
+      "causes": [
+        "No text index created on searched fields.",
+        "Incorrect query syntax for `$text` search.",
+        "Case sensitivity or language mismatch."
+      ],
+      "solutions": [
+        "Create text index: `db.collection.createIndex({ field: 'text' })`.",
+        "Use `$text` operator: `Model.find({ $text: { $search: 'keyword' } })`.",
+        "Specify language if needed: `{ $language: 'english' }`."
+      ]
+    },
+    {
+      "id": 66,
+      "title": "Express Server Not Handling File Downloads Efficiently",
+      "message": "File downloads slow or fail for large files.",
+      "causes": [
+        "Buffering entire file in memory before sending.",
+        "No streaming support for downloads.",
+        "Client-side timeout interrupting download."
+      ],
+      "solutions": [
+        "Stream files: `fs.createReadStream(filePath).pipe(res)`.",
+        "Set proper headers: `res.setHeader('Content-Disposition', 'attachment; filename=file.txt')`.",
+        "Increase client timeout: `axios.get('/download', { timeout: 60000 })`."
+      ]
+    },
+    {
+      "id": 67,
+      "title": "React App Fails ESLint/Prettier Consistency",
+      "message": "Code formatting issues causing conflicts in team.",
+      "causes": [
+        "Conflicting ESLint and Prettier rules.",
+        "No shared config for team members.",
+        "Editor settings overriding lint rules."
+      ],
+      "solutions": [
+        "Use `eslint-config-prettier`: `npm install --save-dev eslint-config-prettier`.",
+        "Share `.eslintrc` and `.prettierrc` in repo: `'extends': ['prettier']`.",
+        "Auto-fix on save: Configure editor (e.g., VS Code) with `eslint` and `prettier` extensions."
+      ]
+    },
+    {
+      "id": 68,
+      "title": "MongoDB Fails to Handle Geospatial Queries",
+      "message": "Geospatial queries return incorrect or empty results.",
+      "causes": [
+        "No 2dsphere index on geospatial field.",
+        "Incorrect GeoJSON format for coordinates.",
+        "Query syntax mismatch (e.g., `$near` vs `$geoWithin`)."
+      ],
+      "solutions": [
+        "Create 2dsphere index: `db.collection.createIndex({ location: '2dsphere' })`.",
+        "Use GeoJSON format: `{ type: 'Point', coordinates: [lng, lat] }`.",
+        "Verify query: `Model.find({ location: { $near: { $geometry: { type: 'Point', coordinates: [lng, lat] }, $maxDistance: 1000 } } })`."
+      ]
+    },
+    {
+      "id": 69,
+      "title": "Express Server Not Handling API Versioning",
+      "message": "API updates break React app due to no versioning.",
+      "causes": [
+        "No versioning strategy for Express APIs.",
+        "Frontend and backend changes not synchronized.",
+        "Old clients accessing new API endpoints."
+      ],
+      "solutions": [
+        "Implement URL versioning: `app.use('/api/v1', v1Routes)`.",
+        "Use header versioning: `if (req.headers['api-version'] === 'v1')`.",
+        "Maintain backward compatibility or notify clients of breaking changes."
+      ]
+    },
+    {
+      "id": 70,
+      "title": "React App Not Handling Slow API Responses",
+      "message": "App freezes or shows no feedback during slow API calls.",
+      "causes": [
+        "No loading state in React during API calls.",
+        "API response time not optimized in Express.",
+        "No timeout handling for slow requests."
+      ],
+      "solutions": [
+        "Add loading state: `const [loading, setLoading] = useState(false); setLoading(true); await fetchData(); setLoading(false)`.",
+        "Optimize Express API: Cache responses or optimize MongoDB queries.",
+        "Set timeout in React: `axios.get('/api', { timeout: 10000 }).catch(err => setError('Request timed out'))`."
+      ]
+    },
+    {
+      "id": 71,
+      "title": "MongoDB Fails to Handle Concurrent Connections",
+      "message": "Error: 'Too many connections' when accessing MongoDB.",
+      "causes": [
+        "Connection pool too small for high traffic.",
+        "Connections not closed after operations.",
+        "Multiple Express instances opening separate pools."
+      ],
+      "solutions": [
+        "Increase connection pool size: `mongoose.connect(uri, { maxPoolSize: 100 })`.",
+        "Close connections properly: `mongoose.connection.close()` in cleanup.",
+        "Use a single connection pool: Share `mongoose.connect()` across Express app."
+      ]
+    },
+    {
+      "id": 72,
+      "title": "Express Server Not Handling Slow MongoDB Queries",
+      "message": "Slow MongoDB queries cause Express routes to hang.",
+      "causes": [
+        "No indexes on queried fields.",
+        "Fetching large datasets without pagination.",
+        "No timeout handling for database operations."
+      ],
+      "solutions": [
+        "Add indexes: `db.collection.createIndex({ field: 1 })`.",
+        "Paginate data: `Model.find().skip(page * limit).limit(limit)`.",
+        "Set timeout for queries: `Model.find().maxTimeMS(5000)`."
+      ]
+    },
+    {
+      "id": 73,
+      "title": "React App Fails to Handle Edge Cases in API Responses",
+      "message": "App crashes when API returns unexpected data formats.",
+      "causes": [
+        "No validation of API response structure in React.",
+        "Express API returning inconsistent data types.",
+        "No fallback for empty or malformed responses."
+      ],
+      "solutions": [
+        "Validate responses in React: `if (data?.items) renderItems(data.items) else renderEmpty()`.",
+        "Standardize Express responses: `res.json({ status: 'success', data: [] })`.",
+        "Use TypeScript or PropTypes for stricter data validation."
+      ]
+    },
+    {
+      "id": 74,
+      "title": "Node.js Express Server Fails Under DDoS Attacks",
+      "message": "Express server crashes due to excessive malicious requests.",
+      "causes": [
+        "No rate limiting or request validation.",
+        "No DDoS protection at server level.",
+        "Resources overwhelmed by fake traffic."
+      ],
+      "solutions": [
+        "Add rate limiting: `npm install express-rate-limit` and `app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }))`.",
+        "Use a reverse proxy (e.g., Nginx) with DDoS protection: `limit_req_zone` directive.",
+        "Deploy behind a CDN like Cloudflare for DDoS mitigation."
+      ]
+    },
+    {
+      "id": 75,
+      "title": "React App Not Compatible with Older Browsers",
+      "message": "App fails in older browsers like IE11.",
+      "causes": [
+        "Unpolyfilled ES6+ features (e.g., `Promise`, `Array.includes`).",
+        "No browser compatibility checks during build.",
+        "Third-party libraries using modern JavaScript."
+      ],
+      "solutions": [
+        "Add polyfills: `npm install core-js` and `import 'core-js/stable'`.",
+        "Use `browserslist` in `package.json`: `'browserslist': ['>0.2%', 'not dead', 'ie 11']`.",
+        "Test in older browsers during development using BrowserStack."
+      ]
+    },
+    {
+      "id": 76,
+      "title": "MongoDB Fails to Rollback Failed Transactions",
+      "message": "Transactions partially applied despite errors.",
+      "causes": [
+        "Session not aborted on error.",
+        "No proper error handling in transaction block.",
+        "MongoDB replica set issues interrupting transactions."
+      ],
+      "solutions": [
+        "Abort transaction on error: `try { await session.commitTransaction() } catch (err) { await session.abortTransaction() }`.",
+        "Ensure replica set health: `rs.status()`.",
+        "Retry failed transactions with exponential backoff."
+      ]
+    },
+    {
+      "id": 77,
+      "title": "Express Server Not Handling Large File Uploads Securely",
+      "message": "Large file uploads cause crashes or security issues.",
+      "causes": [
+        "No size limit on file uploads.",
+        "Files not sanitized or validated.",
+        "No temporary storage cleanup."
+      ],
+      "solutions": [
+        "Limit file size with `multer`: `multer({ limits: { fileSize: 5 * 1024 * 1024 } })`.",
+        "Validate file types: `if (!file.mimetype.startsWith('image/')) throw new Error('Invalid file type')`.",
+        "Clean up temp files: Use `fs.unlink` after processing."
+      ]
+    },
+    {
+      "id": 78,
+      "title": "React App Fails to Optimize Bundle Size",
+      "message": "Large bundle size causes slow initial load in React app.",
+      "causes": [
+        "No code splitting or lazy loading.",
+        "Large dependencies bloating the bundle.",
+        "No tree-shaking optimization."
+      ],
+      "solutions": [
+        "Use dynamic imports: `const Component = React.lazy(() => import('./Component'))`.",
+        "Analyze bundle: `npm install --save-dev webpack-bundle-analyzer` and `npm run analyze`.",
+        "Enable tree-shaking: Ensure `mode: 'production'` in Webpack config."
+      ]
+    },
+    {
+      "id": 79,
+      "title": "Express Server Not Implementing CSRF Protection",
+      "message": "API endpoints vulnerable to CSRF attacks.",
+      "causes": [
+        "No CSRF protection middleware in Express.",
+        "Session-based authentication without CSRF tokens.",
+        "React forms not sending CSRF tokens."
+      ],
+      "solutions": [
+        "Use `csurf` middleware: `npm install csurf` and `app.use(csurf())`.",
+        "Generate CSRF token in Express: `res.cookie('XSRF-TOKEN', req.csrfToken())`.",
+        "Include token in React: `<input type='hidden' name='_csrf' value={token} />`."
+      ]
+    },
+    {
+      "id": 80,
+      "title": "MongoDB Fails to Handle Time-Series Data Efficiently",
+      "message": "Slow queries or high storage usage with time-series data.",
+      "causes": [
+        "No time-series collection optimization.",
+        "No indexing on timestamp fields.",
+        "Large documents bloating storage."
+      ],
+      "solutions": [
+        "Use time-series collections (MongoDB 5.0+): `db.createCollection('metrics', { timeseries: { timeField: 'timestamp' } })`.",
+        "Index timestamps: `db.collection.createIndex({ timestamp: 1 })`.",
+        "Aggregate data into smaller buckets: `{$group: { _id: { $dateTrunc: { date: '$timestamp', unit: 'hour' } } }}`."
+      ]
+    },
+    {
+      "id": 81,
+      "title": "React App Fails to Handle Internationalization",
+      "message": "App displays untranslated text or incorrect locale.",
+      "causes": [
+        "No internationalization library integrated.",
+        "Locale not detected or set correctly.",
+        "Missing translation keys in language files."
+      ],
+      "solutions": [
+        "Use `react-i18next`: `npm install react-i18next i18next` and `i18n.init()`.",
+        "Detect locale: `const locale = navigator.language || 'en'`.",
+        "Ensure translations exist: `en.json` with `key: 'value'`."
+      ]
+    },
+    {
+      "id": 82,
+      "title": "Express Server Not Handling Graceful Shutdown",
+      "message": "Server crashes without closing connections on shutdown.",
+      "causes": [
+        "No shutdown logic for Express server.",
+        "Connections (e.g., MongoDB) not closed.",
+        "No handling for SIGTERM/SIGINT signals."
+      ],
+      "solutions": [
+        "Add shutdown handler: `process.on('SIGTERM', () => { server.close(() => mongoose.connection.close()) })`.",
+        "Close connections: `mongoose.connection.close(() => process.exit(0))`.",
+        "Use `pm2` for managed shutdown: `pm2 stop server`."
+      ]
+    },
+    {
+      "id": 83,
+      "title": "React App Fails to Handle Concurrent API Calls",
+      "message": "Concurrent API calls overwrite state or cause race conditions.",
+      "causes": [
+        "No cancellation of previous API requests.",
+        "State updates not synchronized.",
+        "No debouncing or throttling of API calls."
+      ],
+      "solutions": [
+        "Cancel previous requests with `axios`: `const source = axios.CancelToken.source(); source.cancel()`.",
+        "Use functional updates: `setState(prev => ({ ...prev, data }))`.",
+        "Throttle calls: `const throttledFetch = throttle(fetchData, 1000)`."
+      ]
+    },
+    {
+      "id": 84,
+      "title": "MongoDB Fails to Handle Schema Migrations",
+      "message": "Schema changes break existing MongoDB data.",
+      "causes": [
+        "No migration scripts for existing documents.",
+        "Required fields added without defaults.",
+        "Data type changes breaking queries."
+      ],
+      "solutions": [
+        "Write migration script: `Model.updateMany({ field: { $exists: false } }, { $set: { field: 'default' } })`.",
+        "Add defaults in schema: `{ field: { type: String, default: 'value' } }`.",
+        "Use `mongooose-migrate` for automated migrations: `npm install mongoose-migrate`."
+      ]
+    },
+    {
+      "id": 85,
+      "title": "Express Server Not Handling Session Management Securely",
+      "message": "Session data exposed or not persisting correctly.",
+      "causes": [
+        "No secure session storage (e.g., in-memory).",
+        "Session cookies not secured with `httpOnly` or `secure`.",
+        "No session expiration or invalidation."
+      ],
+      "solutions": [
+        "Use `express-session` with MongoDB store: `npm install connect-mongo` and `session({ store: MongoStore.create() })`.",
+        "Secure cookies: `session({ cookie: { secure: true, httpOnly: true } })`.",
+        "Set expiration: `session({ cookie: { maxAge: 24 * 60 * 60 * 1000 } })`."
+      ]
+    },
+    {
+      "id": 86,
+      "title": "React App Fails to Handle Browser Back Button",
+      "message": "Back button navigation breaks React app state.",
+      "causes": [
+        "No handling of browser history in React Router.",
+        "State not preserved on route changes.",
+        "API calls triggered unnecessarily on back navigation."
+      ],
+      "solutions": [
+        "Use `useLocation` and `useHistory` in React Router: `const location = useLocation()`.",
+        "Preserve state: `history.push('/path', { state: data })`.",
+        "Prevent duplicate API calls: Check `location.state` before fetching."
+      ]
+    },
+    {
+      "id": 87,
+      "title": "MongoDB Fails to Handle Bulk Write Operations",
+      "message": "Bulk write operations fail or partially apply.",
+      "causes": [
+        "Duplicate key errors in bulk writes.",
+        "No error handling for individual operations.",
+        "Connection issues interrupting bulk ops."
+      ],
+      "solutions": [
+        "Use `ordered: false` for non-critical order: `Model.bulkWrite(ops, { ordered: false })`.",
+        "Handle errors: `try { await Model.bulkWrite(ops) } catch (err) { console.log(err.writeErrors) }`.",
+        "Retry failed operations with smaller batches."
+      ]
+    },
+    {
+      "id": 88,
+      "title": "Express Server Not Handling Path Traversal Attacks",
+      "message": "API endpoints vulnerable to path traversal (e.g., `../../etc/passwd`).",
+      "causes": [
+        "No sanitization of file paths in Express.",
+        "Direct use of user input in file system operations.",
+        "No middleware to block malicious paths."
+      ],
+      "solutions": [
+        "Use `express-sanitized`: `npm install express-sanitized` and `app.use(expressSanitized())`.",
+        "Restrict file access: Serve files from a specific directory only."
+      ]
+    },
+    {
+      "id": 89,
+      "title": "React App Fails to Handle Large File Uploads",
+      "message": "Large file uploads fail or timeout in React app.",
+      "causes": [
+        "No chunked upload strategy for large files.",
+        "Express server rejecting large payloads.",
+        "No progress feedback during upload."
+      ],
+      "solutions": [
+        "Implement chunked uploads: Split file into chunks and send via `fetch`.",
+        "Increase Express limit: `app.use(express.json({ limit: '50mb' }))`.",
+        "Show progress: `<progress value={progress} max='100' />` with `onUploadProgress` in `axios`."
+      ]
+    },
+    {
+      "id": 90,
+      "title": "MERN App Fails to Scale in Kubernetes",
+      "message": "App crashes or performs poorly when deployed in Kubernetes.",
+      "causes": [
+        "No resource limits defined for Express and MongoDB pods.",
+        "MongoDB connection issues in containerized environment.",
+        "No horizontal pod autoscaling configured."
+      ],
+      "solutions": [
+        "Set resource limits: `resources: { limits: { memory: '512Mi' }, requests: { memory: '256Mi' } }` in pod spec.",
+        "Use MongoDB StatefulSet: Ensure stable network identifiers.",
+        "Add HPA: `kubectl autoscale deployment express-app --cpu-percent=75 --min=2 --max=10`."
+      ]
     }
   ]
